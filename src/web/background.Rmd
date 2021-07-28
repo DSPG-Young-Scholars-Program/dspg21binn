@@ -1,0 +1,71 @@
+---
+title: "Background"
+---
+
+----
+
+## Traditional Methods to Measure Innovation
+
+* OSLO definition
+* OECD
+* BRDIS/ABS by NSF NCSES
+
+<br>
+
+<!---this is an html comment that works in Markdown --->
+
+<!--- I use the <br> html tag to force carriage returns in the text--->
+
+## Data Sources
+
+* About dow jones dna
+* high level profiling
+* labeling & training data
+
+
+----  
+
+----  
+
+----  
+  
+`github.io` means that there is a Github repo behind this website, and we also know the username and repo name:
+
+**<http://jules32.github.io/rmarkdown-website-tutorial>** <=> **<https://github.com/jules32/rmarkdown-website-tutorial>** 
+
+(Note: you can have github websites point to different urls if you don't want the `github.io`.)
+
+<br>
+
+### The website's repo
+
+Let's go to **<https://github.com/jules32/rmarkdown-website-tutorial>**.  
+  
+**First, note the `gh-pages` branch** - this is critical for building free webpages. You can usually name branches whatever you want, but the `gh-pages` name means it can be built as a website. [I set it as my default branch](https://help.github.com/articles/setting-the-default-branch/).
+
+![](images/gh-pages.png)
+
+<br>
+
+**Now let's look at the filenames**. We can recognize the names of the webpages we've seen, and there is also a `_site.yml` file, which is the website's configuration file. The simplest website possible would have 2 files only: `_site.yml` and `index.Rmd`
+
+![](https://docs.google.com/drawings/d/1jnXfeJ3i-fwd-t49S5FyeMAX3cJSoCYbyZLLTqFZd7w/pub?w=960&h=720)
+
+<br>
+
+## Fork to your account, clone to your computer
+
+Let's start digging deeper and playing with this.  
+
+1. Fork the [jules32/rmarkdown-website-tutorial](https://github.com/jules32/rmarkdown-website-tutorial) repo into your own account. 
+
+2. Edit the URL for the website by replacing `jules32` with your GitHub username
+
+3. Clone to your local computer using RStudio (preferred) the [Desktop App](https://desktop.github.com/), or the command line.
+
+![](https://docs.google.com/drawings/d/1yy2VFQy4QqxfOzt-XtTSNA91qoCI7jPo0ob7Pm89SBg/pub?w=960&h=720)
+
+
+
+
+
