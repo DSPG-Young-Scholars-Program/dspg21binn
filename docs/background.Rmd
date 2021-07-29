@@ -43,7 +43,7 @@ The end goal of our project includes implementing our classification and NER mod
 ![](images/top10companies.png)
 
 
-
+<!--Add captions for each graph, and change axis titles-->
 
 ### Labeling & Training Data
 
@@ -51,6 +51,16 @@ In order to train our BERT classification model for the purposes of predicting w
 
 Our classification entailed not only labeling articles if they described an innovation or not, but several other fields that would later help fine tune our algorithm and yield data we could use for the purposes of Named Entity Recognition (NER). Specifically, if we classified an articles as a "yes" for innovation, we then also labeled the company name(s), where the name(s) was mentioned (title, snippet, and/or body), what the product name was, where it was mentioned, any tags on the product name if they existed (such as "TM" or "C" that could help tune our algorithm), and finally, what the features of the product were.
 
+```{r echo=FALSE}
+library(tidyverse)
+library(readxl)
+data <- read_excel("classification_example.xlsx")
+data %>% knitr::kable()
+```
+
+Once this task of hand-labeling 600 news articles was finished, our team was then able to begin implementing Natural Language Processing methods, specifically the transformer-based BERT, to begin training our model on classification. However, prior to implementation, one last step was required: balancing our training data. Of the 600 articles we classified, 222 articles described an innovation. If we simply ran our BERT model on this unbalanced set, our model would be biased towards classifying an article as not describing an innovation. The solution to this issue was subsetting our "no" innovation articles to a random 222 article sample to only then run BERT on in order to reduce bias in our model.
+
+![](images/balancing_graphic.png)
 
 Only after finishing this task of hand-labeling 600 news articles, our team was then able to begin implementing Natural Language Processing methods, specifically the transformer-based BERT, to begin training our model on classification.
 
