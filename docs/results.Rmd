@@ -15,12 +15,15 @@ output:
 ### Classification Training Set Results
 
 * ROC Curves (all on one if possible) - distilbert-LR, distilbert-SVM-rbfkernel, bigbirdroberta
+
 * Confusion Matrices
+
 * Accuracy/F1 scores
 
 ### NER Training Set Results
 
 * dslim results
+
 
 ### 2017 Set Results
 
