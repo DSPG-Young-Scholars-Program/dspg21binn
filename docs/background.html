@@ -13,24 +13,18 @@
 
 <title>Background</title>
 
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,6 +36,11 @@
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -54,7 +53,32 @@ if (window.hljs) {
 
 
 
-
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 
 
@@ -64,6 +88,10 @@ if (window.hljs) {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -80,13 +108,40 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
-pre code {
-  padding: 0;
-}
 </style>
 
 
 <style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
 .dropdown-submenu {
   position: relative;
 }
@@ -114,7 +169,7 @@ pre code {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
+  border-left-color: #ffffff;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -126,7 +181,7 @@ pre code {
 }
 </style>
 
-<script type="text/javascript">
+<script>
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -137,23 +192,10 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.tab('show');
+  menuAnchor.parent().addClass('active');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
 });
 </script>
 
@@ -165,6 +207,7 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -260,7 +303,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div class="fluid-row" id="header">
 
 
 
@@ -272,8 +315,8 @@ $(document).ready(function () {
 <hr />
 <div id="traditional-methods-to-measure-innovation" class="section level2">
 <h2>Traditional Methods to Measure Innovation</h2>
-<p>We can broadly define &quot;business innovation&quot; as the process of creating new or improved changes in business. Following the international guidelines for surveys of business innovation in the OSLO Manual, developed by the Organization for Economic Co-operation and Development (OECD) and Eurostat, any business innovation can be categorized either as a: product innovation, business process innovation, marketing innovation, or organizational innovation. A product innovation, most commonly the innovation discussed within text sources, implies the introduction of a new or improved product to the market. Business innovation is crucial for value creation which can be achieved by the introduction of new or improved products in the market. As a key indicator of growth in the economy, accurately gauging the extent of business innovation is of crucial importance for policymakers.</p>
-<p>Traditional efforts to measure innovation in the United States primarily include the National Science Foundation's (NSF) division the National Center for Science and Engineering Statistics (NCSES) <a href="https://www.nsf.gov/statistics/srvyberd/">Business R&amp;D and Innovation Survey (BRDIS)</a> and the <a href="https://www.nsf.gov/statistics/srvyabs/">Annual Business Survey (ABS)</a>. The surveys aim to capture the state of innovation in the United States through a nationally representative sample of non-farm businesses across the country that asks if businesses have innovated in the past year, as defined by the 2018 Oslo Manual — any new or improved product available on the market. However, additional methods of measuring innovation can help provide further information as to the nation’s degree of innovation.</p>
+<p>We can broadly define “business innovation” as the process of creating new or improved changes in business. Following the international guidelines for surveys of business innovation in the OSLO Manual, developed by the Organization for Economic Co-operation and Development (OECD) and Eurostat, any business innovation can be categorized either as a: product innovation, business process innovation, marketing innovation, or organizational innovation. A product innovation, most commonly the innovation discussed within text sources, implies the introduction of a new or improved product to the market. Business innovation is crucial for value creation which can be achieved by the introduction of new or improved products in the market. As a key indicator of growth in the economy, accurately gauging the extent of business innovation is of crucial importance for policymakers.</p>
+<p>Traditional efforts to measure innovation in the United States primarily include the National Science Foundation’s (NSF) division the National Center for Science and Engineering Statistics (NCSES) <a href="https://www.nsf.gov/statistics/srvyberd/">Business R&amp;D and Innovation Survey (BRDIS)</a> and the <a href="https://www.nsf.gov/statistics/srvyabs/">Annual Business Survey (ABS)</a>. The surveys aim to capture the state of innovation in the United States through a nationally representative sample of non-farm businesses across the country that asks if businesses have innovated in the past year, as defined by the 2018 Oslo Manual — any new or improved product available on the market. However, additional methods of measuring innovation can help provide further information as to the nation’s degree of innovation.</p>
 <p>Partnering with NCSES, SDAD aims to see if non-traditional data-sources can help supplement BRDIS and aid in measuring innovation. Our two main goals for the summer are firstly, understanding the degree to which innovation can be measured in text sources, such as news articles, and secondly, determining if from there we can then identify the innovative companies within the relevant industry sector.</p>
 <!---How do i mention the NSF in relation to the NSCES and BRDIS? Hyperlink goes to BERD from last year's website? --->
 <!---In addition to this survey, the annual business survey (ABS); Also: paragraph for goals of summer - understand the degree to which innovation can be measured in text sources, and from there, can we identify the companies who are innovating--->
@@ -283,15 +326,12 @@ $(document).ready(function () {
 <h2>Data Sources</h2>
 <div id="dow-jones-news-and-analytics-dna" class="section level3">
 <h3>Dow Jones News and Analytics (DNA)</h3>
-<div class="figure">
-<img src="images/dnalogo.png" />
-
-</div>
+<p><img src="images/dnalogo.png" /></p>
 <p>The Dow Jones DNA platform collects information from Dow Jones publication with premium and licensed third party sources. This proprietary data platform contains 1.3bn articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation.</p>
 </div>
 <div id="high-level-profiling" class="section level3">
 <h3>High level Profiling</h3>
-<p>The end goal of our project includes implementing our classification and NER models on a year's worth of articles from the DNA database, specifcally in the software industry. The graphics below provide a high level overview of the 2017 data.</p>
+<p>The end goal of our project includes implementing our classification and NER models on a year’s worth of articles from the DNA database, specifcally in the software industry. The graphics below provide a high level overview of the 2017 data.</p>
 <table>
 <thead>
 <tr class="header">
@@ -319,7 +359,7 @@ $(document).ready(function () {
 <div id="labeling-training-data" class="section level3">
 <h3>Labeling &amp; Training Data</h3>
 <p>In order to train our BERT classification model for the purposes of predicting whether an article from the DNA database described an innovation or not, we first had to hand label a subset of 600 DNA articles. In preparation for this, our team reviewed the OSLO Manual, which as aforementioned, defines innovation, and provides the basis for collecting and reporting innovation data and publishing statistics on business innovation.</p>
-<p>Our classification entailed not only labeling articles if they described an innovation or not, but several other fields that would later help fine tune our algorithm and yield data we could use for the purposes of Named Entity Recognition (NER). Specifically, if we classified an articles as a &quot;yes&quot; for innovation, we then also labeled the company name(s), where the name(s) was mentioned (title, snippet, and/or body), what the product name was, where it was mentioned, any tags on the product name if they existed (such as &quot;TM&quot; or &quot;C&quot; that could help tune our algorithm), and finally, what the features of the product were.</p>
+<p>Our classification entailed not only labeling articles if they described an innovation or not, but several other fields that would later help fine tune our algorithm and yield data we could use for the purposes of Named Entity Recognition (NER). Specifically, if we classified an articles as a “yes” for innovation, we then also labeled the company name(s), where the name(s) was mentioned (title, snippet, and/or body), what the product name was, where it was mentioned, any tags on the product name if they existed (such as “TM” or “C” that could help tune our algorithm), and finally, what the features of the product were.</p>
 <p>Only after finishing this task of hand-labeling 600 news articles, our team was then able to begin implementing Natural Language Processing methods, specifically the transformer-based BERT, to begin training our model on classification.</p>
 </div>
 </div>
@@ -351,7 +391,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+    $(this).parent().toggleClass('nav-tabs-open')
   });
 });
 </script>
