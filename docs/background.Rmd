@@ -62,5 +62,5 @@ Once this task of hand-labeling 600 news articles was finished, our team was the
 
 ![](images/balancing_graphic.png)
 
-
+Only after finishing this task of hand-labeling 600 news articles, our team was then able to begin implementing Natural Language Processing methods, specifically the transformer-based BERT, to begin training our model on classification.
 

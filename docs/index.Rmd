@@ -7,32 +7,23 @@ output:
     fig_width: 1
 ---
 
-----
 
-***Something in bold*** text text 
+### The Problem
 
-What is the background of the project?
+The National Science for Engineering and Statistics (NCSES) within National Science Foundation (NSF) is interested in studying and understanding the national landscape of business-sector innovation. Our work this summer seeks to expand upon the work conducted at NSF by determining how additional methods of measuring innovation and non-traditional data sources can help further illuminate national innovation incidence. Partnering with NCSES, our summer team aims to see if alternative approaches can help supplement traditional survey data and aid in measuring innovation.
 
-* who is the sponsor
-* what is the motivation?
-* what has historically been done here? 
-* what do we hope to achieve this summer?
-* what approach do we take?
-* why this is useful
+### Our Goals and Work
 
-----
+In the ten weeks of the Data Science for the Public Good program, our team focused on implementing the data science framework to detect innovation in text data using natural language processing and machine-learning techniques. We experimented with and implemented:
 
-1. install [RStudio](https://www.rstudio.com/products/rstudio/download/)
-1. create a [GitHub]((http://github.com)) account ([advice](http://happygitwithr.com/github-acct.html))
-1. set up your computer to talk to GitHub
-    - have RStudio linked directly (preferred) ([instructions sections 8-14](http://happygitwithr.com/hello-git.html))
-    - or install the [Desktop App](https://desktop.github.com/)
-    - or be familiar with git commands for the command line ([tutorial](https://try.github.io/levels/1/challenges/1))
+* highly sophisticated natural language processing approaches, paired with
+* classification models, in order to identify text that described innovation, and
+* named-entity recognition models, to extract company names from these articles presenting high innovation likelihood.
+
+By the end of the summer, we were able to successfully construct a pipeline to identify text about innovation and extract innovators. Additionally, we analyzed the co-mention of companies in articles through network analysis, and consolidated our findings in this dashboard.
+
+Ultimately, this work will serve to provide NSF with an efficient way to identify innovation in real-time from text sources. Furthermore, this work allows NSF to better understand the organizations involved with innovation. 
 
 ----
 
 
-**Examples:**
-
-We have been using R Markdown for the Ocean Health Index:  [**ohi-science.org/ohi-global**](http://ohi-science.org/ohi-global).  
-And R Markdown is much more than just websites -- here's a [**one-minute video about R Markdown**](http://rmarkdown.rstudio.com/lesson-1.html) to get you excited. 
