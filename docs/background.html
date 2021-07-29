@@ -321,42 +321,6 @@ $(document).ready(function () {
 <p>In order to train our BERT classification model for the purposes of predicting whether an article from the DNA database described an innovation or not, we first had to hand label a subset of 600 DNA articles. In preparation for this, our team reviewed the OSLO Manual, which as aforementioned, defines innovation, and provides the basis for collecting and reporting innovation data and publishing statistics on business innovation.</p>
 <p>Our classification entailed not only labeling articles if they described an innovation or not, but several other fields that would later help fine tune our algorithm and yield data we could use for the purposes of Named Entity Recognition (NER). Specifically, if we classified an articles as a &quot;yes&quot; for innovation, we then also labeled the company name(s), where the name(s) was mentioned (title, snippet, and/or body), what the product name was, where it was mentioned, any tags on the product name if they existed (such as &quot;TM&quot; or &quot;C&quot; that could help tune our algorithm), and finally, what the features of the product were.</p>
 <p>Only after finishing this task of hand-labeling 600 news articles, our team was then able to begin implementing Natural Language Processing methods, specifically the transformer-based BERT, to begin training our model on classification.</p>
-<hr />
-<hr />
-<hr />
-<p><code>github.io</code> means that there is a Github repo behind this website, and we also know the username and repo name:</p>
-<p><strong><a href="http://jules32.github.io/rmarkdown-website-tutorial" class="uri">http://jules32.github.io/rmarkdown-website-tutorial</a></strong> &lt;=&gt; <strong><a href="https://github.com/jules32/rmarkdown-website-tutorial" class="uri">https://github.com/jules32/rmarkdown-website-tutorial</a></strong></p>
-<p>(Note: you can have github websites point to different urls if you don't want the <code>github.io</code>.)</p>
-<p><br></p>
-</div>
-<div id="the-websites-repo" class="section level3">
-<h3>The website's repo</h3>
-<p>Let's go to <strong><a href="https://github.com/jules32/rmarkdown-website-tutorial" class="uri">https://github.com/jules32/rmarkdown-website-tutorial</a></strong>.</p>
-<p><strong>First, note the <code>gh-pages</code> branch</strong> - this is critical for building free webpages. You can usually name branches whatever you want, but the <code>gh-pages</code> name means it can be built as a website. <a href="https://help.github.com/articles/setting-the-default-branch/">I set it as my default branch</a>.</p>
-<div class="figure">
-<img src="images/gh-pages.png" />
-
-</div>
-<p><br></p>
-<p><strong>Now let's look at the filenames</strong>. We can recognize the names of the webpages we've seen, and there is also a <code>_site.yml</code> file, which is the website's configuration file. The simplest website possible would have 2 files only: <code>_site.yml</code> and <code>index.Rmd</code></p>
-<div class="figure">
-<img src="https://docs.google.com/drawings/d/1jnXfeJ3i-fwd-t49S5FyeMAX3cJSoCYbyZLLTqFZd7w/pub?w=960&amp;h=720" />
-
-</div>
-<p><br></p>
-</div>
-</div>
-<div id="fork-to-your-account-clone-to-your-computer" class="section level2">
-<h2>Fork to your account, clone to your computer</h2>
-<p>Let's start digging deeper and playing with this.</p>
-<ol style="list-style-type: decimal">
-<li><p>Fork the <a href="https://github.com/jules32/rmarkdown-website-tutorial">jules32/rmarkdown-website-tutorial</a> repo into your own account.</p></li>
-<li><p>Edit the URL for the website by replacing <code>jules32</code> with your GitHub username</p></li>
-<li><p>Clone to your local computer using RStudio (preferred) the <a href="https://desktop.github.com/">Desktop App</a>, or the command line.</p></li>
-</ol>
-<div class="figure">
-<img src="https://docs.google.com/drawings/d/1yy2VFQy4QqxfOzt-XtTSNA91qoCI7jPo0ob7Pm89SBg/pub?w=960&amp;h=720" />
-
 </div>
 </div>
 
