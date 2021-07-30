@@ -54,6 +54,9 @@ output:
 
 * classification prediction histogram of pred_prob (highlight green for > 0.5)
 * NER - top 10 innovators
+
+<img src="images/2017_top_10_innovative_companies.png"width="500px">
+
 * visualization of co-mentions of innovators
 
 
