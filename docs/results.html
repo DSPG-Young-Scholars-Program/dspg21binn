@@ -393,11 +393,71 @@ div.tocify {
 <h2>Summary of Results</h2>
 <div id="classification-training-set-results" class="section level3">
 <h3>Classification Training Set Results</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><strong>Model</strong></th>
+<th align="center"><strong>Accuracy</strong></th>
+<th align="center"><strong>Precision</strong></th>
+<th align="center"><strong>Recall</strong></th>
+<th align="center"><strong>F1</strong></th>
+<th align="center"><strong>Cross-Validation Score</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">distilbert-base-uncased_logistic regression</td>
+<td align="center">87.39</td>
+<td align="center">83.08</td>
+<td align="center">94.74</td>
+<td align="center">88.52</td>
+<td align="center">82.47</td>
+</tr>
+<tr class="even">
+<td align="center">distilbert-base-uncased_SVM_rbf-kernel</td>
+<td align="center">90.09</td>
+<td align="center">83.82</td>
+<td align="center">100</td>
+<td align="center">91.2</td>
+<td align="center">85.97</td>
+</tr>
+<tr class="odd">
+<td align="center">google/bigbird-roberta-base_logistic regression</td>
+<td align="center">85.59</td>
+<td align="center">82.54</td>
+<td align="center">91.23</td>
+<td align="center">86.67</td>
+<td align="center">81.63</td>
+</tr>
+</tbody>
+</table>
+<div id="distilbert-lr" class="section level4">
+<h4>Distilbert LR</h4>
+<!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
+<p><img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px"></p>
+<p><img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px"></p>
+</div>
+<div id="distilbert-svm" class="section level4">
+<h4>Distilbert SVM</h4>
+<!-- <img src="images/distilbert_SVM_results.png"width="350px"> -->
+<p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px"></p>
+<p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_cf_matrix.png"width="350px"></p>
+</div>
+<div id="big-bird-roberta-lr" class="section level4">
+<h4>Big Bird Roberta LR</h4>
+<!-- <img src="images/bigbird_LR_results.png"width="350px"> -->
+<p><img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px"></p>
+<p><img src="images/googlebigbird-roberta-base_lr_classifier_cf_matrix.png"width="350px"></p>
+</div>
+<div id="big-bird-roberta-svm" class="section level4">
+<h4>Big Bird Roberta SVM</h4>
+<!-- <img src="images/bigbird_SVM_results.png"width="350px"> -->
 <ul>
 <li><p>ROC Curves (all on one if possible) - distilbert-LR, distilbert-SVM-rbfkernel, bigbirdroberta</p></li>
 <li><p>Confusion Matrices</p></li>
 <li><p>Accuracy/F1 scores</p></li>
 </ul>
+</div>
 </div>
 <div id="ner-training-set-results" class="section level3">
 <h3>NER Training Set Results</h3>
@@ -520,7 +580,7 @@ Put in your css file or directly in rmarkdown--->
 <p><br></p>
 <div id="in-line" class="section level3">
 <h3>in line</h3>
-<p>Here is an example inline. The date when I last built the website is 2021-07-29. My favorite number is 13.1415927. There are 23 files and folders in our repo. This is not just text; his is executable R code that is 100% awesome!</p>
+<p>Here is an example inline. The date when I last built the website is 2021-07-30. My favorite number is 13.1415927. There are 23 files and folders in our repo. This is not just text; his is executable R code that is 100% awesome!</p>
 <p><br></p>
 </div>
 <div id="in-a-code-chunk" class="section level3">
