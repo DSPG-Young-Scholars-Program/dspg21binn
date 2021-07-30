@@ -6,11 +6,34 @@ output:
     toc_float: true
 ---
 
-
+<!--- FOR COLUMNS: From http://stackoverflow.com/questions/31753897/2-column-section-in-r-markdown:
+Put in your css file or directly in rmarkdown--->
+<style>
+  .col2 {
+    columns: 2 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
+  }
+</style>
 
 ----
 
-## Summary of Results
+## Summary of Results: Evaluating Performance
+
+table: 
+
+* what cross-validation we did
+* comments on which model performs best in terms of what metrics
+    - accuracy (what this means - overall)
+    - F1 score (what this means - mean, tradeoff, prec/rec)
+
+plots: 
+
+* comments on performance    
+    - AUC 
+    - all 3 models seem to have the same # of TN, FP, same base # of TP
+    - Dif 1: 3 False negs move into True pos from DB-LR to DB-SVM
+    - Dif 2: BBR has an additional 2 FN that move from the TP pile 
 
 ### Classification Training Set Results
 
@@ -20,40 +43,87 @@ output:
 | distilbert-base-uncased_SVM_rbf-kernel          | 90.09        | 83.82         | 100        | 91.2   | 85.97                      |
 | google/bigbird-roberta-base_logistic regression | 85.59        | 82.54         | 91.23      | 86.67  | 81.63                      |
 
-#### Distilbert LR
+<br>
+
+Cross-validation is a statistical method used to estimate the skill of machine learning models. This summer, we used a method of cross-validation known as “k-fold” to evaluate the skill of our BERT + classifier models, where k=10. In 10-fold cross validation, a given data set is split into 10 sections where each section/fold is used as a testing set at some point. In the first iteration, the first fold is used to test the model and the rest are used to train the model. In the second iteration, 2nd fold is used as the testing set while the rest serve as the training set. This process is repeated until each fold of the 10 folds have been used as the testing set.
+
+*Accuracy:* Accuracy is the fraction of predictions that our model got right. Our support vector model employing the distilbert-base-uncased transformer performed with the highest accuracy across models.
+ 
+*F1 score:* The F1 score is another measure of a model’s accuracy, calculated as the harmonic mean of the model's precision and recall. The highest possible value of an F-score is 1.0, indicating perfect precision and recall, and the lowest possible value is 0. Our support vector model employing the distilbert-base-uncased transformer performed with the highest F1 score across models.
+
+<br>
+<br>
+
+<div class="col2">
+
+#### **ROC Curves** 
+
+#### **Confusion Matrices** 
+
+</div>
+
+Distilbert LR
 
 <!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
 
+<div class="col2">
+
+
 <img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px">
+
+<br>
+<br>
 
 <img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px">
 
-#### Distilbert SVM
+</div>
+
+
+Distilbert SVM
+ 
+ <div class="col2">
 
 <!-- <img src="images/distilbert_SVM_results.png"width="350px"> -->
 
 <img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px">
 
+<br>
+<br>
+
+
 <img src="images/distilbert-base-uncased_rbf-kernel_classifier_cf_matrix.png"width="350px">
 
-#### Big Bird Roberta LR
+</div>
+
+Big Bird Roberta LR
 
 <!-- <img src="images/bigbird_LR_results.png"width="350px"> -->
 
+<div class="col2">
+
 <img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px">
+
+<br>
+<br>
+
 
 <img src="images/googlebigbird-roberta-base_lr_classifier_cf_matrix.png"width="350px">
 
+</div>
 
 ### NER Training Set Results
 
 * dslim results
+* expecting that we have some overall accuracy number - compare the # companies we manually labeled to the companies identified by NER
+* if we had tagged Apple, MCRSFT, is there a match for those based on NER? 
 
 
 ### 2017 Set Results
 
 * classification prediction histogram of pred_prob (highlight green for > 0.5)
+
 * NER - top 10 innovators
+    - can we add %ages to the bars here for innovative mentions/all mentions
 
 <img src="images/2017_top_10_innovative_companies.png"width="500px">
 
@@ -61,6 +131,15 @@ output:
 
 
 ## Takeaways
+
+The confusion matrices pictured above for each model provide insight with regards to exactly how each model classified articles correctly and incorrectly, by displaying predictions by their type: True negatives (TN), False positives (FP), and False negatives (FN), True Positives (TP).
+
+Looking at the three model’s confusion matrices, we can make some rather interesting comparisons. Namely, while we cannot be sure that each model is making predictions on the same articles, the first row of TN’s and FP’s are identical across all models - 43 TN’s and 11 FP’s.
+
+Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s.
+
+And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.
+
 
 
 ----
@@ -131,33 +210,11 @@ Small image right-aligned:
 <br> 
 
 
-### columns
+
  
-<!---From http://stackoverflow.com/questions/31753897/2-column-section-in-r-markdown:
-Put in your css file or directly in rmarkdown--->
-<style>
-  .col2 {
-    columns: 2 200px;         /* number of columns and width in pixels*/
-    -webkit-columns: 2 200px; /* chrome, safari */
-    -moz-columns: 2 200px;    /* firefox */
-  }
-</style>
  
 
-<div class="col2">
-**Column 1**
 
-- note `<div class="col2">` and `</div>`
-- what beautiful bullet points
-<br>
-<br>
-
-**Column 2**
-
-- I have 3 bullet points here
-- which means to align with the left column
-- I added a `<br>` there
-</div>
 
 <br>
 

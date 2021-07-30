@@ -13,7 +13,6 @@
 
 <title>Results</title>
 
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
@@ -26,17 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -388,9 +376,37 @@ div.tocify {
 </div>
 
 
+<!--- FOR COLUMNS: From http://stackoverflow.com/questions/31753897/2-column-section-in-r-markdown:
+Put in your css file or directly in rmarkdown--->
+<style>
+  .col2 {
+    columns: 2 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
+  }
+</style>
 <hr />
-<div id="summary-of-results" class="section level2">
-<h2>Summary of Results</h2>
+<div id="summary-of-results-evaluating-performance" class="section level2">
+<h2>Summary of Results: Evaluating Performance</h2>
+<p>table:</p>
+<ul>
+<li>what cross-validation we did</li>
+<li>comments on which model performs best in terms of what metrics
+<ul>
+<li>accuracy (what this means - overall)</li>
+<li>F1 score (what this means - mean, tradeoff, prec/rec)</li>
+</ul></li>
+</ul>
+<p>plots:</p>
+<ul>
+<li>comments on performance
+<ul>
+<li>AUC</li>
+<li>all 3 models seem to have the same # of TN, FP, same base # of TP</li>
+<li>Dif 1: 3 False negs move into True pos from DB-LR to DB-SVM</li>
+<li>Dif 2: BBR has an additional 2 FN that move from the TP pile</li>
+</ul></li>
+</ul>
 <div id="classification-training-set-results" class="section level3">
 <h3>Classification Training Set Results</h3>
 <table>
@@ -431,22 +447,34 @@ div.tocify {
 </tr>
 </tbody>
 </table>
-<div id="distilbert-lr" class="section level4">
-<h4>Distilbert LR</h4>
+<p><br></p>
+<p>Cross-validation is a statistical method used to estimate the skill of machine learning models. This summer, we used a method of cross-validation known as “k-fold” to evaluate the skill of our BERT + classifier models, where k=10. In 10-fold cross validation, a given data set is split into 10 sections where each section/fold is used as a testing set at some point. In the first iteration, the first fold is used to test the model and the rest are used to train the model. In the second iteration, 2nd fold is used as the testing set while the rest serve as the training set. This process is repeated until each fold of the 10 folds have been used as the testing set.</p>
+<p><em>Accuracy:</em> Accuracy is the fraction of predictions that our model got right. Our support vector model employing the distilbert-base-uncased transformer performed with the highest accuracy across models.</p>
+<p><em>F1 score:</em> The F1 score is another measure of a model’s accuracy, calculated as the harmonic mean of the model's precision and recall. The highest possible value of an F-score is 1.0, indicating perfect precision and recall, and the lowest possible value is 0. Our support vector model employing the distilbert-base-uncased transformer performed with the highest F1 score across models.</p>
+<p><br> <br></p>
+<div class="col2">
+<h4 id="roc-curves"><strong>ROC Curves</strong></h4>
+<h4 id="confusion-matrices"><strong>Confusion Matrices</strong></h4>
+</div>
+<p>Distilbert LR</p>
 <!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
+<div class="col2">
 <p><img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px"></p>
+<p><br> <br></p>
 <p><img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px"></p>
 </div>
-<div id="distilbert-svm" class="section level4">
-<h4>Distilbert SVM</h4>
+<p>Distilbert SVM</p>
+<div class="col2">
 <!-- <img src="images/distilbert_SVM_results.png"width="350px"> -->
 <p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px"></p>
+<p><br> <br></p>
 <p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_cf_matrix.png"width="350px"></p>
 </div>
-<div id="big-bird-roberta-lr" class="section level4">
-<h4>Big Bird Roberta LR</h4>
+<p>Big Bird Roberta LR</p>
 <!-- <img src="images/bigbird_LR_results.png"width="350px"> -->
+<div class="col2">
 <p><img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px"></p>
+<p><br> <br></p>
 <p><img src="images/googlebigbird-roberta-base_lr_classifier_cf_matrix.png"width="350px"></p>
 </div>
 </div>
@@ -454,13 +482,18 @@ div.tocify {
 <h3>NER Training Set Results</h3>
 <ul>
 <li>dslim results</li>
+<li>expecting that we have some overall accuracy number - compare the # companies we manually labeled to the companies identified by NER</li>
+<li>if we had tagged Apple, MCRSFT, is there a match for those based on NER?</li>
 </ul>
 </div>
 <div id="set-results" class="section level3">
 <h3>2017 Set Results</h3>
 <ul>
-<li>classification prediction histogram of pred_prob (highlight green for &gt; 0.5)</li>
-<li>NER - top 10 innovators</li>
+<li><p>classification prediction histogram of pred_prob (highlight green for &gt; 0.5)</p></li>
+<li>NER - top 10 innovators
+<ul>
+<li>can we add %ages to the bars here for innovative mentions/all mentions</li>
+</ul></li>
 </ul>
 <p><img src="images/2017_top_10_innovative_companies.png"width="500px"></p>
 <ul>
@@ -470,9 +503,13 @@ div.tocify {
 </div>
 <div id="takeaways" class="section level2">
 <h2>Takeaways</h2>
+<p>The confusion matrices pictured above for each model provide insight with regards to exactly how each model classified articles correctly and incorrectly, by displaying predictions by their type: True negatives (TN), False positives (FP), and False negatives (FN), True Positives (TP).</p>
+<p>Looking at the three model’s confusion matrices, we can make some rather interesting comparisons. Namely, while we cannot be sure that each model is making predictions on the same articles, the first row of TN’s and FP’s are identical across all models - 43 TN’s and 11 FP’s.</p>
+<p>Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s.</p>
+<p>And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.</p>
 </div>
 <div id="section" class="section level2">
-<h2>—-</h2>
+<h2>----</h2>
 <hr />
 <p>These are options that you can do from the Front Matter.</p>
 <p><br></p>
@@ -481,22 +518,21 @@ div.tocify {
 <p>Note that on this page:</p>
 <ol style="list-style-type: decimal">
 <li>there is a Table of Contents (TOC) there on the left, and</li>
-<li>it is floating (i.e. it follows you as you scroll down and expands/collapses nicely as you click)</li>
-<li>This is all done in the front matter:<br />
-</li>
+<li>it is floating (i.e. it follows you as you scroll down and expands/collapses nicely as you click)</li>
+<li><p>This is all done in the front matter:</p>
+<pre><code>output:  
+  html_document:  
+    toc: true  
+    toc_float: true  </code></pre>
+<!---also note that my numbering in this list renders nicely---></li>
 </ol>
-<pre><code>    output:  
-      html_document:  
-        toc: true  
-        toc_float: true  </code></pre>
-<!---also note that my numbering in this list renders nicely--->
 <p><br></p>
 </div>
 <div id="themes" class="section level3">
 <h3>Themes</h3>
-<p>We can change the website’s theme in <code>_site.yml</code>. Explore options here: <a href="http://rmarkdown.rstudio.com/html_document_format.html#appearance_and_style" class="uri">http://rmarkdown.rstudio.com/html_document_format.html#appearance_and_style</a>:</p>
+<p>We can change the website's theme in <code>_site.yml</code>. Explore options here: <a href="http://rmarkdown.rstudio.com/html_document_format.html#appearance_and_style" class="uri">http://rmarkdown.rstudio.com/html_document_format.html#appearance_and_style</a>:</p>
 <blockquote>
-<p>Valid themes include “default”, “cerulean”, “journal”, “flatly”, “readable”, “spacelab”, “united”, “cosmo”, “lumen”, “paper”, “sandstone”, “simplex”, and “yeti”.</p>
+<p>Valid themes include &quot;default&quot;, &quot;cerulean&quot;, &quot;journal&quot;, &quot;flatly&quot;, &quot;readable&quot;, &quot;spacelab&quot;, &quot;united&quot;, &quot;cosmo&quot;, &quot;lumen&quot;, &quot;paper&quot;, &quot;sandstone&quot;, &quot;simplex&quot;, and &quot;yeti&quot;.</p>
 </blockquote>
 <hr />
 </div>
@@ -506,50 +542,25 @@ div.tocify {
 <div id="images" class="section level3">
 <h3>images</h3>
 <p>By default, images are displayed left-aligned.</p>
-<p><strong>Resize</strong> an image using HTML tags (side note: check out <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio’s R Markdown Cheatsheet</a>):</p>
-<p>Here’s a big image:<br />
-<code>&lt;img src="images/Rmd_cheatsheet.png" width="350px"&gt;</code><br />
+<p><strong>Resize</strong> an image using HTML tags (side note: check out <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio's R Markdown Cheatsheet</a>):</p>
+<p>Here's a big image:<br />
+<code>&lt;img src=&quot;images/Rmd_cheatsheet.png&quot; width=&quot;350px&quot;&gt;</code><br />
 <img src="images/Rmd_cheatsheet.png" width="350px"></p>
 <p>And a small image:<br />
-<code>&lt;img src="images/Rmd_cheatsheet.png" width="150px"&gt;</code><br />
+<code>&lt;img src=&quot;images/Rmd_cheatsheet.png&quot; width=&quot;150px&quot;&gt;</code><br />
 <img src="images/Rmd_cheatsheet.png" width="150px"></p>
 <p><strong>Align</strong> an image using HTML tags:</p>
 <p>Small image centered:<br />
-<code>&lt;center&gt;&lt;img src="images/Rmd_cheatsheet.png" width="150px"&gt;&lt;/center&gt;</code></p>
+<code>&lt;center&gt;&lt;img src=&quot;images/Rmd_cheatsheet.png&quot; width=&quot;150px&quot;&gt;&lt;/center&gt;</code></p>
 <center>
 <img src="images/Rmd_cheatsheet.png" width="150px">
 </center>
 <p>Small image right-aligned:<br />
-<code>&lt;div align="right"&gt;&lt;img src="images/Rmd_cheatsheet.png" width="150px"&gt;&lt;/div&gt;</code></p>
+<code>&lt;div align=&quot;right&quot;&gt;&lt;img src=&quot;images/Rmd_cheatsheet.png&quot; width=&quot;150px&quot;&gt;&lt;/div&gt;</code></p>
 <div align="right">
 <img src="images/Rmd_cheatsheet.png" width="150px">
 </div>
 <p><br></p>
-</div>
-<div id="columns" class="section level3">
-<h3>columns</h3>
-<!---From http://stackoverflow.com/questions/31753897/2-column-section-in-r-markdown:
-Put in your css file or directly in rmarkdown--->
-<style>
-  .col2 {
-    columns: 2 200px;         /* number of columns and width in pixels*/
-    -webkit-columns: 2 200px; /* chrome, safari */
-    -moz-columns: 2 200px;    /* firefox */
-  }
-</style>
-<div class="col2">
-<p><strong>Column 1</strong></p>
-<ul>
-<li>note <code>&lt;div class="col2"&gt;</code> and <code>&lt;/div&gt;</code></li>
-<li>what beautiful bullet points <br> <br></li>
-</ul>
-<p><strong>Column 2</strong></p>
-<ul>
-<li>I have 3 bullet points here</li>
-<li>which means to align with the left column</li>
-<li>I added a <code>&lt;br&gt;</code> there</li>
-</ul>
-</div>
 <p><br></p>
 <center>
 <p><code>&lt;center&gt;**Here the text is centered. Here are good resources:**&lt;/center&gt;</code><br />
@@ -560,7 +571,7 @@ Put in your css file or directly in rmarkdown--->
 </div>
 <div id="colored-text" class="section level3">
 <h3>colored text</h3>
-<p><code>&lt;font size="3" color="red"&gt;Text here!&lt;/font&gt;</code></p>
+<p><code>&lt;font size=&quot;3&quot; color=&quot;red&quot;&gt;Text here!&lt;/font&gt;</code></p>
 <p><font size="3" color="red">This is red text size 3!</font><br />
 <font size="2" color="blue">This is blue text size 2!</font><br />
 <font face="verdana" color="green">This is green text in verdana!</font></p>
@@ -569,17 +580,20 @@ Put in your css file or directly in rmarkdown--->
 </div>
 <div id="r-code" class="section level2">
 <h2><code>R</code> code</h2>
-<p>You can execute R code each time you build your website. Even if you don’t yet know R, this is a little taste of the types of things you can do. There are two ways you’ll see R code; in-line and in a code chunk. This is from the <a href="http://r4ds.had.co.nz/r-markdown.html">R Markdown chapter in R for Data Science</a>.</p>
-<p><img src="images/r4ds_r-markdown.png" /></p>
+<p>You can execute R code each time you build your website. Even if you don't yet know R, this is a little taste of the types of things you can do. There are two ways you'll see R code; in-line and in a code chunk. This is from the <a href="http://r4ds.had.co.nz/r-markdown.html">R Markdown chapter in R for Data Science</a>.</p>
+<div class="figure">
+<img src="images/r4ds_r-markdown.png" />
+
+</div>
 <p><br></p>
 <div id="in-line" class="section level3">
 <h3>in line</h3>
-<p>Here is an example inline. The date when I last built the website is 2021-07-30. My favorite number is 13.1415927. There are 23 files and folders in our repo. This is not just text; his is executable R code that is 100% awesome!</p>
+<p>Here is an example inline. The date when I last built the website is 2021-07-30. My favorite number is 13.1415927. There are 22 files and folders in our repo. This is not just text; his is executable R code that is 100% awesome!</p>
 <p><br></p>
 </div>
 <div id="in-a-code-chunk" class="section level3">
 <h3>in a code chunk</h3>
-<p>And here is an example of a code chunk. Let’s plot the first bit of an <code>iris</code> variable (which is a dataset that comes with base R).</p>
+<p>And here is an example of a code chunk. Let's plot the first bit of an <code>iris</code> variable (which is a dataset that comes with base R).</p>
 <pre class="r"><code>x &lt;- iris$Sepal.Length[1:15]
 plot(x)</code></pre>
 <p><img src="results_files/figure-html/plot%20iris-1.png" width="672" /></p>
@@ -603,14 +617,14 @@ ggplot(data = my_data, aes(x = year, y = pop)) +
 </div>
 <div id="a-specific-r-script-_site.r" class="section level4">
 <h4>A specific R script: <code>_site.R</code></h4>
-<p>This is something that R Markdown websites will look for; when it exists it will give you ‘global variables’ that will be available for all pages across your site.</p>
+<p>This is something that R Markdown websites will look for; when it exists it will give you 'global variables' that will be available for all pages across your site.</p>
 <pre class="r"><code>source(&quot;_site.R&quot;)</code></pre>
 <p><br></p>
 </div>
 <div id="r-markdown-file" class="section level4">
 <h4>R Markdown file</h4>
-<p>You can insert separate R Markdown files too; text and code will be incorporated seamlessly into this page. This R Markdown file is considered the ‘parent’ file, and the one that is incorporated is the ‘child’ file. In the code chunk below, we’ll say <code>{r, child='advanced/important_example.Rmd'}</code>.</p>
-<p>This text comes from a separate R Markdown file – how would you ever know that this is a separate file!</p>
+<p>You can insert separate R Markdown files too; text and code will be incorporated seamlessly into this page. This R Markdown file is considered the 'parent' file, and the one that is incorporated is the 'child' file. In the code chunk below, we'll say <code>{r, child='advanced/important_example.Rmd'}</code>.</p>
+<p>This text comes from a separate R Markdown file -- how would you ever know that this is a separate file!</p>
 <p>Here is an example of inline R code: if you round 3.1415927 you get 3.</p>
 <p>This is the end of this separate and important R Markdown child file.</p>
 <p><br></p>
@@ -619,7 +633,7 @@ ggplot(data = my_data, aes(x = year, y = pop)) +
 </div>
 <div id="troubleshooting" class="section level2">
 <h2>Troubleshooting</h2>
-<p>You’ll get errors as you work; this is how you learn. These are a few things you may encounter:</p>
+<p>You'll get errors as you work; this is how you learn. These are a few things you may encounter:</p>
 <ol style="list-style-type: decimal">
 <li><p>If when running <code>rmarkdown::render_site()</code> you get this error:</p>
 <pre><code>Error in object[seq_len(ile)] : 
@@ -629,8 +643,8 @@ object of type &#39;symbol&#39; is not subsettable</code></pre>
 <pre><code>Error in parse_block(g[-1], g[1], params.src) : duplicate label &#39;setup&#39;
 Calls: &lt;Anonymous&gt; ... process_file -&gt; split_file -&gt; lapply -&gt; FUN -&gt; parse_block
 Execution halted</code></pre>
-<p>Here you have 2 <code>R</code> code chunks named the same thing (in this case ‘setup’), you must change one of them because there cannot be two code chunks with the same name.</p></li>
-<li><p>When you get an error message you don’t understand: Copy-paste it into Google.</p></li>
+<p>Here you have 2 <code>R</code> code chunks named the same thing (in this case 'setup'), you must change one of them because there cannot be two code chunks with the same name.</p></li>
+<li><p>When you get an error message you don't understand: Copy-paste it into Google.</p></li>
 </ol>
 <center>
 <img src="images/practicalDev_googleErrorMessage.jpg" width="350px">
@@ -648,7 +662,7 @@ Execution halted</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

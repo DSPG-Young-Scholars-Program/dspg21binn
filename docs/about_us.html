@@ -13,7 +13,6 @@
 
 <title>About Us</title>
 
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
@@ -26,17 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -391,7 +379,7 @@ div.tocify {
 <p><br></p>
 <div id="about-the-institute" class="section level3">
 <h3>About the Institute</h3>
-<p>At the Biocomplexity Institute and Initiative, our award-winning scientists have been searching for answers to life’s mysteries and society’s most urgent problems for more than two decades. Biocomplexity is the study of life and its environment as complex systems driven by the interactions between their many components. Drawing on expertise from across the sciences, biocomplexity research offers a new way of seeing the living world that can help solve some of humanity’s toughest problems.</p>
+<p>At the Biocomplexity Institute and Initiative, our award-winning scientists have been searching for answers to life’s mysteries and society's most urgent problems for more than two decades. Biocomplexity is the study of life and its environment as complex systems driven by the interactions between their many components. Drawing on expertise from across the sciences, biocomplexity research offers a new way of seeing the living world that can help solve some of humanity’s toughest problems.</p>
 <p>When we first opened our doors in the year 2000, we were already grounded in mathematical and computational science. We knew that, just as the microscope revolutionized medicine in the 16th century, in this century data-driven exploration and discovery will enhance human well-being. We also understood that with the rapid expansion of computing power, we could — and must — address the actual complexity of the world we live in. And we knew that by working with partners on real problems facing humanity, we could help steer a healthier and safer future. In 2018, with a history of innovative research, successful partnerships, and millions of dollars in research funding, the Biocomplexity Institute was invited to take up residence at the University of Virginia. We share the university’s vision: reaching for great to do good in the world.</p>
 <center>
 <img src="images/inst_bicomplex_4c_c.jpeg" width="350px">
@@ -399,7 +387,7 @@ div.tocify {
 </div>
 <div id="about-the-division" class="section level3">
 <h3>About the Division</h3>
-<p>The Social and Decision Analytics Division (SDAD) is one of three research divisions within the Biocomplexity Institute and Initiative at the University of Virginia. SDAD combines expertise in statistics and social and behavioral sciences to develop evidence-based research and quantitative methods to inform policy decision-making and evaluation. The researchers at SDAD span many disciplines including statistics, economics, sociology, psychology, political science, policy, health IT, public health, program evaluation, and data science. The SDAD office is located near our nation’s capital in Arlington, VA. You can learn more about us here.</p>
+<p>The Social and Decision Analytics Division (SDAD) is one of three research divisions within the Biocomplexity Institute and Initiative at the University of Virginia. SDAD combines expertise in statistics and social and behavioral sciences to develop evidence-based research and quantitative methods to inform policy decision-making and evaluation. The researchers at SDAD span many disciplines including statistics, economics, sociology, psychology, political science, policy, health IT, public health, program evaluation, and data science. The SDAD office is located near our nation's capital in Arlington, VA. You can learn more about us here.</p>
 </div>
 <div id="about-the-summer" class="section level3">
 <h3>About the Summer</h3>
@@ -423,7 +411,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
