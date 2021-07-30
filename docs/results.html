@@ -386,29 +386,24 @@ Put in your css file or directly in rmarkdown--->
   }
 </style>
 <hr />
-<div id="summary-of-results-evaluating-performance" class="section level2">
-<h2>Summary of Results: Evaluating Performance</h2>
-<p>table:</p>
+<div id="evaluating-performance" class="section level2">
+<h2>Evaluating Performance</h2>
+<p>When evaluating model performance there are a number of high-level and granular metrics to investigate to best understand how the model performs on new data. Here we consider the following:</p>
 <ul>
-<li>what cross-validation we did</li>
-<li>comments on which model performs best in terms of what metrics
-<ul>
-<li>accuracy (what this means - overall)</li>
-<li>F1 score (what this means - mean, tradeoff, prec/rec)</li>
-</ul></li>
+<li><em>Accuracy:</em> Accuracy is the fraction of predictions that our model got right.</li>
+<li><em>F1 score:</em> The F1 score is another measure of a model’s accuracy, calculated as the harmonic mean of the model's precision and recall. The highest possible value of an F-score is 1.0, indicating perfect precision and recall, and the lowest possible value is 0.</li>
 </ul>
-<p>plots:</p>
+<p>To better illustrate model performance, we make use of ROC curves and confusion matrices. ROC curve plots the performance of a model in terms of the error rate over increasing probability thresholds. The area under the curve (AUC) associated with an ROC curve is used as a measure of accuracy for a model. The straight diagonal line indicates a 50/50 guess and is used here as a baseline for performance.</p>
+<p>A confusion matrix provides insight with regards to exactly how each model classified articles correctly and incorrectly, by displaying predictions by their type:</p>
 <ul>
-<li>comments on performance
-<ul>
-<li>AUC</li>
-<li>all 3 models seem to have the same # of TN, FP, same base # of TP</li>
-<li>Dif 1: 3 False negs move into True pos from DB-LR to DB-SVM</li>
-<li>Dif 2: BBR has an additional 2 FN that move from the TP pile</li>
-</ul></li>
+<li><em>True negatives (TN):</em> articles without mention of innovation that the algorithm correctly predicted as a &quot;No&quot;</li>
+<li><em>True Positives (TP):</em> articles mentioning new, available products that the algorithm correctly predicted as a &quot;Yes&quot;</li>
+<li><em>False positives (FP):</em> articles without mention of innovation that the algorithm <em>incorrectly</em> predicted as a &quot;Yes&quot; (also known as Type I error)</li>
+<li><em>False negatives (FN):</em> articles mentioning new, available products that the algorithm <em>incorrectly</em> predicted as a &quot;No&quot; (also known as Type II error)</li>
 </ul>
-<div id="classification-training-set-results" class="section level3">
-<h3>Classification Training Set Results</h3>
+<p><br></p>
+<div id="comparing-results-for-bert-transformed-classifiers" class="section level3">
+<h3>Comparing results for BERT-transformed classifiers</h3>
 <table>
 <thead>
 <tr class="header">
@@ -448,10 +443,17 @@ Put in your css file or directly in rmarkdown--->
 </tbody>
 </table>
 <p><br></p>
-<p>Cross-validation is a statistical method used to estimate the skill of machine learning models. This summer, we used a method of cross-validation known as “k-fold” to evaluate the skill of our BERT + classifier models, where k=10. In 10-fold cross validation, a given data set is split into 10 sections where each section/fold is used as a testing set at some point. In the first iteration, the first fold is used to test the model and the rest are used to train the model. In the second iteration, 2nd fold is used as the testing set while the rest serve as the training set. This process is repeated until each fold of the 10 folds have been used as the testing set.</p>
-<p><em>Accuracy:</em> Accuracy is the fraction of predictions that our model got right. Our support vector model employing the distilbert-base-uncased transformer performed with the highest accuracy across models.</p>
-<p><em>F1 score:</em> The F1 score is another measure of a model’s accuracy, calculated as the harmonic mean of the model's precision and recall. The highest possible value of an F-score is 1.0, indicating perfect precision and recall, and the lowest possible value is 0. Our support vector model employing the distilbert-base-uncased transformer performed with the highest F1 score across models.</p>
-<p><br> <br></p>
+<p>As shown above, the best performing model is the DistilBERT model paired with a Support Vector Machines classifier. This model demonstrates the highest accuracy across as well as the highest F1 score across models. When cross-validation is used to further test performance, we find this model also scores best with robust testing.</p>
+<p><br></p>
+<p>There are some interesting results in our three models' confusion matrices. Firstly, we observe that each model's TN and FP counts are identical. For the TP and FN counts, we observe the following ranking:</p>
+<ol style="list-style-type: decimal">
+<li>DistilBERT-SVM shows best TP-FN tradeoff with 0 FNs</li>
+<li>DistilBERT-LR shows next best tradeoff with 3 FNs</li>
+<li>Big Bird RoBERTA-LR shows worst performance in terms of TP-FN trade off with 5 FNs</li>
+</ol>
+<!-- Namely, while we cannot be sure that each model is making the sa predictions on the same articles, the first row of TN’s and FP’s are identical across all models - 43 TN’s and 11 FP’s. -->
+<p>Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s.</p>
+<p>And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.</p>
 <div class="col2">
 <h4 id="roc-curves"><strong>ROC Curves</strong></h4>
 <h4 id="confusion-matrices"><strong>Confusion Matrices</strong></h4>
@@ -501,154 +503,16 @@ Put in your css file or directly in rmarkdown--->
 </ul>
 </div>
 </div>
-<div id="takeaways" class="section level2">
-<h2>Takeaways</h2>
-<p>The confusion matrices pictured above for each model provide insight with regards to exactly how each model classified articles correctly and incorrectly, by displaying predictions by their type: True negatives (TN), False positives (FP), and False negatives (FN), True Positives (TP).</p>
-<p>Looking at the three model’s confusion matrices, we can make some rather interesting comparisons. Namely, while we cannot be sure that each model is making predictions on the same articles, the first row of TN’s and FP’s are identical across all models - 43 TN’s and 11 FP’s.</p>
-<p>Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s.</p>
-<p>And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.</p>
-</div>
-<div id="section" class="section level2">
-<h2>----</h2>
-<hr />
-<p>These are options that you can do from the Front Matter.</p>
-<p><br></p>
-<div id="table-of-contents" class="section level3">
-<h3>Table of Contents</h3>
-<p>Note that on this page:</p>
-<ol style="list-style-type: decimal">
-<li>there is a Table of Contents (TOC) there on the left, and</li>
-<li>it is floating (i.e. it follows you as you scroll down and expands/collapses nicely as you click)</li>
-<li><p>This is all done in the front matter:</p>
-<pre><code>output:  
-  html_document:  
-    toc: true  
-    toc_float: true  </code></pre>
-<!---also note that my numbering in this list renders nicely---></li>
-</ol>
-<p><br></p>
-</div>
-<div id="themes" class="section level3">
-<h3>Themes</h3>
-<p>We can change the website's theme in <code>_site.yml</code>. Explore options here: <a href="http://rmarkdown.rstudio.com/html_document_format.html#appearance_and_style" class="uri">http://rmarkdown.rstudio.com/html_document_format.html#appearance_and_style</a>:</p>
-<blockquote>
-<p>Valid themes include &quot;default&quot;, &quot;cerulean&quot;, &quot;journal&quot;, &quot;flatly&quot;, &quot;readable&quot;, &quot;spacelab&quot;, &quot;united&quot;, &quot;cosmo&quot;, &quot;lumen&quot;, &quot;paper&quot;, &quot;sandstone&quot;, &quot;simplex&quot;, and &quot;yeti&quot;.</p>
-</blockquote>
-<hr />
-</div>
-</div>
-<div id="simple-styling" class="section level2">
-<h2>Simple styling</h2>
-<div id="images" class="section level3">
-<h3>images</h3>
-<p>By default, images are displayed left-aligned.</p>
-<p><strong>Resize</strong> an image using HTML tags (side note: check out <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio's R Markdown Cheatsheet</a>):</p>
-<p>Here's a big image:<br />
-<code>&lt;img src=&quot;images/Rmd_cheatsheet.png&quot; width=&quot;350px&quot;&gt;</code><br />
-<img src="images/Rmd_cheatsheet.png" width="350px"></p>
-<p>And a small image:<br />
-<code>&lt;img src=&quot;images/Rmd_cheatsheet.png&quot; width=&quot;150px&quot;&gt;</code><br />
-<img src="images/Rmd_cheatsheet.png" width="150px"></p>
-<p><strong>Align</strong> an image using HTML tags:</p>
-<p>Small image centered:<br />
-<code>&lt;center&gt;&lt;img src=&quot;images/Rmd_cheatsheet.png&quot; width=&quot;150px&quot;&gt;&lt;/center&gt;</code></p>
-<center>
-<img src="images/Rmd_cheatsheet.png" width="150px">
-</center>
-<p>Small image right-aligned:<br />
-<code>&lt;div align=&quot;right&quot;&gt;&lt;img src=&quot;images/Rmd_cheatsheet.png&quot; width=&quot;150px&quot;&gt;&lt;/div&gt;</code></p>
-<div align="right">
-<img src="images/Rmd_cheatsheet.png" width="150px">
-</div>
-<p><br></p>
-<p><br></p>
-<center>
-<p><code>&lt;center&gt;**Here the text is centered. Here are good resources:**&lt;/center&gt;</code><br />
-<strong>Here the text is centered. Here are good resources:</strong></p>
-• <a href="http://www.w3schools.com/tags/">w3schools.com - HTML references</a> • <a href="http://www.w3schools.com/css/">w3schools.com - CSS tutorial</a> •
-</center>
-<p><br></p>
-</div>
-<div id="colored-text" class="section level3">
-<h3>colored text</h3>
-<p><code>&lt;font size=&quot;3&quot; color=&quot;red&quot;&gt;Text here!&lt;/font&gt;</code></p>
-<p><font size="3" color="red">This is red text size 3!</font><br />
-<font size="2" color="blue">This is blue text size 2!</font><br />
-<font face="verdana" color="green">This is green text in verdana!</font></p>
-<hr />
-</div>
-</div>
-<div id="r-code" class="section level2">
-<h2><code>R</code> code</h2>
-<p>You can execute R code each time you build your website. Even if you don't yet know R, this is a little taste of the types of things you can do. There are two ways you'll see R code; in-line and in a code chunk. This is from the <a href="http://r4ds.had.co.nz/r-markdown.html">R Markdown chapter in R for Data Science</a>.</p>
-<div class="figure">
-<img src="images/r4ds_r-markdown.png" />
-
-</div>
-<p><br></p>
-<div id="in-line" class="section level3">
-<h3>in line</h3>
-<p>Here is an example inline. The date when I last built the website is 2021-07-30. My favorite number is 13.1415927. There are 22 files and folders in our repo. This is not just text; his is executable R code that is 100% awesome!</p>
-<p><br></p>
-</div>
-<div id="in-a-code-chunk" class="section level3">
-<h3>in a code chunk</h3>
-<p>And here is an example of a code chunk. Let's plot the first bit of an <code>iris</code> variable (which is a dataset that comes with base R).</p>
-<pre class="r"><code>x &lt;- iris$Sepal.Length[1:15]
-plot(x)</code></pre>
-<p><img src="results_files/figure-html/plot%20iris-1.png" width="672" /></p>
-</div>
-<div id="calling-another-file" class="section level3">
-<h3>calling another file</h3>
-<div id="r-script" class="section level4">
-<h4><code>R</code> script</h4>
-<p>You can source an R script. This is a super powerful way to avoid copy-pasting your analyses. For example:</p>
-<pre class="r"><code>## source an external script 
-source(&quot;advanced/my_script.R&quot;)
-
-## use the calc_gdp() function `my_script.R`
-my_data &lt;- calc_gdp(my_country &lt;- &#39;Slovenia&#39;)
-
-ggplot(data = my_data, aes(x = year, y = pop)) + 
-  geom_point() + 
-  labs(title = my_data$country)</code></pre>
-<p><img src="results_files/figure-html/source%20gdp%20script-1.png" width="672" /></p>
-<p><br></p>
-</div>
-<div id="a-specific-r-script-_site.r" class="section level4">
-<h4>A specific R script: <code>_site.R</code></h4>
-<p>This is something that R Markdown websites will look for; when it exists it will give you 'global variables' that will be available for all pages across your site.</p>
-<pre class="r"><code>source(&quot;_site.R&quot;)</code></pre>
-<p><br></p>
-</div>
-<div id="r-markdown-file" class="section level4">
-<h4>R Markdown file</h4>
-<p>You can insert separate R Markdown files too; text and code will be incorporated seamlessly into this page. This R Markdown file is considered the 'parent' file, and the one that is incorporated is the 'child' file. In the code chunk below, we'll say <code>{r, child='advanced/important_example.Rmd'}</code>.</p>
-<p>This text comes from a separate R Markdown file -- how would you ever know that this is a separate file!</p>
-<p>Here is an example of inline R code: if you round 3.1415927 you get 3.</p>
-<p>This is the end of this separate and important R Markdown child file.</p>
-<p><br></p>
-</div>
-</div>
-</div>
-<div id="troubleshooting" class="section level2">
-<h2>Troubleshooting</h2>
-<p>You'll get errors as you work; this is how you learn. These are a few things you may encounter:</p>
-<ol style="list-style-type: decimal">
-<li><p>If when running <code>rmarkdown::render_site()</code> you get this error:</p>
-<pre><code>Error in object[seq_len(ile)] : 
-object of type &#39;symbol&#39; is not subsettable</code></pre>
-<p>Go to <em>Session &gt; Restart R</em> and try again.</p></li>
-<li><p>When knitting, if you get this error:</p>
-<pre><code>Error in parse_block(g[-1], g[1], params.src) : duplicate label &#39;setup&#39;
-Calls: &lt;Anonymous&gt; ... process_file -&gt; split_file -&gt; lapply -&gt; FUN -&gt; parse_block
-Execution halted</code></pre>
-<p>Here you have 2 <code>R</code> code chunks named the same thing (in this case 'setup'), you must change one of them because there cannot be two code chunks with the same name.</p></li>
-<li><p>When you get an error message you don't understand: Copy-paste it into Google.</p></li>
-</ol>
-<center>
-<img src="images/practicalDev_googleErrorMessage.jpg" width="350px">
-</center>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>In conclusion, promising results in terms of leverage state of the art language represetntation models to identify articles relevant to innovation. We have successffuly constructed a pipeline that classifies articles and extracts innovator companies with high accuracy and reasonable confidence. As a result of this work, we/NSF can now...</p>
+<p>Drawbacks/Weaknesses:</p>
+<ul>
+<li>susceptible to bias e.g., because of large companies with large PR budgets overrepresented in the data</li>
+<li>susceptible to noise e.g., financial news, irrelevant news</li>
+<li>scaling is a challenge - need for labeled data, crossing sectors is difficult, crossing time may be more complex as well</li>
+</ul>
+<p>Next steps, to refine this pipeline, extract product names, implement alt approaches e.g. Q&amp;A, perform deduplication on company names</p>
 </div>
 
 

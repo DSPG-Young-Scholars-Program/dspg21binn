@@ -327,9 +327,16 @@ $(document).ready(function () {
 <div id="huggingfacedslim-bert-base-ner" class="section level4">
 <h4>HuggingFace/dslim-bert-base-NER</h4>
 <p><a href="https://huggingface.co/dslim/bert-base-NER">Try the demo here!</a></p>
+</div>
+</div>
+</div>
+<div id="cross-validation" class="section level2">
+<h2>Cross-Validation</h2>
+<p>Cross-validation is a statistical method used to estimate the skill of machine learning models. This summer, we used a method of cross-validation known as “k-fold” to evaluate the skill of our BERT + classifier models, where k=10. In 10-fold cross validation, a given data set is split into 10 sections where each section/fold is used as a testing set at some point. In the first iteration, the first fold is used to test the model and the rest are used to train the model. In the second iteration, 2nd fold is used as the testing set while the rest serve as the training set. This process is repeated until each fold of the 10 folds have been used as the testing set.</p>
+<center>
+<img src="images/crossvalidation.png" width="500px">
+</center>
 <hr />
-</div>
-</div>
 </div>
 <div id="our-approach" class="section level2">
 <h2>Our Approach</h2>
@@ -337,10 +344,11 @@ $(document).ready(function () {
 <img src="images/methods.png" width="800px">
 </center>
 <ol style="list-style-type: decimal">
-<li><p>Use BERT to tokenize and build text embeddings for the labeled data sets</p></li>
-<li><p>Use Machine Learning Methods to build and train a model to identify innovative articles using labeled data sets.</p></li>
-<li><p>Use BERT’s Named Entity Recognition methods to extract company names from documents</p></li>
-<li><p>Apply these methods to all articles for a given sector for a given year to extract the count of innovative articles per year, with their associated companies.</p></li>
+<li><p>Implement BERT to tokenize and build text embeddings for the labeled data sets</p></li>
+<li><p>Leverage Machine Learning Methods to build and train a model to identify innovative articles using labeled data sets.</p></li>
+<li><p>Evaluate model performance using cross validation.</p></li>
+<li><p>Apply BERT’s Named Entity Recognition methods to extract company names from documents</p></li>
+<li><p>Run these methods to all articles for a given sector for a given year to extract the count of innovative articles per year, with their associated companies.</p></li>
 </ol>
 <hr />
 </div>

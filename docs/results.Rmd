@@ -18,24 +18,25 @@ Put in your css file or directly in rmarkdown--->
 
 ----
 
-## Summary of Results: Evaluating Performance
+## Evaluating Performance
 
-table: 
+When evaluating model performance there are a number of high-level and granular metrics to investigate to best understand how the model performs on new data. Here we consider the following: 
 
-* what cross-validation we did
-* comments on which model performs best in terms of what metrics
-    - accuracy (what this means - overall)
-    - F1 score (what this means - mean, tradeoff, prec/rec)
+* *Accuracy:* Accuracy is the fraction of predictions that our model got right. 
+* *F1 score:* The F1 score is another measure of a model’s accuracy, calculated as the harmonic mean of the model's precision and recall. The highest possible value of an F-score is 1.0, indicating perfect precision and recall, and the lowest possible value is 0.
 
-plots: 
+To better illustrate model performance, we make use of ROC curves and confusion matrices. ROC curve plots the performance of a model in terms of the error rate over increasing probability thresholds. The area under the curve (AUC) associated with an ROC curve is used as a measure of accuracy for a model. The straight diagonal line indicates a 50/50 guess and is used here as a baseline for performance.
 
-* comments on performance    
-    - AUC 
-    - all 3 models seem to have the same # of TN, FP, same base # of TP
-    - Dif 1: 3 False negs move into True pos from DB-LR to DB-SVM
-    - Dif 2: BBR has an additional 2 FN that move from the TP pile 
+A confusion matrix provides insight with regards to exactly how each model classified articles correctly and incorrectly, by displaying predictions by their type: 
 
-### Classification Training Set Results
+* *True negatives (TN):* articles without mention of innovation that the algorithm correctly predicted as a "No"
+* *True Positives (TP):* articles mentioning new, available products that the algorithm correctly predicted as a "Yes"
+* *False positives (FP):* articles without mention of innovation that the algorithm *incorrectly* predicted as a "Yes" (also known as Type I error)
+* *False negatives (FN):* articles mentioning new, available products that the algorithm *incorrectly* predicted as a "No" (also known as Type II error)
+
+<br>
+
+### Comparing results for BERT-transformed classifiers
 
  **Model**                                       | **Accuracy** | **Precision** | **Recall** | **F1** | **Cross-Validation Score** |
 |:-----------------------------------------------:|:------------:|:-------------:|:----------:|:------:|:--------------------------:|
@@ -45,16 +46,24 @@ plots:
 
 <br>
 
-Cross-validation is a statistical method used to estimate the skill of machine learning models. This summer, we used a method of cross-validation known as “k-fold” to evaluate the skill of our BERT + classifier models, where k=10. In 10-fold cross validation, a given data set is split into 10 sections where each section/fold is used as a testing set at some point. In the first iteration, the first fold is used to test the model and the rest are used to train the model. In the second iteration, 2nd fold is used as the testing set while the rest serve as the training set. This process is repeated until each fold of the 10 folds have been used as the testing set.
-
-*Accuracy:* Accuracy is the fraction of predictions that our model got right. Our support vector model employing the distilbert-base-uncased transformer performed with the highest accuracy across models.
- 
-*F1 score:* The F1 score is another measure of a model’s accuracy, calculated as the harmonic mean of the model's precision and recall. The highest possible value of an F-score is 1.0, indicating perfect precision and recall, and the lowest possible value is 0. Our support vector model employing the distilbert-base-uncased transformer performed with the highest F1 score across models.
+As shown above, the best performing model is the DistilBERT model paired with a Support Vector Machines classifier. This model demonstrates the highest accuracy across as well as the highest F1 score across models. When cross-validation is used to further test performance, we find this model also scores best with robust testing. 
 
 <br>
-<br>
+
+There are some interesting results in our three models' confusion matrices. Firstly, we observe that each model's TN and FP counts are identical. For the TP and FN counts, we observe the following ranking: 
+
+1. DistilBERT-SVM shows best TP-FN tradeoff with 0 FNs
+2. DistilBERT-LR shows next best tradeoff with 3 FNs
+3. Big Bird RoBERTA-LR shows worst performance in terms of TP-FN trade off with 5 FNs 
+
+<!-- Namely, while we cannot be sure that each model is making the sa predictions on the same articles, the first row of TN’s and FP’s are identical across all models - 43 TN’s and 11 FP’s. -->
+
+Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s.
+
+And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.
 
 <div class="col2">
+
 
 #### **ROC Curves** 
 
@@ -130,200 +139,17 @@ Big Bird Roberta LR
 * visualization of co-mentions of innovators
 
 
-## Takeaways
+## Conclusions
 
-The confusion matrices pictured above for each model provide insight with regards to exactly how each model classified articles correctly and incorrectly, by displaying predictions by their type: True negatives (TN), False positives (FP), and False negatives (FN), True Positives (TP).
+In conclusion, promising results in terms of leverage state of the art language represetntation models to identify articles relevant to innovation. We have successffuly constructed a pipeline that classifies articles and extracts innovator companies with high accuracy and reasonable confidence. As a result of this work, we/NSF can now...
 
-Looking at the three model’s confusion matrices, we can make some rather interesting comparisons. Namely, while we cannot be sure that each model is making predictions on the same articles, the first row of TN’s and FP’s are identical across all models - 43 TN’s and 11 FP’s.
+Drawbacks/Weaknesses: 
 
-Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s.
+* susceptible to bias  e.g., because of large companies with large PR budgets overrepresented in the data
+* susceptible to noise e.g., financial news, irrelevant news
+* scaling is a challenge - need for labeled data, crossing sectors is difficult, crossing time may be more complex as well
 
-And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.
+Next steps, to refine this pipeline, extract product names, implement alt approaches e.g. Q&A, perform deduplication on company names
 
 
-
-----
-----
-----
-
-These are options that you can do from the Front Matter. 
-
-<br>
-
-### Table of Contents
-
-Note that on this page: 
-
-1. there is a Table of Contents (TOC) there on the left, and 
-1. it is floating (i.e. it follows you as you scroll down and expands/collapses nicely as you click)
-1. This is all done in the front matter:  
-```
-    output:  
-      html_document:  
-        toc: true  
-        toc_float: true  
-```  
-<!---also note that my numbering in this list renders nicely--->
-
-<br>
-
-### Themes
-
-We can change the website's theme in `_site.yml`. Explore options here: <http://rmarkdown.rstudio.com/html_document_format.html#appearance_and_style>:
-
->Valid themes include "default", "cerulean", "journal", "flatly", "readable", "spacelab",  "united", "cosmo", "lumen", "paper", "sandstone", "simplex", and "yeti". 
-
-
-
-----
-
-## Simple styling
-
-
-### images
-
-By default, images are displayed left-aligned. 
-
-**Resize** an image using HTML tags (side note: check out [RStudio's R Markdown Cheatsheet](https://www.rstudio.com/resources/cheatsheets/)):
-
-Here's a big image:  
-`<img src="images/Rmd_cheatsheet.png" width="350px">`  
-<img src="images/Rmd_cheatsheet.png" width="350px">
-
-And a small image:   
-`<img src="images/Rmd_cheatsheet.png" width="150px">`  
-<img src="images/Rmd_cheatsheet.png" width="150px">
-
-  
-**Align** an image using HTML tags: 
-
-Small image centered:  
-`<center><img src="images/Rmd_cheatsheet.png" width="150px"></center>` 
-
-<center><img src="images/Rmd_cheatsheet.png" width="150px"></center>
-
-Small image right-aligned:   
-`<div align="right"><img src="images/Rmd_cheatsheet.png" width="150px"></div>`
-
-<div align="right"><img src="images/Rmd_cheatsheet.png" width="150px"></div>
-
-<br> 
-
-
-
- 
- 
-
-
-
-<br>
-
-<center>
-`<center>**Here the text is centered. Here are good resources:**</center>`  
-**Here the text is centered. Here are good resources:**
-
-• [w3schools.com - HTML references](http://www.w3schools.com/tags/) • [w3schools.com - CSS tutorial](http://www.w3schools.com/css/) • 
-</center>
-
-<br>
-
-### colored text
-
-`<font size="3" color="red">Text here!</font>`
-
-<font size="3" color="red">This is red text size 3!</font>  
-<font size="2" color="blue">This is blue text size 2!</font>  
-<font face="verdana" color="green">This is green text in verdana!</font>
-
----- 
-
-## `R` code
-
-You can execute R code each time you build your website. Even if you don't yet know R, this is a little taste of the types of things you can do. There are two ways you'll see R code; in-line and in a code chunk. This is from the [R Markdown chapter in R for Data Science](http://r4ds.had.co.nz/r-markdown.html).
-
-
-![](images/r4ds_r-markdown.png)
-
-<br>
-
-### in line
-
-Here is an example inline. The date when I last built the website is `r Sys.Date()`. My favorite number is `r pi + 10`. There are `r length(list.files())` files and folders in our repo. This is not just text; his is executable R code that is `r 10 * 10`% awesome!
-
-<br>
-
-### in a code chunk
-
-And here is an example of a code chunk. Let's plot the first bit of an `iris` variable (which is a dataset that comes with base R). 
-
-```{r plot iris}
-x <- iris$Sepal.Length[1:15]
-plot(x)
-```
-
-### calling another file 
-
-#### `R` script
-
-You can source an R script. This is a super powerful way to avoid copy-pasting your analyses. For example: 
-
-```{r source gdp script, echo=T, warning=FALSE, message=F}
-## source an external script 
-source("advanced/my_script.R")
-
-## use the calc_gdp() function `my_script.R`
-my_data <- calc_gdp(my_country <- 'Slovenia')
-
-ggplot(data = my_data, aes(x = year, y = pop)) + 
-  geom_point() + 
-  labs(title = my_data$country)
-```
-
-<br>
-
-#### A specific R script: `_site.R`
-
-This is something that R Markdown websites will look for; when it exists it will give you 'global variables' that will be available for all pages across your site.
-
-```{r _site.R, eval=FALSE, warning=FALSE, message=F}
-source("_site.R")
-```
- 
-<br>
-
-#### R Markdown file 
-
-You can insert separate R Markdown files too; text and code will be incorporated seamlessly into this page. This R Markdown file is considered the 'parent' file, and the one that is incorporated is the 'child' file. In the code chunk below, we'll say `{r, child='advanced/important_example.Rmd'}`. 
-
-```{r child, child='advanced/example.Rmd'}
-```
- 
-<br>
-
-## Troubleshooting
-
-You'll get errors as you work; this is how you learn. These are a few things you may encounter: 
-
-1. If when running `rmarkdown::render_site()` you get this error: 
-
-    ```
-    Error in object[seq_len(ile)] : 
-    object of type 'symbol' is not subsettable
-    ```
-Go to *Session > Restart R* and try again. 
-
-2. When knitting, if you get this error: 
-
-    ```
-    Error in parse_block(g[-1], g[1], params.src) : duplicate label 'setup'
-    Calls: <Anonymous> ... process_file -> split_file -> lapply -> FUN -> parse_block
-    Execution halted
-    ```
-Here you have 2 `R` code chunks named the same thing (in this case 'setup'), you must change one of them because there cannot be two code chunks with the same name.
-
-
-3. When you get an error message you don't understand: Copy-paste it into Google.
-
-<center><img src="images/practicalDev_googleErrorMessage.jpg" width="350px"></center>
-  
 
