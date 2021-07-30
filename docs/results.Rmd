@@ -14,11 +14,36 @@ output:
 
 ### Classification Training Set Results
 
-* ROC Curves (all on one if possible) - distilbert-LR, distilbert-SVM-rbfkernel, bigbirdroberta
+ **Model**                                       | **Accuracy** | **Precision** | **Recall** | **F1** | **Cross-Validation Score** |
+|:-----------------------------------------------:|:------------:|:-------------:|:----------:|:------:|:--------------------------:|
+| distilbert-base-uncased_logistic regression     | 87.39        | 83.08         | 94.74      | 88.52  | 82.47                      |
+| distilbert-base-uncased_SVM_rbf-kernel          | 90.09        | 83.82         | 100        | 91.2   | 85.97                      |
+| google/bigbird-roberta-base_logistic regression | 85.59        | 82.54         | 91.23      | 86.67  | 81.63                      |
 
-* Confusion Matrices
+#### Distilbert LR
 
-* Accuracy/F1 scores
+<!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
+
+<img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px">
+
+<img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px">
+
+#### Distilbert SVM
+
+<!-- <img src="images/distilbert_SVM_results.png"width="350px"> -->
+
+<img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px">
+
+<img src="images/distilbert-base-uncased_rbf-kernel_classifier_cf_matrix.png"width="350px">
+
+#### Big Bird Roberta LR
+
+<!-- <img src="images/bigbird_LR_results.png"width="350px"> -->
+
+<img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px">
+
+<img src="images/googlebigbird-roberta-base_lr_classifier_cf_matrix.png"width="350px">
+
 
 ### NER Training Set Results
 
@@ -29,7 +54,7 @@ output:
 
 * classification prediction histogram of pred_prob (highlight green for > 0.5)
 * NER - top 10 innovators
-* visualization of comentions of innovators
+* visualization of co-mentions of innovators
 
 
 ## Takeaways
