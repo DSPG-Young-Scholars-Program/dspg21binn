@@ -1,0 +1,38 @@
+---
+title: "histogram_of_pred_prob"
+output: html_document
+---
+
+```{r}
+require(ggplot2)
+require(tidyverse)
+```
+
+```{r}
+data = read_csv("/project/class/bii_sdad_dspg/uva_2021/binn/100k_articles_index_innovation_classification_prediction_diggy.csv")
+```
+```{r}
+data %>% 
+  mutate(group = ifelse(pred_prob >= 0.5, 1, 0)) %>%  
+  ggplot(aes(x = pred_prob, group = factor(group), fill = factor(group))) + 
+  geom_histogram(bins = 10) +
+  ## Labels - Title, sub-title, caption
+  labs(title='Histogram of Prediction Probabilities',
+       subtitle = 'for Classification of 2017 Computer Software Articles',
+       x = "Prediction Probabilities",
+       y = "Count") +
+  theme_minimal() +
+  scale_x_continuous(breaks = c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1)) +
+  scale_fill_manual(values = c("#DF1E43", "darkgreen")) +
+  theme(panel.background = element_rect(fill = "white",
+                                        size = 0),
+        #panel.grid = element_blank(),
+        plot.background = element_rect(fill = "white", 
+                                       colour = "black", 
+                                       size = 0),
+        plot.title = element_text(hjust =0.5),
+        plot.subtitle = element_text(hjust = 0.5),
+        legend.position = "none") +
+  ggsave(filename = "/project/class/bii_sdad_dspg/uva_2021/binn/images/histogram_of_pred_probs.png", device = "png", width = 10, height = 5, units = "in", dpi = 600)
+```
+
