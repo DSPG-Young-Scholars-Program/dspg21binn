@@ -42,6 +42,7 @@ Partnering with NCSES, SDAD aims to see if non-traditional data sources can help
 The Dow Jones DNA platform collects information from Dow Jones publications with premium and licensed third-party sources. This proprietary data platform contains 1.3bn news articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation. 
 
 </div>
+----
 
 ## High level Profiling  
 
@@ -59,6 +60,8 @@ The end goal of our project included implementing our classification and NER mod
 ![](images/2017_top_10_company_mentions.png)
 
 </div>
+
+----
 
 ## Labeling Task
 
@@ -78,7 +81,7 @@ colnames(preview) <- c("Headline", "Innovation/New Product Indicated?", "Company
 preview %>% knitr::kable(format = "html")
 ```
 
-
+----
   
 ## Our Training Set  
 

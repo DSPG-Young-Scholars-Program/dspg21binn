@@ -12,7 +12,7 @@ Notes:
 
 # **Our Approach**  
 
-<center><img src="images/methods.png" width="800px"></center>  
+<center><img src="images/approach_slide.png" width="600px"></center>  
 
 1. Implement various transformer based Natural Language Processing (NLP) models to tokenize and build text embeddings for the labeled data sets,  
 
