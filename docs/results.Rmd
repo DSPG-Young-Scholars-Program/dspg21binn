@@ -33,32 +33,10 @@ From the table above, we see that the best performing model is the DistilBERT mo
 
 We make use of a balanced dataset of 222 observations in each of our "yes" and "no" target classes for calculating the accuracy, precision, recall, and F-1 score. We split this dataset having 444 total observation into a training set containing 333 observations and a testing set containing 111 observations, respectively (*train-test-split = 75% train - 25% test*). For cross-validating our models, we made use of the entire unbalanced dataset of 600 observations. We effectively had 222 observations for the "yes" class 378 observations for the "no" class.  
 
-<div class="col2">
-
-## **ROC Curves and Confusion Matrices** 
-
-</div>
-
-Distilbert LR
-
-<!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
-
-<div class="col2">
-
-
-<img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px">
-
-<br>
-<br>
-
-<img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px">
-
-</div>
-
-
-Distilbert SVM
+## ROC Curves and Confusion Matrices  
+### Distil-BERT Support Vector Machine (RBF Kernel)  
  
- <div class="col2">
+<div class="col2">
 
 <!-- <img src="images/distilbert_SVM_results.png"width="350px"> -->
 
@@ -72,7 +50,24 @@ Distilbert SVM
 
 </div>
 
-Big Bird Roberta LR
+### Distil-BERT Logistic Regression  
+
+<!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
+
+<div class="col2">
+
+
+<img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px">
+
+<br>
+<br>
+
+<img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px">
+
+
+</div>
+
+### BigBird Logistic Regression  
 
 <!-- <img src="images/bigbird_LR_results.png"width="350px"> -->
 
@@ -106,23 +101,23 @@ And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to p
 * if we had tagged Apple, MCRSFT, is there a match for those based on NER? 
 
 
-# 2017 Set Results
+# **2017 Set Results**
 
-## Classification
+## Classification  
 
-* classification prediction histogram of pred_prob (highlight green for > 0.5)
+* classification prediction histogram of pred_prob (highlight green for > 0.5)  
 
-## NER
+## NER  
 
 * NER - top 10 innovators
     - can we add %ages to the bars here for innovative mentions/all mentions
 
 <img src="images/2017_top_10_innovative_companies.png"width="500px">
 
-* visualization of co-mentions of innovators
+* visualization of co-mentions of innovators  
 
 
-## Conclusions
+# **Conclusion**  
 
 In conclusion, promising results in terms of leverage state of the art language represetntation models to identify articles relevant to innovation. We have successffuly constructed a pipeline that classifies articles and extracts innovator companies with high accuracy and reasonable confidence. As a result of this work, we/NSF can now...
 
