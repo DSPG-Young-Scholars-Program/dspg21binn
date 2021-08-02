@@ -18,8 +18,8 @@ Put in your css file or directly in rmarkdown--->
 
 ----
 
-# **Evaluating Performance**  
-## Performance Metrics: Top-3 Performing Transformer Models for Classification  
+# **Classification**
+## Evaluating Performance of Top-3 Performing Transformer Models  
 
  **Model**                                       | **Accuracy** | **Precision** | **Recall** | **F1** | **Cross-Validation Score** |
 |:-----------------------------------------------:|:------------:|:-------------:|:----------:|:------:|:--------------------------:|
@@ -29,28 +29,13 @@ Put in your css file or directly in rmarkdown--->
 
 <br>
 
-As shown above, the best performing model is the DistilBERT model paired with a Support Vector Machines classifier using an RBF kernel. This model demonstrates the highest accuracy across as well as the highest F1 score across models. When cross-validation is used to further test performance, we find this model also scores best with robust testing. 
+From the table above, we see that the best performing model is the DistilBERT model paired with a Support Vector Machines classifier using an RBF kernel. This model demonstrates the highest performance metrics with a balanced dataset. When cross-validation is used to further test performance with an unbalanced dataset, we find this model also has the best cross-validation score.  
 
-<br>
-
-There are some interesting results in our three models' confusion matrices. Firstly, we observe that each model's TN and FP counts are identical. For the TP and FN counts, we observe the following ranking: 
-
-1. DistilBERT-SVM shows best TP-FN tradeoff with 0 FNs
-2. DistilBERT-LR shows next best tradeoff with 3 FNs
-3. Big Bird RoBERTA-LR shows worst performance in terms of TP-FN trade off with 5 FNs 
-
-<!-- Namely, while we cannot be sure that each model is making the sa predictions on the same articles, the first row of TN’s and FP’s are identical across all models - 43 TN’s and 11 FP’s. -->
-
-Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s.
-
-And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.
+We make use of a balanced dataset of 222 observations in each of our "yes" and "no" target classes for calculating the accuracy, precision, recall, and F-1 score. We split this dataset having 444 total observation into a training set containing 333 observations and a testing set containing 111 observations, respectively (*train-test-split = 75% train - 25% test*). For cross-validating our models, we made use of the entire unbalanced dataset of 600 observations. We effectively had 222 observations for the "yes" class 378 observations for the "no" class.  
 
 <div class="col2">
 
-
-#### **ROC Curves** 
-
-#### **Confusion Matrices** 
+## **ROC Curves and Confusion Matrices** 
 
 </div>
 
@@ -103,16 +88,31 @@ Big Bird Roberta LR
 
 </div>
 
-### NER Training Set Results
+There are some interesting results in our three models' confusion matrices. Firstly, we observe that each model's TN and FP counts are identical. For the TP and FN counts, we observe the following ranking:  
+
+1. DistilBERT-SVM shows best TP-FN tradeoff with 0 FNs,
+2. DistilBERT-LR shows next best tradeoff with 3 FNs,
+3. Big Bird RoBERTA-LR shows worst performance in terms of TP-FN trade off with 5 FNs.  
+
+<!-- Namely, while we cannot be sure that each model is making the sa predictions on the same articles, the first row of TN’s and FP’s are identical across all models - 43 TN’s and 11 FP’s. -->
+Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s.  
+
+And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.  
+
+# **Named Entity Recognition**
 
 * dslim results
 * expecting that we have some overall accuracy number - compare the # companies we manually labeled to the companies identified by NER
 * if we had tagged Apple, MCRSFT, is there a match for those based on NER? 
 
 
-### 2017 Set Results
+# 2017 Set Results
+
+## Classification
 
 * classification prediction histogram of pred_prob (highlight green for > 0.5)
+
+## NER
 
 * NER - top 10 innovators
     - can we add %ages to the bars here for innovative mentions/all mentions
@@ -133,6 +133,3 @@ Drawbacks/Weaknesses:
 * scaling is a challenge - need for labeled data, crossing sectors is difficult, crossing time may be more complex as well
 
 Next steps, to refine this pipeline, extract product names, implement alt approaches e.g. Q&A, perform deduplication on company names
-
-
-
