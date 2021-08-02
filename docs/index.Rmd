@@ -1,18 +1,20 @@
 ---
 title: "Implementing Text-Based AIs to Investigate and Measure Private Sector Software Innovation"
-author:  "[Aditi Mahabal](https://github.com/aditimahabal), [Aditi Mahabal](https://github.com/aditimahabal), [Akilesh Ramakrishnan](https://github.com/asrkr), [Digvijay Ghotane](https://github.com/diggyg97), [Devika Mahoney-Nair](https://github.com/DevikaNair90), [Neil Alexander](https://github.com/neilalex), and [Gizem Korkmaz](https://github.com/gkorkmaz) at [University of Virginia, Biocomplexity Institute](https://biocomplexity.virginia.edu/institute/divisions/social-and-decision-analytics)"
-date: "Aug 6, 2021"
+subtitle: "Data Science for the Public Good: Symposium"
+date: August 6, 2021
 output:
   html_document:
     fig_width: 1
 ---
 
 
-### The Problem  
+### **The Problem**
 
 The National Science for Engineering and Statistics (NCSES) within National Science Foundation (NSF) is interested in studying and understanding the national landscape of the business-sector innovation. The NSF surveys companies in order to note innovation in the respective sector. Our work this summer seeked to expand upon the work conducted by the NSF. We worked on determining additional methods to measure innovation by using non-traditional data sources. The goal was to help further illuminate incidences of national innovation within the computer software sector. Partnering with NCSES, our summer team aimed to see if alternative approaches can help supplement traditional survey data in turn, aiding in measuring innovation.  
 
-### Our Goals and Work  
+----
+
+### **Our Goals and Work**  
 
 We focused on implementing the data science framework to detect innovation in text data using natural language processing techniques and machine-learning methods. Over the duration of ten weeks in Summer 2021, we experimented with and implemented:  
 
@@ -26,4 +28,7 @@ Ultimately, this work aims to provide NSF with an efficient way to identify inno
 
 ----
 
+Our approach allows us greater insight into text than traditional text methods to make predictions about the highly ambiguous concept of innovation. Join us to learn more about this space, our methods, and our findings!
+
+<center><img src="images/approach_slide.png" width="600px"></center>  
 
