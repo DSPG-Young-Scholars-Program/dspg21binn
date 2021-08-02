@@ -15,7 +15,7 @@ Notes:
 * need some comments about how things changed for the two publishers charts
 * need some comments about the example data 
 
-## **Traditional Methods to Measure Innovation**
+# **Traditional Methods to Measure Innovation**  
 
 We can broadly define 'Business Innovation' as the process of creating new or improved changes in the business. Following the international guidelines for surveys of business innovation in the OSLO Manual, developed by the Organization for Economic Co-operation and Development (OECD) and Eurostat, any business innovation can be categorized either as a: product innovation, business process innovation, marketing innovation, or organizational innovation. The most common type of innovation discussed within text sources, product innovation, implies that a new or improved product is introduced to the market. Measuring product innovation is specifically our focus for summer. Business innovation is crucial for value creation which can be achieved by the introduction of new or improved products in the market. As a key indicator of growth in the economy, accurately gauging the extent of business innovation is of crucial importance for policymakers.  
 
@@ -28,12 +28,14 @@ Partnering with NCSES, SDAD aims to see if non-traditional data sources can help
 
 ----
 
-## **The Data**   
-### Data Source: DowJones News and Analytics (DNA) 
+# **The Data**   
+## Data Source: DowJones News and Analytics (DNA)  
 
 <div class="col2">
 <center><img src="images/dnalogo.png" width="300px"></center>  
 
+<br>
+<br>
 <br>
 <br>
 
@@ -41,7 +43,7 @@ The Dow Jones DNA platform collects information from Dow Jones publications with
 
 </div>
 
-### High level Profiling  
+## High level Profiling  
 
 The end goal of our project included implementing our classification and NER models on a year's worth of articles from the DNA database, specifcally in the software industry. The graphics below provide a high level overview of the 2017 data.  
 
@@ -53,14 +55,12 @@ The end goal of our project included implementing our classification and NER mod
 
 <div class="col2"> 
 ![](images/2017_top_10_publishers.png)
-<br>
-<br>
 
 ![](images/2017_top_10_company_mentions.png)
 
 </div>
 
-### Labeling Task
+## Labeling Task
 
 We trained various classification models based on transformers-based machine learning NLP models, for example, BERT, distil-BERT, BigBird, RoBERTa. The models predict whether an article from the DNA database described a product innovation or not. For this purpose, we hand-labeled a subset of 600 DNA articles. In preparation for this, our team reviewed the OSLO Manual, which as aforementioned, defines product innovation and provides the basis for collecting and reporting innovation data and publishing statistics on business innovation.  
 
@@ -78,10 +78,10 @@ colnames(preview) <- c("Headline", "Innovation/New Product Indicated?", "Company
 preview %>% knitr::kable(format = "html")
 ```
 
-<br>
-### Our Training Set
 
-After hand-labeling 600 news articles, our team was then able to begin implementing transformer-based Natural Language Processing methods to begin training our models for classification. However, prior to implementation, one last step was required: balancing our training data. Of the 600 articles we classified, 222 articles described an innovation. This imbalance in our dataset would translate to a bias in our model toward classifying an article as not describing an innovation. Thus, we chose a balanced set to train our model. We did so by subsetting our "no" innovation articles to a random 222 article sample thus having a balanced dataset of 444 rows.  
+  
+## Our Training Set  
+
+After hand-labeling 600 news articles, our team was then able to begin implementing transformer-based Natural Language Processing (NLP) methods to begin training our models for classification. However, prior to implementation, one last step was required: balancing our training data. Of the 600 articles we classified, 222 articles described an innovation. This imbalance in our dataset would translate to a bias in our model toward classifying an article as not describing an innovation. Thus, we chose a balanced set to train our model. We did so by subsetting our "no" innovation articles to a random 222 article sample thus having a balanced dataset of 444 rows.  
 
 ![](images/balancing_graphic.png)
-

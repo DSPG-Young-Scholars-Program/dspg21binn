@@ -16,7 +16,7 @@ The National Science for Engineering and Statistics (NCSES) within National Scie
 
 ### **Our Goals and Work**  
 
-We focused on implementing the data science framework to detect innovation in text data using natural language processing techniques and machine-learning methods. Over the duration of ten weeks in Summer 2021, we experimented with and implemented:  
+We focused on implementing the data science framework to detect innovation in text data using Natural Language Processing (NLP) techniques and machine-learning methods. Over the duration of ten weeks in Summer 2021, we experimented with and implemented:  
 
 * highly sophisticated natural language processing approaches for tokenization,    
 * classification models to identify text that described innovation, and  

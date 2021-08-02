@@ -19,16 +19,29 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -41,32 +54,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -76,10 +64,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -96,40 +80,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 45px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h2 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h3 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h4 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h5 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h6 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -157,7 +114,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -169,7 +126,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -180,10 +137,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -195,7 +165,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -291,7 +260,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -304,62 +273,102 @@ $(document).ready(function () {
 <ul>
 <li>We need some more info on Hugging face section</li>
 <li>Explanation of Big-Bird-Roberta as hybrid of the two (combine those sections and add a explanation of combo)</li>
-<li>Ideally - edit the approach slide to remove Q&amp;A since we didn't do it</li>
+<li>Edit the approach slide to remove Q&amp;A and update the image called methods.png</li>
+<li>Insert example for accuracy, precision, recall.</li>
 </ul>
-<div id="our-approach" class="section level2">
-<h2><strong>Our Approach</strong></h2>
+<div id="our-approach" class="section level1">
+<h1><strong>Our Approach</strong></h1>
 <center>
-<img src="images/approach_slide.png" width="800px">
+<img src="images/methods.png" width="800px">
 </center>
 <ol style="list-style-type: decimal">
-<li><p>Implement BERT to tokenize and build text embeddings for the labeled data sets</p></li>
-<li><p>Leverage Machine Learning Methods to build and train a model to identify innovative articles using labeled data sets.</p></li>
-<li><p>Evaluate model performance using cross validation.</p></li>
-<li><p>Apply BERT’s Named Entity Recognition methods to extract company names from documents</p></li>
+<li><p>Implement various transformer based Natural Language Processing (NLP) models to tokenize and build text embeddings for the labeled data sets,</p></li>
+<li><p>Leverage supervised Machine Learning methods to train a model using a balanced dataset to classify articles denoting innovation and not denoting innovation,</p></li>
+<li><p>Evaluate model performance using cross-validation by using the imbalanced dataset,</p></li>
+<li><p>Apply BERT’s Named Entity Recognition methods to extract company names from classified documents,</p></li>
 <li><p>Run these methods to all articles for a given sector for a given year to extract the count of innovative articles per year, with their associated companies.</p></li>
 </ol>
 <hr />
+</div>
+<div id="transformer-based-natural-language-processing-models" class="section level1">
+<h1><strong>Transformer Based Natural Language Processing Models</strong></h1>
+<div id="bert" class="section level2">
+<h2>BERT</h2>
 <center>
-<img src="images/bert.png" width="400px">
+<img src="images/bert.png" width="500px">
 </center>
+<p>BERT is a pre-trained, bidirectional unsupervised Natural Language Processing model developed by Google in 2018. Trained on the Book Corpus of 2,500 million words and Wikipedia's 800 million words, BERT tokenizes and builds more complex text embeddings that take word context into account, unlike traditional &quot;bag-of-words&quot; approaches. Here, we use BERT in several ways: not only as a data transformation tool to convert our text data into text embeddings based on a pre-trained model for classification but also as the basis for named-entity recognition.</p>
 </div>
-<div id="what-is-bert" class="section level2">
-<h2><strong>What is BERT?</strong></h2>
-<p>BERT is a pre-trained, bidirectional unsupervised Natural Language Processing model developed by Google in 2018. Trained on the Book Corpus of 2,500 million words and Wikipedia's 800 million words, BERT tokenizes and builds more complex text embeddings that take word context into account, unlike traditional &quot;bag-of-words&quot; approaches. Here, we use BERT in a number of ways: not only as a data transformation tool to convert our text data into text embeddings based on a pretrained model, but also as the basis for named-entity recognition.</p>
+<div id="distilbert" class="section level2">
+<h2>DistilBERT</h2>
+<center>
+<img src="images/distilbert.png" width="500px">
+</center>
+<p>DistlBERT is a distilled version of traditional BERT. Uses fewer parameters, which had an interesting effect in our Summer trials of improving accuracy by reducing noise. It also runs faster and is smaller in size.</p>
 </div>
-<div id="how-do-we-make-use-of-bert-in-this-work" class="section level2">
-<h2><strong>How do we make use of BERT in this work?</strong></h2>
-<div id="bert-for-data-transformation" class="section level3">
-<h3>BERT for Data Transformation</h3>
-<div id="distilbert" class="section level4">
-<h4><em>DistilBERT</em></h4>
-<p>DistlBERT is a distilled version of traditional BERT. Uses fewer parameters, which had the interesting effect in our Summer trials of improving accuracy by reducing noise. It also runs faster and is smaller in size.</p>
-</div>
-<div id="big-bird" class="section level4">
-<h4><em>Big Bird</em></h4>
+<div id="big-bird" class="section level2">
+<h2>Big Bird</h2>
+<center>
+<img src="images/bigbird.jpeg" width="500px">
+</center>
 <p>Big Bird is a new State of The Art method of tokenization and language processing. This model emphasizes memory optimization to allow for longer sequences to be processed. This could help us with our current limitation where we can only process the first 512 tokens.</p>
 </div>
-<div id="roberta" class="section level4">
-<h4><em>Roberta</em></h4>
-<p>RoBERTa and DistilRoBERTa – RoBERTa is a most robustly trained version of BERT that also uses much larger datasets to train. (160GB for RoBERTa vs 16GB for BERT). It also uses datasets to train that are more relevant to our applications, such as CC-NEWS (76G), OpenWebText (38G) and Stories (31G) data. DistilRoBERTa is a version of RoBERTa that has been processed using Knowledge Distillation, similar to DistilBERT. Once again, it has a faster performance.</p>
+<div id="roberta" class="section level2">
+<h2>Roberta</h2>
+<p>RoBERTa and DistilRoBERTa – RoBERTa is a most robustly trained version of BERT that also uses much larger datasets to train. (160GB for RoBERTa vs 16GB for BERT). It also uses datasets to train that are more relevant to our applications, such as CC-NEWS (76G), OpenWebText (38G), and Stories (31G) data. DistilRoBERTa is a version of RoBERTa that has been processed using Knowledge Distillation, similar to DistilBERT. Once again, it has faster performance.</p>
 </div>
 </div>
-<div id="bert-for-named-entity-recognition" class="section level3">
-<h3>BERT for Named-Entity Recognition</h3>
-<div id="huggingfacedslim-bert-base-ner" class="section level4">
-<h4><em>HuggingFace/dslim-bert-base-NER</em></h4>
-<p><a href="https://huggingface.co/dslim/bert-base-NER">Try the demo here!</a></p>
+<div id="huggingface.io" class="section level1">
+<h1><strong>HuggingFace.io</strong></h1>
+<p><Insert para about hugging face here and the models provided by them></p>
+</div>
+<div id="implementation" class="section level1">
+<h1><strong>Implementation</strong></h1>
+<p>We make use of the aforementioned models and their variations provided by Huggingface that can be easily implemented in python using the <a href="https://huggingface.co/transformers/">transformers</a> library for pre-processing, classification, and named entity recognition.</p>
+<p>We pre-process our documents which contain paragraphs into word-embeddings using the state-of-the-art NLP models after which we use supervised machine learning techniques in order to classify the said documents. We make use of the BERT Base model for Named Entity Recogition.</p>
+<p><a href="https://huggingface.co/dslim/bert-base-NER">Try the NER demo here!</a></p>
 <hr />
 </div>
-</div>
-</div>
+<div id="performance-metrics" class="section level1">
+<h1><strong>Performance Metrics</strong></h1>
 <div id="how-do-we-evaluate-our-work" class="section level2">
-<h2><strong>How do we evaluate our work?</strong></h2>
-<p>Cross-validation is a statistical method used to estimate the skill of machine learning models. This summer, we used a method of cross-validation known as “k-fold” to evaluate the skill of our BERT + classifier models, where k=10. In 10-fold cross validation, a given data set is split into 10 sections where each section/fold is used as a testing set at some point. In the first iteration, the first fold is used to test the model and the rest are used to train the model. In the second iteration, 2nd fold is used as the testing set while the rest serve as the training set. This process is repeated until each fold of the 10 folds have been used as the testing set.</p>
+<h2>How do we evaluate our work?</h2>
+<p>There are several high-level and granular metrics to investigate to best understand how the model performs on new data when evaluating model performance. We split our balanced dataset into training and testing sets to evaluate the performance of our models using various parameters such as accuracy, precision, recall, and F-1 scores for classification. We also make use of confusion matrices and Receiver-Operating Characteristics (ROC) Curves. Furthermore, we use our unbalanced dataset to cross-validate our models for more insight into our model performance when an unbalanced dataset is presented to it.</p>
+</div>
+<div id="accuracy" class="section level2">
+<h2>Accuracy</h2>
+<p>Accuracy is defined as the fraction of predictions that our model got right from all its predictions for all the classes.</p>
+</div>
+<div id="precision" class="section level2">
+<h2>Precision</h2>
+<p>Precision is defined as the fraction of predictions that our model got right from the total predictions it made for that class.</p>
+</div>
+<div id="recall" class="section level2">
+<h2>Recall</h2>
+<p>Recall is defined as the fraction of predictions that were predicted correctly among the labels that belong to that class.</p>
+</div>
+<div id="f-1-score" class="section level2">
+<h2>F-1 Score</h2>
+<p>The F1 score is another measure of a model’s accuracy, calculated as the harmonic mean of the model's precision and recall. The highest possible value of an F-score is 1.0, indicating perfect precision and recall, and the lowest possible value is 0.</p>
+</div>
+<div id="receiver-operating-characteristics-roc-curves-confusion-matrices" class="section level2">
+<h2>Receiver-Operating Characteristics (ROC) Curves &amp; Confusion Matrices</h2>
+<p>To better illustrate model performance, we make use of ROC curves and confusion matrices. ROC curve plots the performance of a model in terms of the error rate over increasing probability thresholds. The area under the curve (AUC) associated with an ROC curve is used as a measure of accuracy for a model. The straight diagonal line indicates a 50/50 guess and is used here as a baseline for performance.</p>
+<p>A confusion matrix provides insight with regards to exactly how each model classified articles correctly and incorrectly, by displaying predictions by their type:</p>
+<ul>
+<li><em>True negatives (TN):</em> articles without mention of innovation that the algorithm correctly predicted as a &quot;No&quot;</li>
+<li><em>True Positives (TP):</em> articles mentioning new, available products that the algorithm correctly predicted as a &quot;Yes&quot;</li>
+<li><em>False positives (FP):</em> articles without mention of innovation that the algorithm <em>incorrectly</em> predicted as a &quot;Yes&quot; (also known as Type I error)</li>
+<li><em>False negatives (FN):</em> articles mentioning new, available products that the algorithm <em>incorrectly</em> predicted as a &quot;No&quot; (also known as Type II error)</li>
+</ul>
+</div>
+<div id="cross-validation" class="section level2">
+<h2>Cross-Validation</h2>
 <center>
-<img src="images/crossvalidation.png" width="500px">
+<img src="images/crossvalidation.png" width="700px">
 </center>
-<hr />
+<p>Cross-validation is a statistical technique used to evaluate the performance of a machine learning model without splitting our data for training and testing. This summer, we used a method of cross-validation known as “k-fold” to evaluate the skill of our classifier models, where k=10. In 10-fold cross-validation, a given data set is split into 10 sections where each section/fold is used as a testing set at some point. In the first iteration, the first fold is used to test the model and the rest are used to train the model. In the second iteration, 2nd fold is used as the testing set while the rest serve as the training set. This process is repeated until each fold of the 10 folds has been used as the testing set. The average score is then calculated for the cross-validation score.</p>
+</div>
 </div>
 
 
@@ -371,7 +380,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -389,7 +398,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

@@ -19,6 +19,15 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -26,12 +35,16 @@
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -44,32 +57,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -79,10 +67,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -99,40 +83,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 45px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h2 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h3 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h4 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h5 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h6 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -160,7 +117,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -172,7 +129,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -183,10 +140,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -198,7 +168,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -324,7 +293,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -367,7 +336,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -386,24 +355,10 @@ Put in your css file or directly in rmarkdown--->
   }
 </style>
 <hr />
-<div id="evaluating-performance" class="section level2">
-<h2>Evaluating Performance</h2>
-<p>When evaluating model performance there are a number of high-level and granular metrics to investigate to best understand how the model performs on new data. Here we consider the following:</p>
-<ul>
-<li><em>Accuracy:</em> Accuracy is the fraction of predictions that our model got right.</li>
-<li><em>F1 score:</em> The F1 score is another measure of a model’s accuracy, calculated as the harmonic mean of the model's precision and recall. The highest possible value of an F-score is 1.0, indicating perfect precision and recall, and the lowest possible value is 0.</li>
-</ul>
-<p>To better illustrate model performance, we make use of ROC curves and confusion matrices. ROC curve plots the performance of a model in terms of the error rate over increasing probability thresholds. The area under the curve (AUC) associated with an ROC curve is used as a measure of accuracy for a model. The straight diagonal line indicates a 50/50 guess and is used here as a baseline for performance.</p>
-<p>A confusion matrix provides insight with regards to exactly how each model classified articles correctly and incorrectly, by displaying predictions by their type:</p>
-<ul>
-<li><em>True negatives (TN):</em> articles without mention of innovation that the algorithm correctly predicted as a &quot;No&quot;</li>
-<li><em>True Positives (TP):</em> articles mentioning new, available products that the algorithm correctly predicted as a &quot;Yes&quot;</li>
-<li><em>False positives (FP):</em> articles without mention of innovation that the algorithm <em>incorrectly</em> predicted as a &quot;Yes&quot; (also known as Type I error)</li>
-<li><em>False negatives (FN):</em> articles mentioning new, available products that the algorithm <em>incorrectly</em> predicted as a &quot;No&quot; (also known as Type II error)</li>
-</ul>
-<p><br></p>
-<div id="comparing-results-for-bert-transformed-classifiers" class="section level3">
-<h3>Comparing results for BERT-transformed classifiers</h3>
+<div id="evaluating-performance" class="section level1">
+<h1><strong>Evaluating Performance</strong></h1>
+<div id="comparing-classification-results-of-our-top-3-performing-transformer-models" class="section level2">
+<h2>Comparing Classification Results of our top-3 performing transformer models</h2>
 <table>
 <thead>
 <tr class="header">
@@ -417,20 +372,20 @@ Put in your css file or directly in rmarkdown--->
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">distilbert-base-uncased_logistic regression</td>
-<td align="center">87.39</td>
-<td align="center">83.08</td>
-<td align="center">94.74</td>
-<td align="center">88.52</td>
-<td align="center">82.47</td>
-</tr>
-<tr class="even">
 <td align="center">distilbert-base-uncased_SVM_rbf-kernel</td>
 <td align="center">90.09</td>
 <td align="center">83.82</td>
 <td align="center">100</td>
 <td align="center">91.2</td>
 <td align="center">85.97</td>
+</tr>
+<tr class="even">
+<td align="center">distilbert-base-uncased_logistic regression</td>
+<td align="center">87.39</td>
+<td align="center">83.08</td>
+<td align="center">94.74</td>
+<td align="center">88.52</td>
+<td align="center">82.47</td>
 </tr>
 <tr class="odd">
 <td align="center">google/bigbird-roberta-base_logistic regression</td>
@@ -479,7 +434,6 @@ Put in your css file or directly in rmarkdown--->
 <p><br> <br></p>
 <p><img src="images/googlebigbird-roberta-base_lr_classifier_cf_matrix.png"width="350px"></p>
 </div>
-</div>
 <div id="ner-training-set-results" class="section level3">
 <h3>NER Training Set Results</h3>
 <ul>
@@ -514,6 +468,7 @@ Put in your css file or directly in rmarkdown--->
 </ul>
 <p>Next steps, to refine this pipeline, extract product names, implement alt approaches e.g. Q&amp;A, perform deduplication on company names</p>
 </div>
+</div>
 
 
 
@@ -526,7 +481,7 @@ Put in your css file or directly in rmarkdown--->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -544,7 +499,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -553,6 +508,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
