@@ -19,29 +19,16 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
 <style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -54,7 +41,32 @@ if (window.hljs) {
 
 
 
-
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 
 
@@ -64,6 +76,10 @@ if (window.hljs) {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -80,13 +96,40 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
-pre code {
-  padding: 0;
-}
 </style>
 
 
 <style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
 .dropdown-submenu {
   position: relative;
 }
@@ -114,7 +157,7 @@ pre code {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
+  border-left-color: #ffffff;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -126,7 +169,7 @@ pre code {
 }
 </style>
 
-<script type="text/javascript">
+<script>
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -137,23 +180,10 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.tab('show');
+  menuAnchor.parent().addClass('active');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
 });
 </script>
 
@@ -165,6 +195,7 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -260,7 +291,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div class="fluid-row" id="header">
 
 
 
@@ -269,23 +300,40 @@ $(document).ready(function () {
 </div>
 
 
-<hr />
+<style>
+  .col2 {
+    columns: 2 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
+  }
+</style>
+<p>Notes:</p>
+<ul>
+<li>need some comments about how things changed for the two publishers charts</li>
+<li>need some comments about the example data</li>
+</ul>
 <div id="traditional-methods-to-measure-innovation" class="section level2">
-<h2>Traditional Methods to Measure Innovation</h2>
+<h2><strong>Traditional Methods to Measure Innovation</strong></h2>
 <p>We can broadly define 'Business Innovation' as the process of creating new or improved changes in the business. Following the international guidelines for surveys of business innovation in the OSLO Manual, developed by the Organization for Economic Co-operation and Development (OECD) and Eurostat, any business innovation can be categorized either as a: product innovation, business process innovation, marketing innovation, or organizational innovation. The most common type of innovation discussed within text sources, product innovation, implies that a new or improved product is introduced to the market. Measuring product innovation is specifically our focus for summer. Business innovation is crucial for value creation which can be achieved by the introduction of new or improved products in the market. As a key indicator of growth in the economy, accurately gauging the extent of business innovation is of crucial importance for policymakers.</p>
 <p>Traditional efforts to measure innovation in the United States primarily include the two surveys conducted by National Science Foundation’s (NSF) division – the <a href="https://www.nsf.gov/statistics/about-ncses.cfm">National Center for Science and Engineering Statistics (NCSES)</a>: <a href="https://www.nsf.gov/statistics/srvyberd/">Business R&amp;D and Innovation Survey (BRDIS)</a>, and the <a href="https://www.nsf.gov/statistics/srvyabs/">Annual Business Survey (ABS)</a>. The surveys aim to capture the state of innovation in the United States through a nationally representative sample of non-farm businesses across the country. These surveys aim to collect data on innovation by companies in the past year, as defined by the 2018 Oslo Manual — any new or improved product available on the market. However, additional methods of measuring innovation can help provide further information on the nation’s degree of innovation.</p>
-<p>Partnering with NCSES, SDAD aims to see if non-traditional data sources can help supplement BRDIS by measuring innovation. Our main goals for the summer were:<br />
-1. Understanding the degree of identification of innovation within text sources, specifically news articles by text classification algorithms;<br />
-2. Determining the innovative companies within the relevant industry sector from the classified text.</p>
+<p>Partnering with NCSES, SDAD aims to see if non-traditional data sources can help supplement BRDIS by measuring innovation. Our main goals for the summer were:</p>
+<ol style="list-style-type: decimal">
+<li>Understanding the degree of identification of innovation within text sources, specifically news articles by text classification algorithms;<br />
+</li>
+<li>Determining the innovative companies within the relevant industry sector from the classified text.</li>
+</ol>
+<hr />
 </div>
 <div id="the-data" class="section level2">
-<h2>The Data</h2>
-<div id="data-source" class="section level3">
-<h3>Data Source</h3>
-<div id="dowjones-news-and-analytics-dna" class="section level4">
-<h4>DowJones News and Analytics (DNA)</h4>
-<p><img src="images/dnalogo.png" /><br />
-The Dow Jones DNA platform collects information from Dow Jones publication with premium and licensed third-party sources. This proprietary data platform contains 1.3bn articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation.</p>
+<h2><strong>The Data</strong></h2>
+<div id="data-source-dowjones-news-and-analytics-dna" class="section level3">
+<h3>Data Source: DowJones News and Analytics (DNA)</h3>
+<div class="col2">
+<center>
+<img src="images/dnalogo.png" width="300px">
+</center>
+<p><br> <br></p>
+<p>The Dow Jones DNA platform collects information from Dow Jones publications with premium and licensed third-party sources. This proprietary data platform contains 1.3bn news articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation.</p>
 </div>
 </div>
 <div id="high-level-profiling" class="section level3">
@@ -313,94 +361,37 @@ The Dow Jones DNA platform collects information from Dow Jones publication with 
 </tr>
 </tbody>
 </table>
-<p><img src="images/2017_top_10_publishers.png" /> <img src="images/2017_top_10_company_mentions.png" /></p>
+<div class="col2">
+<p><img src="images/2017_top_10_publishers.png" /> <br> <br></p>
+<div class="figure">
+<img src="images/2017_top_10_company_mentions.png" />
+
 </div>
-<div id="labeling-training-data" class="section level3">
-<h3>Labeling &amp; Training Data</h3>
+</div>
+</div>
+<div id="labeling-task" class="section level3">
+<h3>Labeling Task</h3>
 <p>We trained various classification models based on transformers-based machine learning NLP models, for example, BERT, distil-BERT, BigBird, RoBERTa. The models predict whether an article from the DNA database described a product innovation or not. For this purpose, we hand-labeled a subset of 600 DNA articles. In preparation for this, our team reviewed the OSLO Manual, which as aforementioned, defines product innovation and provides the basis for collecting and reporting innovation data and publishing statistics on business innovation.</p>
 <p>We chose 600 articles at random from the database of articles. Our exploratory data analysis on these articles firstly entailed creating a field that distinguished articles if they described an innovation or not. We also added several other fields that we use for Named Entity Recognition (NER). Specifically, if we classified articles as a &quot;yes&quot; for innovation, we then also labeled the company name(s), where the name(s) was mentioned (title, snippet, and/or body), what the product name was, where it was mentioned, any tags on the product name if they existed (such as &quot;TM&quot; or &quot;C&quot; that could help tune our algorithm), and finally, what the features of the product were.</p>
 <p>An example of our data is shown below:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:right;">
-index
+<th style="text-align:left;">
+Headline
 </th>
 <th style="text-align:left;">
-title
+Innovation/New Product Indicated?
 </th>
 <th style="text-align:left;">
-snippet
-</th>
-<th style="text-align:left;">
-body
-</th>
-<th style="text-align:left;">
-full_text
-</th>
-<th style="text-align:left;">
-Does it mention an innovation (yes,no,unsure)?
-</th>
-<th style="text-align:left;">
-What is the company?
-</th>
-<th style="text-align:left;">
-Where is company mentioned (title,body,snippet,all)?
-</th>
-<th style="text-align:left;">
-What is the product name?
-</th>
-<th style="text-align:left;">
-Where is the product name mentioned(title,body,snippet,all)
-</th>
-<th style="text-align:left;">
-What could indicate that this is a product (for use in our algorithms, e.g. TM,R,C,CAPITAL LETTERS, Quotes,Used with certain key phrases or words etc.)?
-</th>
-<th style="text-align:left;">
-Features of the product, if mentioned
+Company Name
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:right;">
-598
-</td>
 <td style="text-align:left;">
 Dragontail Systems Enters U.S. Market, Launches COVID-19 Enhancements to its Patented QT AI Camera to Monitor Food Preparation in the Foodservice Industry
-</td>
-<td style="text-align:left;">
-<p>NEW YORK, April 23 -- Dragontail Systems Limited issued the following news release:</p>
-<ul>
-<li>Dragontail Systems Uses Advanced AI and ML Technology to Optimize Operations and Enforce Food Safety Standards
-</td>
-<td style="text-align:left;">
-Dragontail Systems Limited (ASX: DTS), a software company that optimizes the entire restaurant order and delivery process for global brands like Dominos and Pizza Hut, has announced in response to the COVID-19 pandemic that it is updating its patented AI-based computer-vision quality management system, the QT AI camera, to detect cleanliness and sanitation. These enhancements are announced in conjunction with the company's launch into the U.S. market and opening of an official New York office.</li>
-</ul>
-<p>In addition to monitoring key elements during the preparation and packing process, including the quality and accuracy of ingredients and temperature of the food, these enhancements specifically introduced to combat the spread of coronavirus will detect the presence of gloves and masks, and how often equipment and workspaces are sanitized and replaced. This information is closely monitored by managers and can be shared with the customer so as to ensure service compliance with defined quality standards.</p>
-<p>&quot;Dragontail Systems' technology will empower fast-food services and restaurants of any size to address the growing concern of health and safety during the coronavirus pandemic,&quot; said Ido Levanon, CEO and Director of Dragontail Systems. &quot;Our unique AI camera already helps hundreds of stores recognize even the smallest of errors often undetected by the human eye, for example pizza toppings above and below the cheese, or even the food's temperature. Now we are upgrading our technology to monitor processes that may lead to virus spread or contamination. In doing so, we expect to develop more impactful insights that foster transparency and ensure quality standards set by the businesses and the end-customer.&quot;</p>
-<p>The new QT AI Camera, in conjunction with Dragontail's Algo Dispatching Systems, fully optimizes and automates the kitchen and dispatching flow, including order receipt and kitchen prioritization for meal preparation, as well as food packing, dispatch, route management, and delivery. By optimizing the entire restaurant operation, Dragontail Systems can turn any restaurant into a delivery powerhouse within just a couple of days.</p>
-<p>&quot;The food industry needs an edge-complete solution that is specially customized with the end product in mind. Our system is designed to take on the role of the super manager, processing every relevant data point inside and outside the restaurant and taking into consideration multiple variables such as number of orders and locations of customers and drivers, in order to optimize decisions at every point in the supply chain. This enables us to work directly with our customers to find more ways to streamline operations while bringing in more business, guaranteeing meals arrive hot and fresh, reducing costs and increasing repeat-customers,&quot; continued Dragontail's CEO.</p>
-<p>At all times, the system enables real-time employee management that drives critical business decisions while calculating relevant variables that lead to more accurate and faster deliveries, as well as improvements in customer satisfaction and food quality and safety, all of which impact the bottom line. The system is versatile outside of the foodservice industry and can be utilized in a number of other verticals, including hotel room service, airline catering, supermarket delivery, same day couriers and technician dispatch.</p>
-<p>For more information about Dragontail Systems, visit: www.dragontail.com</p>
-<p>About Dragontail Systems</p>
-<p>Dragontail is revolutionizing the Quick Service Restaurant (QSR) and foodservice industry with its Algo Platform and computer-vision QT quality system that uses artificial intelligence (AI) machine learning. The Algo Platform uses a sophisticated patented algorithm to optimize and manage the entire food preparation process from order to delivery. It is the first system in the world to fully automate and streamline the kitchen flow to deliver an immediate and significant return on investment to fast food and quick service restaurants. The QT system's sensor and camera automatically monitor the preparation and cooking process in the kitchen to improve the quality and consistency of meals. Using proprietary patented advanced AI machine-learning technology, the system keeps improving its diagnostics, becoming even more efficient. Dragontail Systems products are currently installed in approximately 2,500 stores in Canada Australia Asia and Europe and for the first time are being offered to the US Market.</p>
-Source: Dragontail Systems Limited
-</td>
-<td style="text-align:left;">
-<p>Dragontail Systems Enters U.S. Market, Launches COVID-19 Enhancements to its Patented QT AI Camera to Monitor Food Preparation in the Foodservice Industry NEW YORK, April 23 -- Dragontail Systems Limited issued the following news release:</p>
-<ul>
-<li>Dragontail Systems Uses Advanced AI and ML Technology to Optimize Operations and Enforce Food Safety Standards Dragontail Systems Limited (ASX: DTS), a software company that optimizes the entire restaurant order and delivery process for global brands like Dominos and Pizza Hut, has announced in response to the COVID-19 pandemic that it is updating its patented AI-based computer-vision quality management system, the QT AI camera, to detect cleanliness and sanitation. These enhancements are announced in conjunction with the company's launch into the U.S. market and opening of an official New York office.</li>
-</ul>
-<p>In addition to monitoring key elements during the preparation and packing process, including the quality and accuracy of ingredients and temperature of the food, these enhancements specifically introduced to combat the spread of coronavirus will detect the presence of gloves and masks, and how often equipment and workspaces are sanitized and replaced. This information is closely monitored by managers and can be shared with the customer so as to ensure service compliance with defined quality standards.</p>
-<p>&quot;Dragontail Systems' technology will empower fast-food services and restaurants of any size to address the growing concern of health and safety during the coronavirus pandemic,&quot; said Ido Levanon, CEO and Director of Dragontail Systems. &quot;Our unique AI camera already helps hundreds of stores recognize even the smallest of errors often undetected by the human eye, for example pizza toppings above and below the cheese, or even the food's temperature. Now we are upgrading our technology to monitor processes that may lead to virus spread or contamination. In doing so, we expect to develop more impactful insights that foster transparency and ensure quality standards set by the businesses and the end-customer.&quot;</p>
-<p>The new QT AI Camera, in conjunction with Dragontail's Algo Dispatching Systems, fully optimizes and automates the kitchen and dispatching flow, including order receipt and kitchen prioritization for meal preparation, as well as food packing, dispatch, route management, and delivery. By optimizing the entire restaurant operation, Dragontail Systems can turn any restaurant into a delivery powerhouse within just a couple of days.</p>
-<p>&quot;The food industry needs an edge-complete solution that is specially customized with the end product in mind. Our system is designed to take on the role of the super manager, processing every relevant data point inside and outside the restaurant and taking into consideration multiple variables such as number of orders and locations of customers and drivers, in order to optimize decisions at every point in the supply chain. This enables us to work directly with our customers to find more ways to streamline operations while bringing in more business, guaranteeing meals arrive hot and fresh, reducing costs and increasing repeat-customers,&quot; continued Dragontail's CEO.</p>
-<p>At all times, the system enables real-time employee management that drives critical business decisions while calculating relevant variables that lead to more accurate and faster deliveries, as well as improvements in customer satisfaction and food quality and safety, all of which impact the bottom line. The system is versatile outside of the foodservice industry and can be utilized in a number of other verticals, including hotel room service, airline catering, supermarket delivery, same day couriers and technician dispatch.</p>
-<p>For more information about Dragontail Systems, visit: www.dragontail.com</p>
-<p>About Dragontail Systems</p>
-<p>Dragontail is revolutionizing the Quick Service Restaurant (QSR) and foodservice industry with its Algo Platform and computer-vision QT quality system that uses artificial intelligence (AI) machine learning. The Algo Platform uses a sophisticated patented algorithm to optimize and manage the entire food preparation process from order to delivery. It is the first system in the world to fully automate and streamline the kitchen flow to deliver an immediate and significant return on investment to fast food and quick service restaurants. The QT system's sensor and camera automatically monitor the preparation and cooking process in the kitchen to improve the quality and consistency of meals. Using proprietary patented advanced AI machine-learning technology, the system keeps improving its diagnostics, becoming even more efficient. Dragontail Systems products are currently installed in approximately 2,500 stores in Canada Australia Asia and Europe and for the first time are being offered to the US Market.</p>
-Source: Dragontail Systems Limited
 </td>
 <td style="text-align:left;">
 yes
@@ -408,24 +399,10 @@ yes
 <td style="text-align:left;">
 Dragontail Systems
 </td>
-<td style="text-align:left;">
-all
-</td>
-<td style="text-align:left;">
-QT AI Camera
-</td>
-<td style="text-align:left;">
-body
-</td>
-<td style="text-align:left;">
-n/a
-</td>
-<td style="text-align:left;">
-More efficient diagnostics with proprietary AI machine-learning technology
-</td>
 </tr>
 </tbody>
 </table>
+<p><br> ### Our Training Set</p>
 <p>After hand-labeling 600 news articles, our team was then able to begin implementing transformer-based Natural Language Processing methods to begin training our models for classification. However, prior to implementation, one last step was required: balancing our training data. Of the 600 articles we classified, 222 articles described an innovation. This imbalance in our dataset would translate to a bias in our model toward classifying an article as not describing an innovation. Thus, we chose a balanced set to train our model. We did so by subsetting our &quot;no&quot; innovation articles to a random 222 article sample thus having a balanced dataset of 444 rows.</p>
 <div class="figure">
 <img src="images/balancing_graphic.png" />
@@ -443,7 +420,7 @@ More efficient diagnostics with proprietary AI machine-learning technology
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -461,7 +438,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+    $(this).parent().toggleClass('nav-tabs-open')
   });
 });
 </script>
