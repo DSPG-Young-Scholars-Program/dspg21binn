@@ -18,35 +18,18 @@ Put in your css file or directly in rmarkdown--->
 
 ----
 
-## Evaluating Performance
-
-When evaluating model performance there are a number of high-level and granular metrics to investigate to best understand how the model performs on new data. Here we consider the following: 
-
-* *Accuracy:* Accuracy is the fraction of predictions that our model got right. 
-* *F1 score:* The F1 score is another measure of a model’s accuracy, calculated as the harmonic mean of the model's precision and recall. The highest possible value of an F-score is 1.0, indicating perfect precision and recall, and the lowest possible value is 0.
-
-To better illustrate model performance, we make use of ROC curves and confusion matrices. ROC curve plots the performance of a model in terms of the error rate over increasing probability thresholds. The area under the curve (AUC) associated with an ROC curve is used as a measure of accuracy for a model. The straight diagonal line indicates a 50/50 guess and is used here as a baseline for performance.
-
-A confusion matrix provides insight with regards to exactly how each model classified articles correctly and incorrectly, by displaying predictions by their type: 
-
-* *True negatives (TN):* articles without mention of innovation that the algorithm correctly predicted as a "No"
-* *True Positives (TP):* articles mentioning new, available products that the algorithm correctly predicted as a "Yes"
-* *False positives (FP):* articles without mention of innovation that the algorithm *incorrectly* predicted as a "Yes" (also known as Type I error)
-* *False negatives (FN):* articles mentioning new, available products that the algorithm *incorrectly* predicted as a "No" (also known as Type II error)
-
-<br>
-
-### Comparing results for BERT-transformed classifiers
+# **Evaluating Performance**  
+## Performance Metrics: Top-3 Performing Transformer Models for Classification  
 
  **Model**                                       | **Accuracy** | **Precision** | **Recall** | **F1** | **Cross-Validation Score** |
 |:-----------------------------------------------:|:------------:|:-------------:|:----------:|:------:|:--------------------------:|
-| distilbert-base-uncased_logistic regression     | 87.39        | 83.08         | 94.74      | 88.52  | 82.47                      |
-| distilbert-base-uncased_SVM_rbf-kernel          | 90.09        | 83.82         | 100        | 91.2   | 85.97                      |
+| distilbert-base-uncased_SVM_rbf-kernel          | 90.09        | 83.82         | 100        | 91.2   | 85.97   
+| distilbert-base-uncased_logistic regression     | 87.39        | 83.08         | 94.74      | 88.52  | 82.47                      |                   |
 | google/bigbird-roberta-base_logistic regression | 85.59        | 82.54         | 91.23      | 86.67  | 81.63                      |
 
 <br>
 
-As shown above, the best performing model is the DistilBERT model paired with a Support Vector Machines classifier. This model demonstrates the highest accuracy across as well as the highest F1 score across models. When cross-validation is used to further test performance, we find this model also scores best with robust testing. 
+As shown above, the best performing model is the DistilBERT model paired with a Support Vector Machines classifier using an RBF kernel. This model demonstrates the highest accuracy across as well as the highest F1 score across models. When cross-validation is used to further test performance, we find this model also scores best with robust testing. 
 
 <br>
 

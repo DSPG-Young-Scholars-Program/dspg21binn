@@ -312,8 +312,8 @@ $(document).ready(function () {
 <li>need some comments about how things changed for the two publishers charts</li>
 <li>need some comments about the example data</li>
 </ul>
-<div id="traditional-methods-to-measure-innovation" class="section level2">
-<h2><strong>Traditional Methods to Measure Innovation</strong></h2>
+<div id="traditional-methods-to-measure-innovation" class="section level1">
+<h1><strong>Traditional Methods to Measure Innovation</strong></h1>
 <p>We can broadly define 'Business Innovation' as the process of creating new or improved changes in the business. Following the international guidelines for surveys of business innovation in the OSLO Manual, developed by the Organization for Economic Co-operation and Development (OECD) and Eurostat, any business innovation can be categorized either as a: product innovation, business process innovation, marketing innovation, or organizational innovation. The most common type of innovation discussed within text sources, product innovation, implies that a new or improved product is introduced to the market. Measuring product innovation is specifically our focus for summer. Business innovation is crucial for value creation which can be achieved by the introduction of new or improved products in the market. As a key indicator of growth in the economy, accurately gauging the extent of business innovation is of crucial importance for policymakers.</p>
 <p>Traditional efforts to measure innovation in the United States primarily include the two surveys conducted by National Science Foundation’s (NSF) division – the <a href="https://www.nsf.gov/statistics/about-ncses.cfm">National Center for Science and Engineering Statistics (NCSES)</a>: <a href="https://www.nsf.gov/statistics/srvyberd/">Business R&amp;D and Innovation Survey (BRDIS)</a>, and the <a href="https://www.nsf.gov/statistics/srvyabs/">Annual Business Survey (ABS)</a>. The surveys aim to capture the state of innovation in the United States through a nationally representative sample of non-farm businesses across the country. These surveys aim to collect data on innovation by companies in the past year, as defined by the 2018 Oslo Manual — any new or improved product available on the market. However, additional methods of measuring innovation can help provide further information on the nation’s degree of innovation.</p>
 <p>Partnering with NCSES, SDAD aims to see if non-traditional data sources can help supplement BRDIS by measuring innovation. Our main goals for the summer were:</p>
@@ -324,20 +324,21 @@ $(document).ready(function () {
 </ol>
 <hr />
 </div>
-<div id="the-data" class="section level2">
-<h2><strong>The Data</strong></h2>
-<div id="data-source-dowjones-news-and-analytics-dna" class="section level3">
-<h3>Data Source: DowJones News and Analytics (DNA)</h3>
+<div id="the-data" class="section level1">
+<h1><strong>The Data</strong></h1>
+<div id="data-source-dowjones-news-and-analytics-dna" class="section level2">
+<h2>Data Source: DowJones News and Analytics (DNA)</h2>
 <div class="col2">
 <center>
 <img src="images/dnalogo.png" width="300px">
 </center>
-<p><br> <br></p>
+<p><br> <br> <br> <br></p>
 <p>The Dow Jones DNA platform collects information from Dow Jones publications with premium and licensed third-party sources. This proprietary data platform contains 1.3bn news articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation.</p>
 </div>
+<hr />
 </div>
-<div id="high-level-profiling" class="section level3">
-<h3>High level Profiling</h3>
+<div id="high-level-profiling" class="section level2">
+<h2>High level Profiling</h2>
 <p>The end goal of our project included implementing our classification and NER models on a year's worth of articles from the DNA database, specifcally in the software industry. The graphics below provide a high level overview of the 2017 data.</p>
 <table>
 <thead>
@@ -362,15 +363,19 @@ $(document).ready(function () {
 </tbody>
 </table>
 <div class="col2">
-<p><img src="images/2017_top_10_publishers.png" /> <br> <br></p>
+<div class="figure">
+<img src="images/2017_top_10_publishers.png" />
+
+</div>
 <div class="figure">
 <img src="images/2017_top_10_company_mentions.png" />
 
 </div>
 </div>
+<hr />
 </div>
-<div id="labeling-task" class="section level3">
-<h3>Labeling Task</h3>
+<div id="labeling-task" class="section level2">
+<h2>Labeling Task</h2>
 <p>We trained various classification models based on transformers-based machine learning NLP models, for example, BERT, distil-BERT, BigBird, RoBERTa. The models predict whether an article from the DNA database described a product innovation or not. For this purpose, we hand-labeled a subset of 600 DNA articles. In preparation for this, our team reviewed the OSLO Manual, which as aforementioned, defines product innovation and provides the basis for collecting and reporting innovation data and publishing statistics on business innovation.</p>
 <p>We chose 600 articles at random from the database of articles. Our exploratory data analysis on these articles firstly entailed creating a field that distinguished articles if they described an innovation or not. We also added several other fields that we use for Named Entity Recognition (NER). Specifically, if we classified articles as a &quot;yes&quot; for innovation, we then also labeled the company name(s), where the name(s) was mentioned (title, snippet, and/or body), what the product name was, where it was mentioned, any tags on the product name if they existed (such as &quot;TM&quot; or &quot;C&quot; that could help tune our algorithm), and finally, what the features of the product were.</p>
 <p>An example of our data is shown below:</p>
@@ -402,8 +407,11 @@ Dragontail Systems
 </tr>
 </tbody>
 </table>
-<p><br> ### Our Training Set</p>
-<p>After hand-labeling 600 news articles, our team was then able to begin implementing transformer-based Natural Language Processing methods to begin training our models for classification. However, prior to implementation, one last step was required: balancing our training data. Of the 600 articles we classified, 222 articles described an innovation. This imbalance in our dataset would translate to a bias in our model toward classifying an article as not describing an innovation. Thus, we chose a balanced set to train our model. We did so by subsetting our &quot;no&quot; innovation articles to a random 222 article sample thus having a balanced dataset of 444 rows.</p>
+<hr />
+</div>
+<div id="our-training-set" class="section level2">
+<h2>Our Training Set</h2>
+<p>After hand-labeling 600 news articles, our team was then able to begin implementing transformer-based Natural Language Processing (NLP) methods to begin training our models for classification. However, prior to implementation, one last step was required: balancing our training data. Of the 600 articles we classified, 222 articles described an innovation. This imbalance in our dataset would translate to a bias in our model toward classifying an article as not describing an innovation. Thus, we chose a balanced set to train our model. We did so by subsetting our &quot;no&quot; innovation articles to a random 222 article sample thus having a balanced dataset of 444 rows.</p>
 <div class="figure">
 <img src="images/balancing_graphic.png" />
 
