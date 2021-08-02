@@ -2,35 +2,48 @@
 title: "Background"
 ---
 
+<style>
+  .col2 {
+    columns: 2 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
+  }
+</style>
+
+Notes: 
+
+* need some comments about how things changed for the two publishers charts
+* need some comments about the example data 
+
+## **Traditional Methods to Measure Innovation**
+
+We can broadly define 'Business Innovation' as the process of creating new or improved changes in the business. Following the international guidelines for surveys of business innovation in the OSLO Manual, developed by the Organization for Economic Co-operation and Development (OECD) and Eurostat, any business innovation can be categorized either as a: product innovation, business process innovation, marketing innovation, or organizational innovation. The most common type of innovation discussed within text sources, product innovation, implies that a new or improved product is introduced to the market. Measuring product innovation is specifically our focus for summer. Business innovation is crucial for value creation which can be achieved by the introduction of new or improved products in the market. As a key indicator of growth in the economy, accurately gauging the extent of business innovation is of crucial importance for policymakers.  
+
+Traditional efforts to measure innovation in the United States primarily include the two surveys conducted by National Science Foundation’s (NSF) division – the [National Center for Science and Engineering Statistics (NCSES)](https://www.nsf.gov/statistics/about-ncses.cfm): [Business R&D and Innovation Survey (BRDIS)](https://www.nsf.gov/statistics/srvyberd/), and the [Annual Business Survey (ABS)](https://www.nsf.gov/statistics/srvyabs/). The surveys aim to capture the state of innovation in the United States through a nationally representative sample of non-farm businesses across the country. These surveys aim to collect data on innovation by companies in the past year, as defined by the 2018 Oslo Manual — any new or improved product available on the market. However, additional methods of measuring innovation can help provide further information on the nation’s degree of innovation.  
+
+Partnering with NCSES, SDAD aims to see if non-traditional data sources can help supplement BRDIS by measuring innovation. Our main goals for the summer were:  
+
+1. Understanding the degree of identification of innovation within text sources, specifically news articles by text classification algorithms;  
+2. Determining the innovative companies within the relevant industry sector from the classified text.  
+
 ----
 
-## Traditional Methods to Measure Innovation
+## **The Data**   
+### Data Source: DowJones News and Analytics (DNA) 
 
+<div class="col2">
+<center><img src="images/dnalogo.png" width="300px"></center>  
 
-We can broadly define "business innovation" as the process of creating new or improved changes in business. Following the international guidelines for surveys of business innovation in the OSLO Manual, developed by the Organization for Economic Co-operation and Development (OECD) and Eurostat, any business innovation can be categorized either as a: product innovation, business process innovation, marketing innovation, or organizational innovation. A product innovation, most commonly the innovation discussed within text sources, implies the introduction of a new or improved product to the market. Business innovation is crucial for value creation which can be achieved by the introduction of new or improved products in the market. As a key indicator of growth in the economy, accurately gauging the extent of business innovation is of crucial importance for policymakers.
-
-Traditional efforts to measure innovation in the United States primarily include the National Science Foundation's (NSF) division the National Center for Science and Engineering Statistics (NCSES) [Business R&D and Innovation Survey (BRDIS)](https://www.nsf.gov/statistics/srvyberd/) and the [Annual Business Survey (ABS)](https://www.nsf.gov/statistics/srvyabs/). The surveys aim to capture the state of innovation in the United States through a nationally representative sample of non-farm businesses across the country that asks if businesses have innovated in the past year, as defined by the 2018 Oslo Manual — any new or improved product available on the market. However, additional methods of measuring innovation can help provide further information as to the nation’s degree of innovation. 
-
-Partnering with NCSES, SDAD aims to see if non-traditional data-sources can help supplement BRDIS and aid in measuring innovation. Our two main goals for the summer are firstly, understanding the degree to which innovation can be measured in text sources, such as news articles, and secondly, determining if from there we can then identify the innovative companies within the relevant industry sector. 
-
-
-<!---How do i mention the NSF in relation to the NSCES and BRDIS? Hyperlink goes to BERD from last year's website? --->
-<!---In addition to this survey, the annual business survey (ABS); Also: paragraph for goals of summer - understand the degree to which innovation can be measured in text sources, and from there, can we identify the companies who are innovating--->
+<br>
 <br>
 
+The Dow Jones DNA platform collects information from Dow Jones publications with premium and licensed third-party sources. This proprietary data platform contains 1.3bn news articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation. 
 
-## Data Sources
+</div>
 
+### High level Profiling  
 
-
-### Dow Jones News and Analytics (DNA)
-
-![](images/dnalogo.png)
-
-The Dow Jones DNA platform collects information from Dow Jones publication with premium and licensed third party sources. This proprietary data platform contains 1.3bn articles each labeled with unique DNA taxonomies tags including word count, source name, and company code. More information on all the included data tags can be found on the DNA website. This dataset served as the primary resource for alternative text sources and will inspire the machine learning algorithms that will predict innovation.
-
-### High level Profiling
-The end goal of our project includes implementing our classification and NER models on a year's worth of articles from the DNA database, specifcally in the software industry. The graphics below provide a high level overview of the 2017 data.
+The end goal of our project included implementing our classification and NER models on a year's worth of articles from the DNA database, specifcally in the software industry. The graphics below provide a high level overview of the 2017 data.  
 
 | Measure             | n       |
 |---------------------|---------|
@@ -38,29 +51,37 @@ The end goal of our project includes implementing our classification and NER mod
 | Total publishers    | 825     |
 | Total companies     | 11,537  |
 
+<div class="col2"> 
+![](images/2017_top_10_publishers.png)
+<br>
+<br>
 
-![](images/top10publishers.png)
-![](images/top10companies.png)
+![](images/2017_top_10_company_mentions.png)
 
+</div>
 
-<!--Add captions for each graph, and change axis titles-->
+### Labeling Task
 
-### Labeling & Training Data
+We trained various classification models based on transformers-based machine learning NLP models, for example, BERT, distil-BERT, BigBird, RoBERTa. The models predict whether an article from the DNA database described a product innovation or not. For this purpose, we hand-labeled a subset of 600 DNA articles. In preparation for this, our team reviewed the OSLO Manual, which as aforementioned, defines product innovation and provides the basis for collecting and reporting innovation data and publishing statistics on business innovation.  
 
-In order to train our BERT classification model for the purposes of predicting whether an article from the DNA database described an innovation or not, we first had to hand label a subset of 600 DNA articles. In preparation for this, our team reviewed the OSLO Manual, which as aforementioned, defines innovation, and provides the basis for collecting and reporting innovation data and publishing statistics on business innovation.
+We chose 600 articles at random from the database of articles. Our exploratory data analysis on these articles firstly entailed creating a field that distinguished articles if they described an innovation or not. We also added several other fields that we use for Named Entity Recognition (NER). Specifically, if we classified articles as a "yes" for innovation, we then also labeled the company name(s), where the name(s) was mentioned (title, snippet, and/or body), what the product name was, where it was mentioned, any tags on the product name if they existed (such as "TM" or "C" that could help tune our algorithm), and finally, what the features of the product were.  
 
-Our classification entailed not only labeling articles if they described an innovation or not, but several other fields that would later help fine tune our algorithm and yield data we could use for the purposes of Named Entity Recognition (NER). Specifically, if we classified an articles as a "yes" for innovation, we then also labeled the company name(s), where the name(s) was mentioned (title, snippet, and/or body), what the product name was, where it was mentioned, any tags on the product name if they existed (such as "TM" or "C" that could help tune our algorithm), and finally, what the features of the product were.
+An example of our data is shown below:  
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE, error = F}
 library(tidyverse)
 library(readxl)
-data <- read_excel("classification_example.xlsx")
-data %>% knitr::kable()
+require(xtable)
+data <- readxl::read_excel("classification_example.xlsx")
+preview <- data[1,c("title", colnames(data)[6:7])] 
+colnames(preview) <- c("Headline", "Innovation/New Product Indicated?", "Company Name")
+preview %>% knitr::kable(format = "html")
 ```
 
-Once this task of hand-labeling 600 news articles was finished, our team was then able to begin implementing Natural Language Processing methods, specifically the transformer-based BERT, to begin training our model on classification. However, prior to implementation, one last step was required: balancing our training data. Of the 600 articles we classified, 222 articles described an innovation. If we simply ran our BERT model on this unbalanced set, our model would be biased towards classifying an article as not describing an innovation. The solution to this issue was subsetting our "no" innovation articles to a random 222 article sample to only then run BERT on in order to reduce bias in our model.
+<br>
+### Our Training Set
+
+After hand-labeling 600 news articles, our team was then able to begin implementing transformer-based Natural Language Processing methods to begin training our models for classification. However, prior to implementation, one last step was required: balancing our training data. Of the 600 articles we classified, 222 articles described an innovation. This imbalance in our dataset would translate to a bias in our model toward classifying an article as not describing an innovation. Thus, we chose a balanced set to train our model. We did so by subsetting our "no" innovation articles to a random 222 article sample thus having a balanced dataset of 444 rows.  
 
 ![](images/balancing_graphic.png)
-
-Only after finishing this task of hand-labeling 600 news articles, our team was then able to begin implementing Natural Language Processing methods, specifically the transformer-based BERT, to begin training our model on classification.
 

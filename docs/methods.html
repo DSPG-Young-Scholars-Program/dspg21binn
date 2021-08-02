@@ -300,48 +300,16 @@ $(document).ready(function () {
 </div>
 
 
-<hr />
-<center>
-<img src="images/bert.png" width="500px">
-</center>
-<div id="bert" class="section level2">
-<h2>BERT</h2>
-<p>BERT is a pre-trained, bidirectional unsupervised Natural Language Processing model developed by Google in 2018. Trained on the Book Corpus of 2,500 million words and Wikipedia's 800 million words, BERT tokenizes and builds more complex text embeddings that take word context into account, unlike traditional &quot;bag-of-words&quot; approaches. Here, we use BERT in a number of ways: not only as a data transformation tool to convert our text data into text embeddings based on a pretrained model, but also as the basis for named-entity recognition.</p>
-<div id="bert-for-data-transformation" class="section level3">
-<h3>BERT for Data Transformation</h3>
-<div id="distilbert" class="section level4">
-<h4>DistilBERT</h4>
-<p>DistlBERT is a distilled version of traditional BERT. Uses fewer parameters, which had the interesting effect in our Summer trials of improving accuracy by reducing noise. It also runs faster and is smaller in size.</p>
-</div>
-<div id="big-bird" class="section level4">
-<h4>Big Bird</h4>
-<p>Big Bird is a new State of The Art method of tokenization and language processing. This model emphasizes memory optimization to allow for longer sequences to be processed. This could help us with our current limitation where we can only process the first 512 tokens.</p>
-</div>
-<div id="roberta" class="section level4">
-<h4>Roberta</h4>
-<p>RoBERTa and DistilRoBERTa – RoBERTa is a most robustly trained version of BERT that also uses much larger datasets to train. (160GB for RoBERTa vs 16GB for BERT). It also uses datasets to train that are more relevant to our applications, such as CC-NEWS (76G), OpenWebText (38G) and Stories (31G) data. DistilRoBERTa is a version of RoBERTa that has been processed using Knowledge Distillation, similar to DistilBERT. Once again, it has a faster performance.</p>
-</div>
-</div>
-<div id="bert-for-named-entity-recognition" class="section level3">
-<h3>BERT for Named-Entity Recognition</h3>
-<div id="huggingfacedslim-bert-base-ner" class="section level4">
-<h4>HuggingFace/dslim-bert-base-NER</h4>
-<p><a href="https://huggingface.co/dslim/bert-base-NER">Try the demo here!</a></p>
-</div>
-</div>
-</div>
-<div id="cross-validation" class="section level2">
-<h2>Cross-Validation</h2>
-<p>Cross-validation is a statistical method used to estimate the skill of machine learning models. This summer, we used a method of cross-validation known as “k-fold” to evaluate the skill of our BERT + classifier models, where k=10. In 10-fold cross validation, a given data set is split into 10 sections where each section/fold is used as a testing set at some point. In the first iteration, the first fold is used to test the model and the rest are used to train the model. In the second iteration, 2nd fold is used as the testing set while the rest serve as the training set. This process is repeated until each fold of the 10 folds have been used as the testing set.</p>
-<center>
-<img src="images/crossvalidation.png" width="500px">
-</center>
-<hr />
-</div>
+<p>Notes:</p>
+<ul>
+<li>We need some more info on Hugging face section</li>
+<li>Explanation of Big-Bird-Roberta as hybrid of the two (combine those sections and add a explanation of combo)</li>
+<li>Ideally - edit the approach slide to remove Q&amp;A since we didn't do it</li>
+</ul>
 <div id="our-approach" class="section level2">
-<h2>Our Approach</h2>
+<h2><strong>Our Approach</strong></h2>
 <center>
-<img src="images/methods.png" width="800px">
+<img src="images/approach_slide.png" width="800px">
 </center>
 <ol style="list-style-type: decimal">
 <li><p>Implement BERT to tokenize and build text embeddings for the labeled data sets</p></li>
@@ -350,6 +318,47 @@ $(document).ready(function () {
 <li><p>Apply BERT’s Named Entity Recognition methods to extract company names from documents</p></li>
 <li><p>Run these methods to all articles for a given sector for a given year to extract the count of innovative articles per year, with their associated companies.</p></li>
 </ol>
+<hr />
+<center>
+<img src="images/bert.png" width="400px">
+</center>
+</div>
+<div id="what-is-bert" class="section level2">
+<h2><strong>What is BERT?</strong></h2>
+<p>BERT is a pre-trained, bidirectional unsupervised Natural Language Processing model developed by Google in 2018. Trained on the Book Corpus of 2,500 million words and Wikipedia's 800 million words, BERT tokenizes and builds more complex text embeddings that take word context into account, unlike traditional &quot;bag-of-words&quot; approaches. Here, we use BERT in a number of ways: not only as a data transformation tool to convert our text data into text embeddings based on a pretrained model, but also as the basis for named-entity recognition.</p>
+</div>
+<div id="how-do-we-make-use-of-bert-in-this-work" class="section level2">
+<h2><strong>How do we make use of BERT in this work?</strong></h2>
+<div id="bert-for-data-transformation" class="section level3">
+<h3>BERT for Data Transformation</h3>
+<div id="distilbert" class="section level4">
+<h4><em>DistilBERT</em></h4>
+<p>DistlBERT is a distilled version of traditional BERT. Uses fewer parameters, which had the interesting effect in our Summer trials of improving accuracy by reducing noise. It also runs faster and is smaller in size.</p>
+</div>
+<div id="big-bird" class="section level4">
+<h4><em>Big Bird</em></h4>
+<p>Big Bird is a new State of The Art method of tokenization and language processing. This model emphasizes memory optimization to allow for longer sequences to be processed. This could help us with our current limitation where we can only process the first 512 tokens.</p>
+</div>
+<div id="roberta" class="section level4">
+<h4><em>Roberta</em></h4>
+<p>RoBERTa and DistilRoBERTa – RoBERTa is a most robustly trained version of BERT that also uses much larger datasets to train. (160GB for RoBERTa vs 16GB for BERT). It also uses datasets to train that are more relevant to our applications, such as CC-NEWS (76G), OpenWebText (38G) and Stories (31G) data. DistilRoBERTa is a version of RoBERTa that has been processed using Knowledge Distillation, similar to DistilBERT. Once again, it has a faster performance.</p>
+</div>
+</div>
+<div id="bert-for-named-entity-recognition" class="section level3">
+<h3>BERT for Named-Entity Recognition</h3>
+<div id="huggingfacedslim-bert-base-ner" class="section level4">
+<h4><em>HuggingFace/dslim-bert-base-NER</em></h4>
+<p><a href="https://huggingface.co/dslim/bert-base-NER">Try the demo here!</a></p>
+<hr />
+</div>
+</div>
+</div>
+<div id="how-do-we-evaluate-our-work" class="section level2">
+<h2><strong>How do we evaluate our work?</strong></h2>
+<p>Cross-validation is a statistical method used to estimate the skill of machine learning models. This summer, we used a method of cross-validation known as “k-fold” to evaluate the skill of our BERT + classifier models, where k=10. In 10-fold cross validation, a given data set is split into 10 sections where each section/fold is used as a testing set at some point. In the first iteration, the first fold is used to test the model and the rest are used to train the model. In the second iteration, 2nd fold is used as the testing set while the rest serve as the training set. This process is repeated until each fold of the 10 folds have been used as the testing set.</p>
+<center>
+<img src="images/crossvalidation.png" width="500px">
+</center>
 <hr />
 </div>
 
