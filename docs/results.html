@@ -386,10 +386,11 @@ Put in your css file or directly in rmarkdown--->
   }
 </style>
 <hr />
-<div id="evaluating-performance" class="section level1">
-<h1><strong>Evaluating Performance</strong></h1>
-<div id="performance-metrics-top-3-performing-transformer-models-for-classification" class="section level2">
-<h2>Performance Metrics: Top-3 Performing Transformer Models for Classification</h2>
+<div id="classification" class="section level2">
+<h2><strong>Classification</strong></h2>
+<div id="evaluating-performance-of-top-3-performing-transformer-models" class="section level3">
+<h3>Evaluating Performance of Top-3 Performing Transformer Models</h3>
+<p>Our best performing model is the DistilBERT model paired with a Support Vector Machines classifier using an RBF kernel. This model demonstrates the highest performance metrics with a balanced dataset. When cross-validation is used to further test performance with an unbalanced dataset, we find this model also has the best cross-validation score.</p>
 <table>
 <thead>
 <tr class="header">
@@ -429,67 +430,126 @@ Put in your css file or directly in rmarkdown--->
 </tbody>
 </table>
 <p><br></p>
-<p>As shown above, the best performing model is the DistilBERT model paired with a Support Vector Machines classifier using an RBF kernel. This model demonstrates the highest accuracy across as well as the highest F1 score across models. When cross-validation is used to further test performance, we find this model also scores best with robust testing.</p>
-<p><br></p>
-<p>There are some interesting results in our three models' confusion matrices. Firstly, we observe that each model's TN and FP counts are identical. For the TP and FN counts, we observe the following ranking:</p>
-<ol style="list-style-type: decimal">
-<li>DistilBERT-SVM shows best TP-FN tradeoff with 0 FNs</li>
-<li>DistilBERT-LR shows next best tradeoff with 3 FNs</li>
-<li>Big Bird RoBERTA-LR shows worst performance in terms of TP-FN trade off with 5 FNs</li>
-</ol>
-<!-- Namely, while we cannot be sure that each model is making the sa predictions on the same articles, the first row of TN’s and FP’s are identical across all models - 43 TN’s and 11 FP’s. -->
-<p>Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s.</p>
-<p>And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.</p>
-<div class="col2">
-<h4 id="roc-curves"><strong>ROC Curves</strong></h4>
-<h4 id="confusion-matrices"><strong>Confusion Matrices</strong></h4>
+<p>We make use of a balanced dataset of 222 observations in each of our &quot;yes&quot; and &quot;no&quot; target classes for calculating the accuracy, precision, recall, and F-1 score. We split this dataset having 444 total observation into a training set containing 333 observations and a testing set containing 111 observations, respectively (<em>train-test-split = 75% train - 25% test</em>). For cross-validating our models, we made use of the entire unbalanced dataset of 600 observations. We effectively had 222 observations for the &quot;yes&quot; class 378 observations for the &quot;no&quot; class.</p>
+<hr />
 </div>
-<p>Distilbert LR</p>
-<!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
-<div class="col2">
-<p><img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px"></p>
-<p><br> <br></p>
-<p><img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px"></p>
-</div>
-<p>Distilbert SVM</p>
+<div id="roc-curves-and-confusion-matrices" class="section level3">
+<h3>ROC Curves and Confusion Matrices</h3>
+<p>Our 3 ROC curves reinforce the findings of our performance metrics above. Our DistilBERT model, paired with the Support Vector Machine classifier, shows the strongest performance in terms of Area Under the Curve (AUC). The DistilBERT-SVM model exhibits the best AUC at 95%, as compared with 90% and 88% with the DistilBERT-Logistic Regression and Big Bird-Roberta models respectively. Furthermore, we observe that the slope of the curve itself is strongest for the DistilBERT-SVM model where the curve shows the steepest, immediate rise over long run, indicating the model's develops the ability to distinguish between innovation text and non-innovation text much more quickly.</p>
+<div id="distil-bert-support-vector-machine-rbf-kernel" class="section level4">
+<h4>Distil-BERT Support Vector Machine (RBF Kernel)</h4>
 <div class="col2">
 <!-- <img src="images/distilbert_SVM_results.png"width="350px"> -->
-<p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px"></p>
-<p><br> <br></p>
 <p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_cf_matrix.png"width="350px"></p>
+<p><br> <br></p>
+<p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px"></p>
 </div>
-<p>Big Bird Roberta LR</p>
+</div>
+<div id="distil-bert-logistic-regression" class="section level4">
+<h4>Distil-BERT Logistic Regression</h4>
+<!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
+<div class="col2">
+<p><img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px"></p>
+<p><br> <br></p>
+<p><img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px"></p>
+</div>
+</div>
+<div id="bigbird-logistic-regression" class="section level4">
+<h4>BigBird Logistic Regression</h4>
 <!-- <img src="images/bigbird_LR_results.png"width="350px"> -->
 <div class="col2">
-<p><img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px"></p>
-<p><br> <br></p>
 <p><img src="images/googlebigbird-roberta-base_lr_classifier_cf_matrix.png"width="350px"></p>
+<p><br> <br></p>
+<p><img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px"></p>
 </div>
-<div id="ner-training-set-results" class="section level3">
-<h3>NER Training Set Results</h3>
+<p>There are some interesting results in our three models' confusion matrices. Firstly, we observe that each model's TN and FP counts are identical. For the TP and FN counts, we observe the following ranking:</p>
+<ol style="list-style-type: decimal">
+<li>DistilBERT-SVM shows best TP-FN tradeoff with 0 FNs,</li>
+<li>DistilBERT-LR shows next best tradeoff with 3 FNs,</li>
+<li>Big Bird RoBERTA-LR shows worst performance in terms of TP-FN trade off with 5 FNs.</li>
+</ol>
+<p>Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s. Lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="named-entity-recognition" class="section level2">
+<h2><strong>Named Entity Recognition</strong></h2>
 <ul>
 <li>dslim results</li>
 <li>expecting that we have some overall accuracy number - compare the # companies we manually labeled to the companies identified by NER</li>
 <li>if we had tagged Apple, MCRSFT, is there a match for those based on NER?</li>
 </ul>
+<p>Our team first ran Named Entity Recognition (NER) on a subset of our training set data, the 222 articles we labeled as “yes” innovation. The NER pipeline worked using the “dslim-bert-base” model and we compared its results to the company names that we had hand-labeled when classifying our training data.</p>
+<p>Specifically, we ran each article through NER, and extracted the words that the model categorized as an organization, with the “ORG” tag, within the article. Along with the words themselves, we also extracted the confidence score associated with each word; this score indicates how confident the model is in its word recognition being correct.</p>
+<p>Having all of the entities that the model “guessed” as organizations for a particular article, we then compared the model’s most confident guess, the one with the highest confidence score, to the name we had hand-labled when classifying our training data. Moreover, this was an exact string match in which the model’s guess was only considered correct if it was exactly the same as our hand-labeled company name.</p>
+<p>Using these methods and the “dslim-bert-base” model for NER, we saw an accuracy of 50.90%, the model correctly matched the company name in 113 of 222 innovative articles.</p>
+<p>Here are 4 articles and the NER predictions and accuracy associated with them:</p>
+<pre class="r"><code>ner_res &lt;- dplyr::slice(readxl::read_excel(&quot;images/NER_results_sample.xlsx&quot;), 2:5 )
+
+knitr::kable(ner_res)</code></pre>
+<table>
+<colgroup>
+<col width="81%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="2%" />
+<col width="2%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Sample Text</th>
+<th align="left">Labeled Company 1</th>
+<th align="left">Labeled Company 2</th>
+<th align="left">Top Rated NER Company Guess</th>
+<th align="right">NER Confidence score</th>
+<th align="right">exact match binary</th>
+<th align="left">Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Metrologic Group and Creaform have entered into a partnership in which Creaform integrates Metrologic Group's software suite with its new CUBE-R‚Ñ¢ 3D automated dimensional inspection solution. This laser scanning, all-in-one solution features Metrologic Group's advanced 3D measurement programming and inspection software packages, Silma and Metrolog X4 i-Robot, and combines efficiency and reliability of robotization in an automated industrial measuring cell.</td>
+<td align="left">Creaform</td>
+<td align="left">Metrologic Group</td>
+<td align="left">Metrologic Group</td>
+<td align="right">0.9986972</td>
+<td align="right">1</td>
+<td align="left">correct</td>
+</tr>
+<tr class="even">
+<td align="left">BoardwalkTech; Boardwalktech Announces BW.Supplychain Ecosystem for Retail, Apparel, and CPG 2020 JAN 27 (VerticalNews)</td>
+</tr>
+</tbody>
+</table>
+<p>BW.Supplychain provides a more efficient platform for inventory management and leverages the Boardwalk patented cell level transaction chaining technology for early detection of supply chain disruptions - amplifying beneficial ones, while mitigating or resolving disruptive ones -- using our rapid collaboration, planning and operations applications with results delivered via the BW.ControlTower. |BoardwalkTech |NA |BoardwalkTech | 0.8686774| 1|correct | |American LegalNet, Inc. American LegalNet Announces New eDockets Reporting Features and eDockets/NetDocuments Integration |American LegalNet, Inc. |American LegalNet (ALN) |American LegalNet, Inc | 0.8686774| 0|no exact match | |Sprinting from a conference call earlier today to announce new server products, Hewlett-Packard ( HPQ) head of enterprise technology David Donatelli was kind enough to swing by Barron's offices.</p>
+<p>Donatelli, who has been at HP for four years now, has helped the enterprise group productize three different inventions of HP Labs, including Project Moonshot, the subject of today's server announcement; something called StoreOnce, for &quot; data de-duplication&quot;; and StoreAll, to help compliance and legal departments perform data analysis on the vast troves of archived material companies amass. |HP |Hewlett-Packard ( HPQ) |HP Labs | 0.9985487| 0|no exact match |</p>
+<hr />
 </div>
-<div id="set-results" class="section level3">
-<h3>2017 Set Results</h3>
-<ul>
-<li><p>classification prediction histogram of pred_prob (highlight green for &gt; 0.5)</p></li>
-<li>NER - top 10 innovators
-<ul>
-<li>can we add %ages to the bars here for innovative mentions/all mentions</li>
-</ul></li>
-</ul>
-<p><img src="images/2017_top_10_innovative_companies.png"width="500px"></p>
-<ul>
-<li>visualization of co-mentions of innovators</li>
-</ul>
+<div id="set-results" class="section level2">
+<h2><strong>2017 Set Results</strong></h2>
+<div id="classification-1" class="section level3">
+<h3>Classification</h3>
+<div class="figure">
+<img src="images/histogram_of_pred_probs.png" />
+
 </div>
 </div>
-<div id="conclusions" class="section level2">
-<h2>Conclusions</h2>
+<div id="ner" class="section level3">
+<h3>NER</h3>
+<!-- <div class="col2"> -->
+<div class="figure">
+<img src="images/2017_top_10_innovative_companies_frac.png" />
+
+</div>
+<p><img src="images/2017_top_10_publishers_frac.png" /> <!-- </div> --></p>
+<hr />
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2><strong>Conclusion</strong></h2>
 <p>In conclusion, promising results in terms of leverage state of the art language represetntation models to identify articles relevant to innovation. We have successffuly constructed a pipeline that classifies articles and extracts innovator companies with high accuracy and reasonable confidence. As a result of this work, we/NSF can now...</p>
 <p>Drawbacks/Weaknesses:</p>
 <ul>
@@ -498,7 +558,12 @@ Put in your css file or directly in rmarkdown--->
 <li>scaling is a challenge - need for labeled data, crossing sectors is difficult, crossing time may be more complex as well</li>
 </ul>
 <p>Next steps, to refine this pipeline, extract product names, implement alt approaches e.g. Q&amp;A, perform deduplication on company names</p>
-</div>
+<ul>
+<li></li>
+</ul>
+<p>This summer’s work has yielded promising results in terms of leveraging state-of-the-art language representation models to identify articles relevant to innovation. We have successfully constructed a pipeline that classifies articles and extracts innovative companies with high accuracy and reasonable confidence. As a result of this work, our team and the NCSES team can analyze innovation patterns frequency within the computer software sector through a new, quantitative perspective. Our work allows for the comparison of innovation rates between companies, specific differences between innovation identified by BERD and by our model, and countless other lenses with which to study this data.</p>
+<p>Our research and results are susceptible to some influence due to the nature of our data, the context of which should be considered when performing further analysis and making conclusions based on the data. This can present itself in different ways: bias may come about through disparities in companies’ PR budgets, causing them to be overrepresented in the data; irrelevant news or “noise” can filter through into the data, lowering the rate of innovation in the entire dataset; and certain publishers may be overrepresented in the media, causing them to skew company-name frequency in the dataset and results. Scaling is also a challenge within this project -- the research demands hand-labeled data prior to model application, and crossing sectors or crossing time periods will only add complexity to the project.</p>
+<p>Building off this summer’s results, our next steps will include refining and fine-tuning our natural language processing pipeline and moving from company-name extraction into product-name extraction using named-entity recognition. We plan to look into alternate NER approaches, such as question-answering (Q&amp;A) models (which can be tested at the demo on our “Methods” page).</p>
 </div>
 
 
