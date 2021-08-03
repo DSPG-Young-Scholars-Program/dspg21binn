@@ -40,13 +40,12 @@ We make use of a balanced dataset of 222 observations in each of our "yes" and "
 
 <!-- <img src="images/distilbert_SVM_results.png"width="350px"> -->
 
-<img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px">
-
-<br>
-<br>
-
-
 <img src="images/distilbert-base-uncased_rbf-kernel_classifier_cf_matrix.png"width="350px">
+
+<br>
+<br>
+
+<img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px">
 
 </div>
 
@@ -56,13 +55,12 @@ We make use of a balanced dataset of 222 observations in each of our "yes" and "
 
 <div class="col2">
 
+<img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px">
+
+<br>
+<br>
 
 <img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px">
-
-<br>
-<br>
-
-<img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px">
 
 
 </div>
@@ -73,13 +71,12 @@ We make use of a balanced dataset of 222 observations in each of our "yes" and "
 
 <div class="col2">
 
-<img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px">
-
-<br>
-<br>
-
-
 <img src="images/googlebigbird-roberta-base_lr_classifier_cf_matrix.png"width="350px">
+
+<br>
+<br>
+
+<img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px">
 
 </div>
 
@@ -105,14 +102,18 @@ And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to p
 
 ## Classification  
 
-* classification prediction histogram of pred_prob (highlight green for > 0.5)  
+![](images/histogram_of_pred_probs.png)  
 
 ## NER  
 
-* NER - top 10 innovators
-    - can we add %ages to the bars here for innovative mentions/all mentions
+<div class="col2">
+![](images/2017_top_10_innovative_companies_frac.png)
 
-<img src="images/2017_top_10_innovative_companies.png"width="500px">
+
+![](images/2017_top_10_publishers_frac.png)
+</div>
+
+![](images/2017_pie_innov_v_no-innov.png)
 
 * visualization of co-mentions of innovators  
 

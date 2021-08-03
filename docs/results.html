@@ -407,27 +407,27 @@ Put in your css file or directly in rmarkdown--->
 <h3>Distil-BERT Support Vector Machine (RBF Kernel)</h3>
 <div class="col2">
 <!-- <img src="images/distilbert_SVM_results.png"width="350px"> -->
-<p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px"></p>
-<p><br> <br></p>
 <p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_cf_matrix.png"width="350px"></p>
+<p><br> <br></p>
+<p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px"></p>
 </div>
 </div>
 <div id="distil-bert-logistic-regression" class="section level3">
 <h3>Distil-BERT Logistic Regression</h3>
 <!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
 <div class="col2">
-<p><img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px"></p>
-<p><br> <br></p>
 <p><img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px"></p>
+<p><br> <br></p>
+<p><img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px"></p>
 </div>
 </div>
 <div id="bigbird-logistic-regression" class="section level3">
 <h3>BigBird Logistic Regression</h3>
 <!-- <img src="images/bigbird_LR_results.png"width="350px"> -->
 <div class="col2">
-<p><img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px"></p>
-<p><br> <br></p>
 <p><img src="images/googlebigbird-roberta-base_lr_classifier_cf_matrix.png"width="350px"></p>
+<p><br> <br></p>
+<p><img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px"></p>
 </div>
 <p>There are some interesting results in our three models' confusion matrices. Firstly, we observe that each model's TN and FP counts are identical. For the TP and FN counts, we observe the following ranking:</p>
 <ol style="list-style-type: decimal">
@@ -453,19 +453,27 @@ Put in your css file or directly in rmarkdown--->
 <h1><strong>2017 Set Results</strong></h1>
 <div id="classification-1" class="section level2">
 <h2>Classification</h2>
-<ul>
-<li>classification prediction histogram of pred_prob (highlight green for &gt; 0.5)</li>
-</ul>
+<div class="figure">
+<img src="images/histogram_of_pred_probs.png" />
+
+</div>
 </div>
 <div id="ner" class="section level2">
 <h2>NER</h2>
-<ul>
-<li>NER - top 10 innovators
-<ul>
-<li>can we add %ages to the bars here for innovative mentions/all mentions</li>
-</ul></li>
-</ul>
-<p><img src="images/2017_top_10_innovative_companies.png"width="500px"></p>
+<div class="col2">
+<div class="figure">
+<img src="images/2017_top_10_innovative_companies_frac.png" />
+
+</div>
+<div class="figure">
+<img src="images/2017_top_10_publishers_frac.png" />
+
+</div>
+</div>
+<div class="figure">
+<img src="images/2017_pie_innov_v_no-innov.png" />
+
+</div>
 <ul>
 <li>visualization of co-mentions of innovators</li>
 </ul>
