@@ -18,8 +18,12 @@ Put in your css file or directly in rmarkdown--->
 
 ----
 
-# **Classification**
-## Evaluating Performance of Top-3 Performing Transformer Models  
+## **Classification**
+
+### Evaluating Performance of Top-3 Performing Transformer Models  
+
+Our best performing model is the DistilBERT model paired with a Support Vector Machines classifier using an RBF kernel. This model demonstrates the highest performance metrics with a balanced dataset. When cross-validation is used to further test performance with an unbalanced dataset, we find this model also has the best cross-validation score.  
+
 
  **Model**                                       | **Accuracy** | **Precision** | **Recall** | **F1** | **Cross-Validation Score** |
 |:-----------------------------------------------:|:------------:|:-------------:|:----------:|:------:|:--------------------------:|
@@ -29,12 +33,15 @@ Put in your css file or directly in rmarkdown--->
 
 <br>
 
-From the table above, we see that the best performing model is the DistilBERT model paired with a Support Vector Machines classifier using an RBF kernel. This model demonstrates the highest performance metrics with a balanced dataset. When cross-validation is used to further test performance with an unbalanced dataset, we find this model also has the best cross-validation score.  
-
 We make use of a balanced dataset of 222 observations in each of our "yes" and "no" target classes for calculating the accuracy, precision, recall, and F-1 score. We split this dataset having 444 total observation into a training set containing 333 observations and a testing set containing 111 observations, respectively (*train-test-split = 75% train - 25% test*). For cross-validating our models, we made use of the entire unbalanced dataset of 600 observations. We effectively had 222 observations for the "yes" class 378 observations for the "no" class.  
 
-## ROC Curves and Confusion Matrices  
-### Distil-BERT Support Vector Machine (RBF Kernel)  
+----
+
+### ROC Curves and Confusion Matrices  
+
+Our 3 ROC curves reinforce the findings of our performance metrics above. Our DistilBERT model, paired with the Support Vector Machine classifier, shows the strongest performance in terms of Area Under the Curve (AUC). The DistilBERT-SVM model exhibits the best AUC at 95%, as compared with 90% and 88% with the DistilBERT-Logistic Regression and Big Bird-Roberta models respectively. Furthermore, we observe that the slope of the curve itself is strongest for the DistilBERT-SVM model where the curve shows the steepest, immediate rise over long run, indicating the model's develops the ability to distinguish between innovation text and non-innovation text much more quickly. 
+
+#### Distil-BERT Support Vector Machine (RBF Kernel)  
  
 <div class="col2">
 
@@ -49,7 +56,7 @@ We make use of a balanced dataset of 222 observations in each of our "yes" and "
 
 </div>
 
-### Distil-BERT Logistic Regression  
+#### Distil-BERT Logistic Regression  
 
 <!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
 
@@ -65,7 +72,7 @@ We make use of a balanced dataset of 222 observations in each of our "yes" and "
 
 </div>
 
-### BigBird Logistic Regression  
+#### BigBird Logistic Regression  
 
 <!-- <img src="images/bigbird_LR_results.png"width="350px"> -->
 
@@ -86,39 +93,55 @@ There are some interesting results in our three models' confusion matrices. Firs
 2. DistilBERT-LR shows next best tradeoff with 3 FNs,
 3. Big Bird RoBERTA-LR shows worst performance in terms of TP-FN trade off with 5 FNs.  
 
-<!-- Namely, while we cannot be sure that each model is making the sa predictions on the same articles, the first row of TN’s and FP’s are identical across all models - 43 TN’s and 11 FP’s. -->
-Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s.  
+Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s. Lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.  
 
-And lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.  
+----
 
-# **Named Entity Recognition**
+## **Named Entity Recognition**
 
 * dslim results
 * expecting that we have some overall accuracy number - compare the # companies we manually labeled to the companies identified by NER
 * if we had tagged Apple, MCRSFT, is there a match for those based on NER? 
 
+Our team first ran Named Entity Recognition (NER) on a subset of our training set data, the 222 articles we labeled as “yes” innovation. The NER pipeline worked using the “dslim-bert-base” model and we compared its results to the company names that we had hand-labeled when classifying our training data. 
 
-# **2017 Set Results**
+Specifically, we ran each article through NER, and extracted the words that the model categorized as an organization, with the “ORG” tag, within the article. Along with the words themselves, we also extracted the confidence score associated with each word; this score indicates how confident the model is in its word recognition being correct. 
 
-## Classification  
+Having all of the entities that the model “guessed” as organizations for a particular article, we then compared the model’s most confident guess, the one with the highest confidence score, to the name we had hand-labled when classifying our training data. Moreover, this was an exact string match in which the model’s guess was only considered correct if it was exactly the same as our hand-labeled company name.
+
+Using these methods and the “dslim-bert-base” model for NER, we saw an accuracy of 50.90%, the model correctly matched the company name in 113 of 222 innovative articles.
+
+Here are 4 articles and the NER predictions and accuracy associated with them:
+
+```{r}
+ner_res <- dplyr::slice(readxl::read_excel("images/NER_results_sample.xlsx"), 2:5 )
+
+knitr::kable(ner_res)
+```
+
+
+----
+
+## **2017 Set Results**
+
+### Classification  
 
 ![](images/histogram_of_pred_probs.png)  
 
-## NER  
+### NER  
 
-<div class="col2">
+<!-- <div class="col2"> -->
 ![](images/2017_top_10_innovative_companies_frac.png)
 
 
 ![](images/2017_top_10_publishers_frac.png)
-</div>
-
-![](images/2017_pie_innov_v_no-innov.png)
-
-* visualization of co-mentions of innovators  
+<!-- </div> -->
 
 
-# **Conclusion**  
+
+----
+
+## **Conclusion**  
 
 In conclusion, promising results in terms of leverage state of the art language represetntation models to identify articles relevant to innovation. We have successffuly constructed a pipeline that classifies articles and extracts innovator companies with high accuracy and reasonable confidence. As a result of this work, we/NSF can now...
 
@@ -129,3 +152,11 @@ Drawbacks/Weaknesses:
 * scaling is a challenge - need for labeled data, crossing sectors is difficult, crossing time may be more complex as well
 
 Next steps, to refine this pipeline, extract product names, implement alt approaches e.g. Q&A, perform deduplication on company names
+
+* 
+
+This summer’s work has yielded promising results in terms of leveraging state-of-the-art language representation models to identify articles relevant to innovation. We have successfully constructed a pipeline that classifies articles and extracts innovative companies with high accuracy and reasonable confidence. As a result of this work, our team and the NCSES team can analyze innovation patterns frequency within the computer software sector through a new, quantitative perspective. Our work allows for the comparison of innovation rates between companies, specific differences between innovation identified by BERD and by our model, and countless other lenses with which to study this data. 
+
+Our research and results are susceptible to some influence due to the nature of our data, the context of which should be considered when performing further analysis and making conclusions based on the data. This can present itself in different ways: bias may come about through disparities in companies’ PR budgets, causing them to be overrepresented in the data; irrelevant news or “noise” can filter through into the data, lowering the rate of innovation in the entire dataset; and certain publishers may be overrepresented in the media, causing them to skew company-name frequency in the dataset and results. Scaling is also a challenge within this project -- the research demands hand-labeled data prior to model application, and crossing sectors or crossing time periods will only add complexity to the project. 
+
+Building off this summer’s results, our next steps will include refining and fine-tuning our natural language processing pipeline and moving from company-name extraction into product-name extraction using named-entity recognition. We plan to look into alternate NER approaches, such as question-answering (Q&A) models (which can be tested at the demo on our “Methods” page).
