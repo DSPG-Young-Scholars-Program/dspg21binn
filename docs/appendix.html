@@ -11,7 +11,7 @@
 
 
 
-<title>Methods</title>
+<title>Appendix</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -301,7 +301,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Methods</h1>
+<h1 class="title toc-ignore">Appendix</h1>
 
 </div>
 
@@ -316,94 +316,29 @@ $(document).ready(function () {
 <div class="col2">
 <p><br> <br></p>
 </div>
-<p>Notes:</p>
-<ul>
-<li>Explanation of Big-Bird-Roberta as hybrid of the two (combine those sections and add a explanation of combo)</li>
-<li>nothing about machine learning</li>
-<li>NER section - bert base</li>
-<li>separate page for Evaluation</li>
-</ul>
-<div id="our-approach" class="section level2">
-<h2><strong>Our Approach</strong></h2>
-<center>
-<img src="images/approach_slide.png" width="600px">
-</center>
-<ol style="list-style-type: decimal">
-<li><p>Implement various transformer based Natural Language Processing (NLP) models to tokenize and build text embeddings for the labeled data sets,</p></li>
-<li><p>Leverage supervised Machine Learning methods to train a model using a balanced dataset to classify articles denoting innovation and not denoting innovation,</p></li>
-<li><p>Evaluate model performance using cross-validation by using the imbalanced dataset,</p></li>
-<li><p>Apply BERT’s Named Entity Recognition methods to extract company names from classified documents,</p></li>
-<li><p>Run these methods to all articles for a given sector for a given year to extract the count of innovative articles per year, with their associated companies.</p></li>
-</ol>
-<hr />
+<div id="huggingface.io" class="section level2">
+<h2>HuggingFace.io</h2>
+<p>BERT Implementation Notes</p>
+<p>All of the methods described above were implemented in python using the <a href="https://huggingface.co/transformers/">transformers</a> library for pre-processing, classification, and named entity recognition. HuggingFace is a leading natural language processing startup that uses Transformers to solve sequence-to-sequence tasks while handling long-range dependencies with ease. HuggingFace/Transformers is a python-based library that exposes an API to use many well-known transformer architectures, such as BERT, RoBERTa, GPT-2 or DistilBERT, that obtain state-of-the-art results on a variety of NLP tasks like text classification, information extraction, question answering, and text generation. Those architectures come pre-trained with several sets of weights.</p>
 </div>
-<div id="transformer-based-natural-language-processing-models" class="section level2">
-<h2><strong>Transformer Based Natural Language Processing Models</strong></h2>
-<center>
-<img src="images/bert.png" width="500px">
-</center>
-<div id="what-is-bert" class="section level3">
-<h3>What is BERT?</h3>
-<p>BERT is a pre-trained, bidirectional unsupervised Natural Language Processing model developed by Google in 2018. Trained on the Book Corpus of 2,500 million words and Wikipedia's 800 million words, BERT tokenizes and builds more complex text embeddings that take word context into account, unlike traditional &quot;bag-of-words&quot; approaches. Here, we use BERT in several ways: not only as a data transformation tool to convert our text data into text embeddings based on a pre-trained model for classification but also as the basis for named-entity recognition.</p>
-<p>Try the <a href="https://huggingface.co/dslim/bert-base-NER">demo here!</a></p>
-</div>
-<div id="how-do-we-make-use-of-bert-for-our-work" class="section level3">
-<h3>How do we make use of BERT for our work?</h3>
-<p>We make use of the aforementioned models and their variations provided by Huggingface for 2 processes (see Appendix for technical details).</p>
-<ul>
-<li><em>Data Transformation:</em> We pre-process our documents, such that the text of our news articles are represented by new word-embeddings using these state-of-the-art NLP models. We use DistilBERT and a hybrid Big Bird-RoBERTa model for data transformation here. Once the articles are transformed, we then leverage classic supervised machine learning techniques in order to classify the articles based on likelihood of describing innovation. These include:
-<ul>
-<li><em>Logistic Regression</em></li>
-<li><em>Support Vector Machines</em></li>
-</ul></li>
-<li><em>Named Entity Recognition:</em> Once a set of innovation-likely articles are identified, we make use of the BERT base model for Named Entity Recogition.</li>
-</ul>
-<hr />
-</div>
-<div id="bert-models" class="section level3">
-<h3>BERT Models</h3>
-<p>There are several different BERT-like language representation models, usually designed to suit a specific task or optimized for a specific type of data. These include:</p>
-<p><br></p>
-<div id="distilbert" class="section level4">
-<h4>DistilBERT</h4>
+<div id="additional-model-results-2nd-place-runner-up" class="section level2">
+<h2>Additional Model Results: 2nd Place &amp; Runner Up</h2>
+<div id="distil-bert-logistic-regression" class="section level4">
+<h4>Distil-BERT Logistic Regression</h4>
+<!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
 <div class="col2">
-DistlBERT is a distilled version of traditional BERT. Uses fewer parameters, which had an interesting effect in our Summer trials of improving accuracy by reducing noise. It also runs faster and is smaller in size.<br />
-<br> <br>
-<center>
-<img src="images/distilbert.png" width="300px">
-</center>
+<p><img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px"></p>
+<p><br> <br></p>
+<p><img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px"></p>
 </div>
 </div>
-<div id="big-bird" class="section level4">
-<h4>Big Bird</h4>
+<div id="bigbird-logistic-regression" class="section level4">
+<h4>BigBird Logistic Regression</h4>
+<!-- <img src="images/bigbird_LR_results.png"width="350px"> -->
 <div class="col2">
-Big Bird is a new State of The Art method of tokenization and language processing. This model emphasizes memory optimization to allow for longer sequences to be processed. This could help us with our current limitation where we can only process the first 512 tokens. <br> <br> <!-- <center><img src="images/bigbird.jpeg" width="500px"></center>   -->
-<center>
-<img src="images/bigbirdgooglelogo.png" width="200px">
-</center>
+<p><img src="images/googlebigbird-roberta-base_lr_classifier_cf_matrix.png"width="350px"></p>
+<p><br> <br> <img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px"></p>
 </div>
-<p><br></p>
-</div>
-<div id="roberta" class="section level4">
-<h4>Roberta</h4>
-<div class="col2">
-RoBERTa and DistilRoBERTa – RoBERTa is a most robustly trained version of BERT that also uses much larger datasets to train. (160GB for RoBERTa vs 16GB for BERT). It also uses datasets to train that are more relevant to our applications, such as CC-NEWS (76G), OpenWebText (38G), and Stories (31G) data. DistilRoBERTa is a version of RoBERTa that has been processed using Knowledge Distillation, similar to DistilBERT. Once again, it has faster performance. <br> <br> <br> <!-- <center><img src="images/bigbird.jpeg" width="500px"></center>   -->
-<center>
-<img src="images/roberta.png" width="300px">
-</center>
-<p><br></p>
-</div>
-<p><br></p>
-<hr />
-</div>
-</div>
-<div id="cross-validation" class="section level3">
-<h3>Cross-Validation</h3>
-<p>Cross-validation is a statistical technique used to evaluate the performance of a machine learning model without splitting our data for training and testing. This summer, we used a method of cross-validation known as “k-fold” to evaluate the skill of our classifier models, where k=10. In 10-fold cross-validation, a given data set is split into 10 sections where each section/fold is used as a testing set at some point. In the first iteration, the first fold is used to test the model and the rest are used to train the model. In the second iteration, 2nd fold is used as the testing set while the rest serve as the training set. This process is repeated until each fold of the 10 folds has been used as the testing set. The average score is then calculated for the cross-validation score.</p>
-<center>
-<img src="images/crossvalidation.png" width="900px">
-</center>
-<hr />
 </div>
 </div>
 

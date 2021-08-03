@@ -15,7 +15,7 @@ Notes:
 * need some comments about how things changed for the two publishers charts
 * need some comments about the example data 
 
-# **Traditional Methods to Measure Innovation**  
+### **Traditional Methods to Measure Innovation**  
 
 We can broadly define 'Business Innovation' as the process of creating new or improved changes in the business. Following the international guidelines for surveys of business innovation in the OSLO Manual, developed by the Organization for Economic Co-operation and Development (OECD) and Eurostat, any business innovation can be categorized either as a: product innovation, business process innovation, marketing innovation, or organizational innovation. The most common type of innovation discussed within text sources, product innovation, implies that a new or improved product is introduced to the market. Measuring product innovation is specifically our focus for summer. Business innovation is crucial for value creation which can be achieved by the introduction of new or improved products in the market. As a key indicator of growth in the economy, accurately gauging the extent of business innovation is of crucial importance for policymakers.  
 
@@ -28,8 +28,9 @@ Partnering with NCSES, SDAD aims to see if non-traditional data sources can help
 
 ----
 
-# **The Data**   
-## Data Source: DowJones News and Analytics (DNA)  
+### **The Data**   
+
+#### DowJones News and Analytics (DNA)  
 
 <div class="col2">
 <center><img src="images/dnalogo.png" width="300px"></center>  
@@ -44,7 +45,7 @@ The Dow Jones DNA platform collects information from Dow Jones publications with
 </div>
 ----
 
-## High level Profiling  
+#### High level Profiling  
 
 The end goal of our project included implementing our classification and NER models on a year's worth of articles from the DNA database, specifcally in the software industry. The graphics below provide a high level overview of the 2017 data.  
 
@@ -54,22 +55,22 @@ The end goal of our project included implementing our classification and NER mod
 | Total publishers    | 825     |
 | Total companies     | 11,537  |
 
-<div class="col2"> 
-![](images/2017_top_10_publishers.png)
+<br>
 
-![](images/2017_top_10_company_mentions.png)
+These figures below describe the 2017 data by providing counts of the top ten publishers and the the top ten companies mentioned in the 2017 Software Articles. 
 
-</div>
-
-These figures above describe the 2017 data by providing counts of the top ten publishers and the the top ten companies mentioned in the 2017 Software Articles. 
+<center><img src="images/2017_top_10_publishers.png" width="500px"></center>  
 
 Observing the publishers graph, we see that the articles are dominated by the publisher NewsRX, LLC. With their article count at almost 30,000, they account for close to a third of all the articles we used in our analysis. This outsized representation of NewsRX, LLC plays a large role in our analysis as our results will reflect the coverage of this publisher, and not to mention the  other well represented publishers, including factors such as: how they cover the software industry, the scope of their reporting, and what companies they report on.
+
+
+<center><img src="images/2017_top_10_company_mentions.png" width="500px"></center>  
 
 This last aspect is reflected in the top ten companies mentioned graph. Across all of the publishers, we can see which companies in the software industry receive the most coverage within the Dow Jones DNA data. The top three companies in this case are IBM, Microsoft, and Snap. Interestingly, we can see how larger trends at the time of these articles publishing are reflected in these company mention counts. Most of the top ten companies in this list are fairly large and established software companies, with a long-standing record of performance within the industry. However, we can also observe how social and cultural factors play a role, as Snap, albeit a company that is much smaller to its counterparts on the list, received more coverage than all but two companies within the industry.
 
 ----
 
-## Labeling Task
+#### Labeling Task
 
 We trained various classification models based on transformers-based machine learning NLP models, for example, BERT, distil-BERT, BigBird, RoBERTa. The models predict whether an article from the DNA database described a product innovation or not. For this purpose, we hand-labeled a subset of 600 DNA articles. In preparation for this, our team reviewed the OSLO Manual, which as aforementioned, defines product innovation and provides the basis for collecting and reporting innovation data and publishing statistics on business innovation.  
 
@@ -87,15 +88,16 @@ colnames(preview) <- c("Headline", "Innovation/New Product Indicated?", "Company
 preview %>% knitr::kable(format = "html")
 ```
   
-
+<br> 
 This example above highlights the relevant components of our labeling framework our team used to classify articles and produce training data. Based on the headline, we can label the article as a "yes" for innovation as it describes a new or improved product that is available on market, the QT AI Camera, now, with COVID-19 Enhancements. Furthermore, we also see a text signal that strongly indicates this article describes an innovation: the word "Launches." Based on our definition of innovation from the Oslo Manual, again, “a new or significantly improved product that is available on market,” we often see article headlines that contain the word "launch" to denote an innovation. After making this determination on innovation, we then labeled the company name, "Dragontail Systems," and subsequently, filled out the remaining of the aforementioned columns, like where the company name was mentioned, and so on.
 
 
 
 ----
   
-## Our Training Set  
+#### Our Training Set  
 
 After hand-labeling 600 news articles, our team was then able to begin implementing transformer-based Natural Language Processing (NLP) methods to begin training our models for classification. However, prior to implementation, one last step was required: balancing our training data. Of the 600 articles we classified, 222 articles described an innovation. This imbalance in our dataset would translate to a bias in our model toward classifying an article as not describing an innovation. Thus, we chose a balanced set to train our model. We did so by subsetting our "no" innovation articles to a random 222 article sample thus having a balanced dataset of 444 rows.  
 
-![](images/balancing_graphic.png)
+
+<center><img src="images/balancing_graphic.png" width="500px"></center>  

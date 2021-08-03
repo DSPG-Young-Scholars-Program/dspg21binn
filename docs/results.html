@@ -354,10 +354,16 @@ div.tocify {
   <a href="methods.html">Methods</a>
 </li>
 <li>
+  <a href="eval.html">Evaluation</a>
+</li>
+<li>
   <a href="results.html">Results</a>
 </li>
 <li>
   <a href="about_us.html">About Us</a>
+</li>
+<li>
+  <a href="appendix.html">Appendix</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -435,34 +441,21 @@ Put in your css file or directly in rmarkdown--->
 </div>
 <div id="roc-curves-and-confusion-matrices" class="section level3">
 <h3>ROC Curves and Confusion Matrices</h3>
-<p>Our 3 ROC curves reinforce the findings of our performance metrics above. Our DistilBERT model, paired with the Support Vector Machine classifier, shows the strongest performance in terms of Area Under the Curve (AUC). The DistilBERT-SVM model exhibits the best AUC at 95%, as compared with 90% and 88% with the DistilBERT-Logistic Regression and Big Bird-Roberta models respectively. Furthermore, we observe that the slope of the curve itself is strongest for the DistilBERT-SVM model where the curve shows the steepest, immediate rise over long run, indicating the model's develops the ability to distinguish between innovation text and non-innovation text much more quickly.</p>
-<div id="distil-bert-support-vector-machine-rbf-kernel" class="section level4">
-<h4>Distil-BERT Support Vector Machine (RBF Kernel)</h4>
-<div class="col2">
-<!-- <img src="images/distilbert_SVM_results.png"width="350px"> -->
-<p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_cf_matrix.png"width="350px"></p>
-<p><br> <br></p>
-<p><img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px"></p>
-</div>
-</div>
-<div id="distil-bert-logistic-regression" class="section level4">
-<h4>Distil-BERT Logistic Regression</h4>
-<!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
-<div class="col2">
-<p><img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px"></p>
-<p><br> <br></p>
-<p><img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px"></p>
-</div>
-</div>
-<div id="bigbird-logistic-regression" class="section level4">
-<h4>BigBird Logistic Regression</h4>
-<!-- <img src="images/bigbird_LR_results.png"width="350px"> -->
-<div class="col2">
-<p><img src="images/googlebigbird-roberta-base_lr_classifier_cf_matrix.png"width="350px"></p>
-<p><br> <br></p>
-<p><img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px"></p>
-</div>
+<p>Our ROC curves and confusion matrices reinforce the findings of our performance metrics above.</p>
+<br>
+<center>
+<img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png" width="500px">
+</center>
+<p><br></p>
+<p>Our DistilBERT model, paired with the Support Vector Machine classifier, shows the strongest performance in terms of Area Under the Curve (AUC). The DistilBERT-SVM model exhibits the best AUC at 95%, as compared with 90% and 88% with the DistilBERT-Logistic Regression and Big Bird-Roberta models respectively (see Appendix for additional ROC curves and confusion matrices).</p>
+<p>Furthermore, we observe that the slope of the curve itself is strongest for the DistilBERT-SVM model where the curve shows the steepest, immediate rise over long run, indicating the model's develops the ability to distinguish between innovation text and non-innovation text much more quickly.</p>
+<p><br></p>
 <p>There are some interesting results in our three models' confusion matrices. Firstly, we observe that each model's TN and FP counts are identical. For the TP and FN counts, we observe the following ranking:</p>
+<p><br></p>
+<center>
+<img src="images/distilbert-base-uncased_rbf-kernel_classifier_cf_matrix.png" width="500px">
+</center>
+<p><br></p>
 <ol style="list-style-type: decimal">
 <li>DistilBERT-SVM shows best TP-FN tradeoff with 0 FNs,</li>
 <li>DistilBERT-LR shows next best tradeoff with 3 FNs,</li>
@@ -470,7 +463,6 @@ Put in your css file or directly in rmarkdown--->
 </ol>
 <p>Looking at the distilbert SVM confusion matrix, we see improvement from the first distilbert logistic regression confusion matrix, as 3 FN’s move into TP’s. Lastly, the Big Bird Roberta Logistic Regression confusion matrix seems to perform worse, compared to the first distilbert logistic regression confusion matrix, as it shows an extra 2 FN’s that seem to move from the TP’s.</p>
 <hr />
-</div>
 </div>
 </div>
 <div id="named-entity-recognition" class="section level2">
@@ -485,17 +477,13 @@ Put in your css file or directly in rmarkdown--->
 <p>Having all of the entities that the model “guessed” as organizations for a particular article, we then compared the model’s most confident guess, the one with the highest confidence score, to the name we had hand-labled when classifying our training data. Moreover, this was an exact string match in which the model’s guess was only considered correct if it was exactly the same as our hand-labeled company name.</p>
 <p>Using these methods and the “dslim-bert-base” model for NER, we saw an accuracy of 50.90%, the model correctly matched the company name in 113 of 222 innovative articles.</p>
 <p>Here are 4 articles and the NER predictions and accuracy associated with them:</p>
-<pre class="r"><code>ner_res &lt;- dplyr::slice(readxl::read_excel(&quot;images/NER_results_sample.xlsx&quot;), 2:5 )
-
-knitr::kable(ner_res)</code></pre>
-<table>
+<table style="width:100%;">
 <colgroup>
-<col width="81%" />
+<col width="83%" />
 <col width="3%" />
 <col width="3%" />
+<col width="4%" />
 <col width="3%" />
-<col width="3%" />
-<col width="2%" />
 <col width="2%" />
 </colgroup>
 <thead>
@@ -505,7 +493,6 @@ knitr::kable(ner_res)</code></pre>
 <th align="left">Labeled Company 2</th>
 <th align="left">Top Rated NER Company Guess</th>
 <th align="right">NER Confidence score</th>
-<th align="right">exact match binary</th>
 <th align="left">Accuracy</th>
 </tr>
 </thead>
@@ -516,16 +503,34 @@ knitr::kable(ner_res)</code></pre>
 <td align="left">Metrologic Group</td>
 <td align="left">Metrologic Group</td>
 <td align="right">0.9986972</td>
-<td align="right">1</td>
 <td align="left">correct</td>
 </tr>
 <tr class="even">
-<td align="left">BoardwalkTech; Boardwalktech Announces BW.Supplychain Ecosystem for Retail, Apparel, and CPG 2020 JAN 27 (VerticalNews)</td>
+<td align="left">BoardwalkTech; Boardwalktech Announces BW.Supplychain Ecosystem for Retail, Apparel, and CPG 2020 JAN 27 (VerticalNews) BW.Supplychain provides a more efficient platform for inventory management and leverages the Boardwalk patented cell level transaction chaining technology for early detection of supply chain disruptions - amplifying beneficial ones, while mitigating or resolving disruptive ones -- using our rapid collaboration, planning and operations applications with results delivered via the BW.ControlTower.</td>
+<td align="left">BoardwalkTech</td>
+<td align="left">NA</td>
+<td align="left">BoardwalkTech</td>
+<td align="right">0.8686774</td>
+<td align="left">correct</td>
+</tr>
+<tr class="odd">
+<td align="left">American LegalNet, Inc. American LegalNet Announces New eDockets Reporting Features and eDockets/NetDocuments Integration</td>
+<td align="left">American LegalNet, Inc.</td>
+<td align="left">American LegalNet (ALN)</td>
+<td align="left">American LegalNet, Inc</td>
+<td align="right">0.8686774</td>
+<td align="left">no exact match</td>
+</tr>
+<tr class="even">
+<td align="left">Sprinting from a conference call earlier today to announce new server products, Hewlett-Packard ( HPQ) head of enterprise technology David Donatelli was kind enough to swing by Barron's offices.Donatelli, who has been at HP for four years now, has helped the enterprise group productize three different inventions of HP Labs, including Project Moonshot, the subject of today's server announcement; something called StoreOnce, for &quot; data de-duplication&quot;; and StoreAll, to help compliance and legal departments perform data analysis on the vast troves of archived material companies amass.</td>
+<td align="left">HP</td>
+<td align="left">Hewlett-Packard ( HPQ)</td>
+<td align="left">HP Labs</td>
+<td align="right">0.9985487</td>
+<td align="left">no exact match</td>
 </tr>
 </tbody>
 </table>
-<p>BW.Supplychain provides a more efficient platform for inventory management and leverages the Boardwalk patented cell level transaction chaining technology for early detection of supply chain disruptions - amplifying beneficial ones, while mitigating or resolving disruptive ones -- using our rapid collaboration, planning and operations applications with results delivered via the BW.ControlTower. |BoardwalkTech |NA |BoardwalkTech | 0.8686774| 1|correct | |American LegalNet, Inc. American LegalNet Announces New eDockets Reporting Features and eDockets/NetDocuments Integration |American LegalNet, Inc. |American LegalNet (ALN) |American LegalNet, Inc | 0.8686774| 0|no exact match | |Sprinting from a conference call earlier today to announce new server products, Hewlett-Packard ( HPQ) head of enterprise technology David Donatelli was kind enough to swing by Barron's offices.</p>
-<p>Donatelli, who has been at HP for four years now, has helped the enterprise group productize three different inventions of HP Labs, including Project Moonshot, the subject of today's server announcement; something called StoreOnce, for &quot; data de-duplication&quot;; and StoreAll, to help compliance and legal departments perform data analysis on the vast troves of archived material companies amass. |HP |Hewlett-Packard ( HPQ) |HP Labs | 0.9985487| 0|no exact match |</p>
 <hr />
 </div>
 <div id="set-results" class="section level2">
