@@ -82,7 +82,6 @@ Our 3 ROC curves reinforce the findings of our performance metrics above. Our Di
 
 <br>
 <br>
-
 <img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px">
 
 </div>
