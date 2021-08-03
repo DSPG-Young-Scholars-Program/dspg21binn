@@ -278,10 +278,16 @@ $(document).ready(function () {
   <a href="methods.html">Methods</a>
 </li>
 <li>
+  <a href="eval.html">Evaluation</a>
+</li>
+<li>
   <a href="results.html">Results</a>
 </li>
 <li>
   <a href="about_us.html">About Us</a>
+</li>
+<li>
+  <a href="appendix.html">Appendix</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -312,8 +318,8 @@ $(document).ready(function () {
 <li>need some comments about how things changed for the two publishers charts</li>
 <li>need some comments about the example data</li>
 </ul>
-<div id="traditional-methods-to-measure-innovation" class="section level1">
-<h1><strong>Traditional Methods to Measure Innovation</strong></h1>
+<div id="traditional-methods-to-measure-innovation" class="section level3">
+<h3><strong>Traditional Methods to Measure Innovation</strong></h3>
 <p>We can broadly define 'Business Innovation' as the process of creating new or improved changes in the business. Following the international guidelines for surveys of business innovation in the OSLO Manual, developed by the Organization for Economic Co-operation and Development (OECD) and Eurostat, any business innovation can be categorized either as a: product innovation, business process innovation, marketing innovation, or organizational innovation. The most common type of innovation discussed within text sources, product innovation, implies that a new or improved product is introduced to the market. Measuring product innovation is specifically our focus for summer. Business innovation is crucial for value creation which can be achieved by the introduction of new or improved products in the market. As a key indicator of growth in the economy, accurately gauging the extent of business innovation is of crucial importance for policymakers.</p>
 <p>Traditional efforts to measure innovation in the United States primarily include the two surveys conducted by National Science Foundation’s (NSF) division – the <a href="https://www.nsf.gov/statistics/about-ncses.cfm">National Center for Science and Engineering Statistics (NCSES)</a>: <a href="https://www.nsf.gov/statistics/srvyberd/">Business R&amp;D and Innovation Survey (BRDIS)</a>, and the <a href="https://www.nsf.gov/statistics/srvyabs/">Annual Business Survey (ABS)</a>. The surveys aim to capture the state of innovation in the United States through a nationally representative sample of non-farm businesses across the country. These surveys aim to collect data on innovation by companies in the past year, as defined by the 2018 Oslo Manual — any new or improved product available on the market. However, additional methods of measuring innovation can help provide further information on the nation’s degree of innovation.</p>
 <p>Partnering with NCSES, SDAD aims to see if non-traditional data sources can help supplement BRDIS by measuring innovation. Our main goals for the summer were:</p>
@@ -324,10 +330,10 @@ $(document).ready(function () {
 </ol>
 <hr />
 </div>
-<div id="the-data" class="section level1">
-<h1><strong>The Data</strong></h1>
-<div id="data-source-dowjones-news-and-analytics-dna" class="section level2">
-<h2>Data Source: DowJones News and Analytics (DNA)</h2>
+<div id="the-data" class="section level3">
+<h3><strong>The Data</strong></h3>
+<div id="dowjones-news-and-analytics-dna" class="section level4">
+<h4>DowJones News and Analytics (DNA)</h4>
 <div class="col2">
 <center>
 <img src="images/dnalogo.png" width="300px">
@@ -337,8 +343,8 @@ $(document).ready(function () {
 </div>
 <hr />
 </div>
-<div id="high-level-profiling" class="section level2">
-<h2>High level Profiling</h2>
+<div id="high-level-profiling" class="section level4">
+<h4>High level Profiling</h4>
 <p>The end goal of our project included implementing our classification and NER models on a year's worth of articles from the DNA database, specifcally in the software industry. The graphics below provide a high level overview of the 2017 data.</p>
 <table>
 <thead>
@@ -362,23 +368,20 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
-<div class="col2">
-<div class="figure">
-<img src="images/2017_top_10_publishers.png" />
-
-</div>
-<div class="figure">
-<img src="images/2017_top_10_company_mentions.png" />
-
-</div>
-</div>
-<p>These figures above describe the 2017 data by providing counts of the top ten publishers and the the top ten companies mentioned in the 2017 Software Articles.</p>
+<p><br></p>
+<p>These figures below describe the 2017 data by providing counts of the top ten publishers and the the top ten companies mentioned in the 2017 Software Articles.</p>
+<center>
+<img src="images/2017_top_10_publishers.png" width="500px">
+</center>
 <p>Observing the publishers graph, we see that the articles are dominated by the publisher NewsRX, LLC. With their article count at almost 30,000, they account for close to a third of all the articles we used in our analysis. This outsized representation of NewsRX, LLC plays a large role in our analysis as our results will reflect the coverage of this publisher, and not to mention the other well represented publishers, including factors such as: how they cover the software industry, the scope of their reporting, and what companies they report on.</p>
+<center>
+<img src="images/2017_top_10_company_mentions.png" width="500px">
+</center>
 <p>This last aspect is reflected in the top ten companies mentioned graph. Across all of the publishers, we can see which companies in the software industry receive the most coverage within the Dow Jones DNA data. The top three companies in this case are IBM, Microsoft, and Snap. Interestingly, we can see how larger trends at the time of these articles publishing are reflected in these company mention counts. Most of the top ten companies in this list are fairly large and established software companies, with a long-standing record of performance within the industry. However, we can also observe how social and cultural factors play a role, as Snap, albeit a company that is much smaller to its counterparts on the list, received more coverage than all but two companies within the industry.</p>
 <hr />
 </div>
-<div id="labeling-task" class="section level2">
-<h2>Labeling Task</h2>
+<div id="labeling-task" class="section level4">
+<h4>Labeling Task</h4>
 <p>We trained various classification models based on transformers-based machine learning NLP models, for example, BERT, distil-BERT, BigBird, RoBERTa. The models predict whether an article from the DNA database described a product innovation or not. For this purpose, we hand-labeled a subset of 600 DNA articles. In preparation for this, our team reviewed the OSLO Manual, which as aforementioned, defines product innovation and provides the basis for collecting and reporting innovation data and publishing statistics on business innovation.</p>
 <p>We chose 600 articles at random from the database of articles. Our exploratory data analysis on these articles firstly entailed creating a field that distinguished articles if they described an innovation or not. We also added several other fields that we use for Named Entity Recognition (NER). Specifically, if we classified articles as a &quot;yes&quot; for innovation, we then also labeled the company name(s), where the name(s) was mentioned (title, snippet, and/or body), what the product name was, where it was mentioned, any tags on the product name if they existed (such as &quot;TM&quot; or &quot;C&quot; that could help tune our algorithm), and finally, what the features of the product were.</p>
 <p>An example of our data is shown below:</p>
@@ -410,16 +413,15 @@ Dragontail Systems
 </tr>
 </tbody>
 </table>
-<p>This example above highlights the relevant components of our labeling framework our team used to classify articles and produce training data. Based on the headline, we can label the article as a &quot;yes&quot; for innovation as it describes a new or improved product that is available on market, the QT AI Camera, now, with COVID-19 Enhancements. Furthermore, we also see a text signal that strongly indicates this article describes an innovation: the word &quot;Launches.&quot; Based on our definition of innovation from the Oslo Manual, again, “a new or significantly improved product that is available on market,” we often see article headlines that contain the word &quot;launch&quot; to denote an innovation. After making this determination on innovation, we then labeled the company name, &quot;Dragontail Systems,&quot; and subsequently, filled out the remaining of the aforementioned columns, like where the company name was mentioned, and so on.</p>
+<p><br> This example above highlights the relevant components of our labeling framework our team used to classify articles and produce training data. Based on the headline, we can label the article as a &quot;yes&quot; for innovation as it describes a new or improved product that is available on market, the QT AI Camera, now, with COVID-19 Enhancements. Furthermore, we also see a text signal that strongly indicates this article describes an innovation: the word &quot;Launches.&quot; Based on our definition of innovation from the Oslo Manual, again, “a new or significantly improved product that is available on market,” we often see article headlines that contain the word &quot;launch&quot; to denote an innovation. After making this determination on innovation, we then labeled the company name, &quot;Dragontail Systems,&quot; and subsequently, filled out the remaining of the aforementioned columns, like where the company name was mentioned, and so on.</p>
 <hr />
 </div>
-<div id="our-training-set" class="section level2">
-<h2>Our Training Set</h2>
+<div id="our-training-set" class="section level4">
+<h4>Our Training Set</h4>
 <p>After hand-labeling 600 news articles, our team was then able to begin implementing transformer-based Natural Language Processing (NLP) methods to begin training our models for classification. However, prior to implementation, one last step was required: balancing our training data. Of the 600 articles we classified, 222 articles described an innovation. This imbalance in our dataset would translate to a bias in our model toward classifying an article as not describing an innovation. Thus, we chose a balanced set to train our model. We did so by subsetting our &quot;no&quot; innovation articles to a random 222 article sample thus having a balanced dataset of 444 rows.</p>
-<div class="figure">
-<img src="images/balancing_graphic.png" />
-
-</div>
+<center>
+<img src="images/balancing_graphic.png" width="500px">
+</center>
 </div>
 </div>
 

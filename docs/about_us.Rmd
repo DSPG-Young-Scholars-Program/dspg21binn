@@ -1,6 +1,6 @@
 ---
 title: "About Us"
-author:  "[Aditi Mahabal](https://github.com/aditimahabal), [Aditi Mahabal](https://github.com/aditimahabal), [Akilesh Ramakrishnan](https://github.com/asrkr), [Digvijay Ghotane](https://github.com/diggyg97), [Devika Mahoney-Nair](https://github.com/DevikaNair90), [Neil Alexander](https://github.com/neilalex), and [Gizem Korkmaz](https://github.com/gkorkmaz) at [University of Virginia, Biocomplexity Institute](https://biocomplexity.virginia.edu/institute/divisions/social-and-decision-analytics)"
+author:  "[Aditi Mahabal](https://github.com/aditimahabal), [Akilesh Ramakrishnan](https://github.com/asrkr), [Digvijay Ghotane](https://github.com/diggyg97), [Devika Mahoney-Nair](https://github.com/DevikaNair90), [Neil Alexander](https://github.com/neilalex), and [Gizem Korkmaz](https://github.com/gkorkmaz) at [University of Virginia, Biocomplexity Institute](https://biocomplexity.virginia.edu/institute/divisions/social-and-decision-analytics)"
 date: "Aug 6, 2021"
 output:
   html_document:

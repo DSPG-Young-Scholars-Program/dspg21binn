@@ -6,10 +6,14 @@ navbar:
       href: background.html
     - text: "Methods"
       href: methods.html
+    - text: "Evaluation"
+      href: eval.html
     - text: "Results"
       href: results.html
     - text: "About Us"
       href: about_us.html
+    - text: "Appendix"
+      href: appendix.html
 output_dir: "."
 output:
   html_document:

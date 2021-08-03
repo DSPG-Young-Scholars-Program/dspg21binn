@@ -39,54 +39,25 @@ We make use of a balanced dataset of 222 observations in each of our "yes" and "
 
 ### ROC Curves and Confusion Matrices  
 
-Our 3 ROC curves reinforce the findings of our performance metrics above. Our DistilBERT model, paired with the Support Vector Machine classifier, shows the strongest performance in terms of Area Under the Curve (AUC). The DistilBERT-SVM model exhibits the best AUC at 95%, as compared with 90% and 88% with the DistilBERT-Logistic Regression and Big Bird-Roberta models respectively. Furthermore, we observe that the slope of the curve itself is strongest for the DistilBERT-SVM model where the curve shows the steepest, immediate rise over long run, indicating the model's develops the ability to distinguish between innovation text and non-innovation text much more quickly. 
-
-#### Distil-BERT Support Vector Machine (RBF Kernel)  
- 
-<div class="col2">
-
-<!-- <img src="images/distilbert_SVM_results.png"width="350px"> -->
-
-<img src="images/distilbert-base-uncased_rbf-kernel_classifier_cf_matrix.png"width="350px">
+Our ROC curves and confusion matrices reinforce the findings of our performance metrics above. 
 
 <br>
+<center><img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png" width="500px"></center>  
 <br>
 
-<img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png"width="350px">
+Our DistilBERT model, paired with the Support Vector Machine classifier, shows the strongest performance in terms of Area Under the Curve (AUC). The DistilBERT-SVM model exhibits the best AUC at 95%, as compared with 90% and 88% with the DistilBERT-Logistic Regression and Big Bird-Roberta models respectively (see Appendix for additional ROC curves and confusion matrices). 
 
-</div>
-
-#### Distil-BERT Logistic Regression  
-
-<!-- <img src="images/distilbert_LR_results.png"width="350px"> -->
-
-<div class="col2">
-
-<img src="images/distilbert-base-uncased_lr_classifier_cf_matrix.png"width="350px">
+Furthermore, we observe that the slope of the curve itself is strongest for the DistilBERT-SVM model where the curve shows the steepest, immediate rise over long run, indicating the model's develops the ability to distinguish between innovation text and non-innovation text much more quickly. 
 
 <br>
-<br>
-
-<img src="images/distilbert-base-uncased_lr_classifier_roc_curve.png"width="350px">
-
-
-</div>
-
-#### BigBird Logistic Regression  
-
-<!-- <img src="images/bigbird_LR_results.png"width="350px"> -->
-
-<div class="col2">
-
-<img src="images/googlebigbird-roberta-base_lr_classifier_cf_matrix.png"width="350px">
-
-<br>
-<br>
-<img src="images/googlebigbird-roberta-base_lr_classifier_roc_curve.png"width="350px">
-
-</div>
 
 There are some interesting results in our three models' confusion matrices. Firstly, we observe that each model's TN and FP counts are identical. For the TP and FN counts, we observe the following ranking:  
+
+<br>
+
+<center><img src="images/distilbert-base-uncased_rbf-kernel_classifier_cf_matrix.png" width="500px"></center>  
+
+<br>
 
 1. DistilBERT-SVM shows best TP-FN tradeoff with 0 FNs,
 2. DistilBERT-LR shows next best tradeoff with 3 FNs,
@@ -112,10 +83,20 @@ Using these methods and the “dslim-bert-base” model for NER, we saw an accur
 
 Here are 4 articles and the NER predictions and accuracy associated with them:
 
-```{r}
+```{r echo = FALSE}
 ner_res <- dplyr::slice(readxl::read_excel("images/NER_results_sample.xlsx"), 2:5 )
 
-knitr::kable(ner_res)
+# knitr::kable(ner_res)
+# ner_res[2,1]$`Sample Text`
+# ner_res[1,1]$`Sample Text`
+# ner_res[3,1]$`Sample Text`
+# ner_res[4,1]$`Sample Text`
+# knitr::kable(ner_res[2,1])
+library(dplyr)
+ner_res <- ner_res %>% mutate(`Sample Text` = stringr::str_remove_all(string = `Sample Text`, pattern = "\\r|\\n")) 
+
+knitr::kable(ner_res %>% select(-`exact match binary`))
+
 ```
 
 
