@@ -316,13 +316,6 @@ $(document).ready(function () {
 <div class="col2">
 <p><br> <br></p>
 </div>
-<p>Notes:</p>
-<ul>
-<li>Explanation of Big-Bird-Roberta as hybrid of the two (combine those sections and add a explanation of combo)</li>
-<li>nothing about machine learning</li>
-<li>NER section - bert base</li>
-<li>separate page for Evaluation</li>
-</ul>
 <div id="our-approach" class="section level2">
 <h2><strong>Our Approach</strong></h2>
 <center>
@@ -349,7 +342,7 @@ $(document).ready(function () {
 </div>
 <div id="how-do-we-make-use-of-bert-for-our-work" class="section level3">
 <h3>How do we make use of BERT for our work?</h3>
-<p>We make use of the aforementioned models and their variations provided by Huggingface for 2 processes (see Appendix for technical details).</p>
+<p>We make use of the aforementioned models and their variations provided by Huggingface for 2 processes (see <a href="https://dspg-young-scholars-program.github.io/dspg21binn/appendix.html">Appendix</a> for technical details).</p>
 <ul>
 <li><em>Data Transformation:</em> We pre-process our documents, such that the text of our news articles are represented by new word-embeddings using these state-of-the-art NLP models. We use DistilBERT and a hybrid Big Bird-RoBERTa model for data transformation here. Once the articles are transformed, we then leverage classic supervised machine learning techniques in order to classify the articles based on likelihood of describing innovation. These include:
 <ul>
@@ -404,6 +397,12 @@ RoBERTa and DistilRoBERTa – RoBERTa is a most robustly trained version of BERT
 <img src="images/crossvalidation.png" width="900px">
 </center>
 <hr />
+</div>
+<div id="named-entity-recognition" class="section level3">
+<h3>Named Entity Recognition</h3>
+<p>Our team first ran Named Entity Recognition (NER) on a subset of our training set data, the 222 articles we labeled as “yes” innovation. The NER pipeline worked using the “dslim-bert-base” model and we compared its results to the company names that we had hand-labeled when classifying our training data.</p>
+<p>Specifically, we ran each article through NER, and extracted the words that the model categorized as an organization, with the “ORG” tag, within the article. Along with the words themselves, we also extracted the confidence score associated with each word; this score indicates how confident the model is in its word recognition being correct.</p>
+<p>Having all of the entities that the model “guessed” as organizations for a particular article, we then compared the model’s most confident guess, the one with the highest confidence score, to the name we had hand-labled when classifying our training data. Moreover, this was an exact string match in which the model’s guess was only considered correct if it was exactly the same as our hand-labeled company name.</p>
 </div>
 </div>
 

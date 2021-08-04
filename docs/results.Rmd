@@ -20,7 +20,7 @@ Put in your css file or directly in rmarkdown--->
 
 ## **Classification**
 
-### Evaluating Performance of Top-3 Performing Transformer Models  
+### Top-3 Performing Transformer Models  
 
 Our best performing model is the DistilBERT model paired with a Support Vector Machines classifier using an RBF kernel. This model demonstrates the highest performance metrics with a balanced dataset. When cross-validation is used to further test performance with an unbalanced dataset, we find this model also has the best cross-validation score.  
 
@@ -35,21 +35,25 @@ Our best performing model is the DistilBERT model paired with a Support Vector M
 
 We make use of a balanced dataset of 222 observations in each of our "yes" and "no" target classes for calculating the accuracy, precision, recall, and F-1 score. We split this dataset having 444 total observation into a training set containing 333 observations and a testing set containing 111 observations, respectively (*train-test-split = 75% train - 25% test*). For cross-validating our models, we made use of the entire unbalanced dataset of 600 observations. We effectively had 222 observations for the "yes" class 378 observations for the "no" class.  
 
+Our ROC curves and confusion matrices reinforce the findings of our performance metrics above. 
+
 ----
 
-### ROC Curves and Confusion Matrices  
-
-Our ROC curves and confusion matrices reinforce the findings of our performance metrics above. 
+### ROC Curve
 
 <br>
 <center><img src="images/distilbert-base-uncased_rbf-kernel_classifier_roc_curve.png" width="500px"></center>  
 <br>
 
-Our DistilBERT model, paired with the Support Vector Machine classifier, shows the strongest performance in terms of Area Under the Curve (AUC). The DistilBERT-SVM model exhibits the best AUC at 95%, as compared with 90% and 88% with the DistilBERT-Logistic Regression and Big Bird-Roberta models respectively (see Appendix for additional ROC curves and confusion matrices). 
+Our DistilBERT model, paired with the Support Vector Machine classifier, shows the strongest performance in terms of Area Under the Curve (AUC). The DistilBERT-SVM model exhibits the best AUC at 95%, as compared with 90% and 88% with the DistilBERT-Logistic Regression and Big Bird-Roberta models respectively (see [Appendix](https://dspg-young-scholars-program.github.io/dspg21binn/appendix.html) for additional ROC curves and confusion matrices). 
 
 Furthermore, we observe that the slope of the curve itself is strongest for the DistilBERT-SVM model where the curve shows the steepest, immediate rise over long run, indicating the model's develops the ability to distinguish between innovation text and non-innovation text much more quickly. 
 
 <br>
+
+----
+
+### Confusion Matrix
 
 There are some interesting results in our three models' confusion matrices. Firstly, we observe that each model's TN and FP counts are identical. For the TP and FN counts, we observe the following ranking:  
 
@@ -69,19 +73,9 @@ Looking at the distilbert SVM confusion matrix, we see improvement from the firs
 
 ## **Named Entity Recognition**
 
-* dslim results
-* expecting that we have some overall accuracy number - compare the # companies we manually labeled to the companies identified by NER
-* if we had tagged Apple, MCRSFT, is there a match for those based on NER? 
+Using the "exact match only" method and the BERT base model for NER described in our Methods section, we were better able to assess our results. Based on this matching, we saw an **accuracy of 50.90%**, meaning the companies identified by NER correctly matched the company names we manually labeled in 113 of 222 innovative articles. 
 
-Our team first ran Named Entity Recognition (NER) on a subset of our training set data, the 222 articles we labeled as “yes” innovation. The NER pipeline worked using the “dslim-bert-base” model and we compared its results to the company names that we had hand-labeled when classifying our training data. 
-
-Specifically, we ran each article through NER, and extracted the words that the model categorized as an organization, with the “ORG” tag, within the article. Along with the words themselves, we also extracted the confidence score associated with each word; this score indicates how confident the model is in its word recognition being correct. 
-
-Having all of the entities that the model “guessed” as organizations for a particular article, we then compared the model’s most confident guess, the one with the highest confidence score, to the name we had hand-labled when classifying our training data. Moreover, this was an exact string match in which the model’s guess was only considered correct if it was exactly the same as our hand-labeled company name.
-
-Using these methods and the “dslim-bert-base” model for NER, we saw an accuracy of 50.90%, the model correctly matched the company name in 113 of 222 innovative articles.
-
-Here are 4 articles and the NER predictions and accuracy associated with them:
+More work is needed to improve company name matching, as we observed that cases without an 'exact match' often showed a partial match, like in the case of ```"American LegalNet, Inc."``` and ```"American LegalNet, Inc"``` shown in the 3rd row of the table below, where the only difference hindering the match was a punctuation mark. In other cases, the lack of a match was more complicated, such as in the case of ```"Hewlett-Packard (HPQ)"``` and ```"HP Labs"``` where the two names do not really match, but refer to the same corporate entity. Here are 4 articles and the NER predictions and accuracy associated with them:
 
 ```{r echo = FALSE}
 ner_res <- dplyr::slice(readxl::read_excel("images/NER_results_sample.xlsx"), 2:5 )
@@ -102,38 +96,35 @@ knitr::kable(ner_res %>% select(-`exact match binary`))
 
 ----
 
-## **2017 Set Results**
+## **Applying our Algorithm!**
 
-### Classification  
+### Classification of 2017 computer software articles 
 
-![](images/histogram_of_pred_probs.png)  
+<div class="col2">
+When our final model, the DistilBERT-SVM classifier, is applied to the 101,143 computer software articles published in 2017, it outputs the following distribution of probabilities that each one indicates innovation. Roughly 20% of the articles, or **21,916 articles are classified as describing innovation**, based on our probability threshold of 0.5. It is interesting to note that our model, trained on a balanced, 50/50 dataset, still makes 80/20 predictions. This imbalance in the predictions aligns with our prior experience conducting the same work in other sectors, such as food and pharmaceuticals, where articles indicating innovation are typically rarer. 
+<br>
+<br>
+<br>
+<right><img src="images/histogram_of_pred_probs.png" width="500px"></right>  
+</div>
 
-### NER  
+<br>
 
-<!-- <div class="col2"> -->
-![](images/2017_top_10_innovative_companies_frac.png)
+### Other findings
 
+When we investigate the top innovators associated with our 20k articles describing innovation, we begin to notice a few interesting trends. First we observe that within the top 10 companies by total mention, there is huge variation in the proportion of innovation-indicating articles. Interestingly, the most mentioned company, IBM, has the smallest proportion of innovation-indicating articles. Meanwhile, Apple, Alphabet, and Microsoft have significant proportions of innovation articles. Future work may investigate what companies are best represented in news articles to better understand the kinds of innovation and new products can be detected in text. 
 
-![](images/2017_top_10_publishers_frac.png)
-<!-- </div> -->
+<center><img src="images/2017_top_10_innovative_companies_frac.png" width="500px"></center>  
+
+When we investigate the top publishers associated with our 20k articles describing innovation, we begin to notice a few interesting trends. The most immediate observation here is the variation in the proportion of innovation-indicating articles by publisher source. Some publishers, such as Norman's Media and Business Wire, have high proportions of innovation-indicating articles; others, like News Bites, have much lower proportions. It may be improve our model to consider eliminating those publishers who are less likely to cover new products in their publications; however, a larger set of training data would be required to better support this kind of analysis. 
+
+<center><img src="images/2017_top_10_publishers_frac.png" width="500px"></center>  
 
 
 
 ----
 
 ## **Conclusion**  
-
-In conclusion, promising results in terms of leverage state of the art language represetntation models to identify articles relevant to innovation. We have successffuly constructed a pipeline that classifies articles and extracts innovator companies with high accuracy and reasonable confidence. As a result of this work, we/NSF can now...
-
-Drawbacks/Weaknesses: 
-
-* susceptible to bias  e.g., because of large companies with large PR budgets overrepresented in the data
-* susceptible to noise e.g., financial news, irrelevant news
-* scaling is a challenge - need for labeled data, crossing sectors is difficult, crossing time may be more complex as well
-
-Next steps, to refine this pipeline, extract product names, implement alt approaches e.g. Q&A, perform deduplication on company names
-
-* 
 
 This summer’s work has yielded promising results in terms of leveraging state-of-the-art language representation models to identify articles relevant to innovation. We have successfully constructed a pipeline that classifies articles and extracts innovative companies with high accuracy and reasonable confidence. As a result of this work, our team and the NCSES team can analyze innovation patterns frequency within the computer software sector through a new, quantitative perspective. Our work allows for the comparison of innovation rates between companies, specific differences between innovation identified by BERD and by our model, and countless other lenses with which to study this data. 
 

@@ -15,14 +15,6 @@ title: "Methods"
 <br>
 </div>
 
-Notes: 
-
-* Explanation of Big-Bird-Roberta as hybrid of the two (combine those sections and add a explanation of combo)
-* nothing about machine learning
-* NER section - bert base
-* separate page for Evaluation
-
-
 ## **Our Approach**  
 
 <center><img src="images/approach_slide.png" width="600px"></center>  
@@ -51,7 +43,7 @@ Try the [demo here!](https://huggingface.co/dslim/bert-base-NER)
 
 ### How do we make use of BERT for our work?
 
-We make use of the aforementioned models and their variations provided by Huggingface for 2 processes (see Appendix for technical details).
+We make use of the aforementioned models and their variations provided by Huggingface for 2 processes (see [Appendix](https://dspg-young-scholars-program.github.io/dspg21binn/appendix.html) for technical details).
 
 * *Data Transformation:* We pre-process our documents, such that the text of our news articles are represented by new word-embeddings using these state-of-the-art NLP models. We use DistilBERT and a hybrid Big Bird-RoBERTa model for data transformation here. Once the articles are transformed, we then leverage classic supervised machine learning techniques in order to classify the articles based on likelihood of describing innovation. These include:
     - *Logistic Regression*
@@ -109,3 +101,11 @@ Cross-validation is a statistical technique used to evaluate the performance of 
 <center><img src="images/crossvalidation.png" width="900px"></center>  
 
 ----
+
+### Named Entity Recognition
+
+Our team first ran Named Entity Recognition (NER) on a subset of our training set data, the 222 articles we labeled as “yes” innovation. The NER pipeline worked using the “dslim-bert-base” model and we compared its results to the company names that we had hand-labeled when classifying our training data. 
+
+Specifically, we ran each article through NER, and extracted the words that the model categorized as an organization, with the “ORG” tag, within the article. Along with the words themselves, we also extracted the confidence score associated with each word; this score indicates how confident the model is in its word recognition being correct. 
+
+Having all of the entities that the model “guessed” as organizations for a particular article, we then compared the model’s most confident guess, the one with the highest confidence score, to the name we had hand-labled when classifying our training data. Moreover, this was an exact string match in which the model’s guess was only considered correct if it was exactly the same as our hand-labeled company name.
