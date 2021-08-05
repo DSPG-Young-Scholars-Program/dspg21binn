@@ -5,6 +5,10 @@ output:
     toc: true
     toc_float: true
 ---
+```{js echo=FALSE}
+   document.getElementsByTagName('a')[0].innerHTML = '<img src="./images/DSPG_white-01.png" width="120px" />'
+   document.getElementsByClassName('navbar-header')[0].style = 'margin-top:-10px;'
+```
 
 <style>
   .col2 {

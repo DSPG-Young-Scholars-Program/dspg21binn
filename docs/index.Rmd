@@ -6,7 +6,58 @@ output:
   html_document:
     fig_width: 1
 ---
+```{js echo=FALSE}
+   document.getElementsByTagName('a')[0].innerHTML = '<img src="./images/DSPG_white-01.png" width="120px" />'
+   document.getElementsByClassName('navbar-header')[0].style = 'margin-top:-10px;'
+```
+```{r echo=FALSE, error=F, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(plotly)
 
+data = read_csv("/project/class/bii_sdad_dspg/uva_2021/binn/dynamic_company_innov_fig_data.csv")
+data = 
+  data %>% 
+  mutate(pct_innov = round(pct_innov*100, 2))
+data = data %>% 
+  head(1000) %>% 
+  mutate(description = factor(description, levels = description))
+
+fig <- plot_ly(data, 
+               y = ~factor(`description`), 
+               x = ~`Non-Innovative Mentions`,
+               name = 'Non-Innovative Mentions',
+               mode = "markers",
+               marker = list(color = 'rgb(35,45,75)'),
+               text = ~paste0(`description`, " had ", `All Mentions`, " mentions in 2017,<br>out of which ", `Non-Innovative Mentions`, " were non-innovation related mentions."), 
+               hoverinfo = "text",
+               type = 'bar')
+
+
+fig <- fig %>% add_trace(x = ~`Innovative Mentions`, 
+                         name = 'Innovative Mentions', 
+                         mode = "markers",
+                         marker = list(color = 'rgb(229,114,0)'),
+                         text = ~paste0(`description`, " was mentioned ", `Innovative Mentions`, "<br>times in 2017 for innovating a new product,<br>which is ", `pct_innov`, "% of the total times it was mentioned."), 
+                         hoverinfo = "text")
+
+fig <- fig %>% layout(title = "Company Mentions in Computer Software Articles in 2017",
+                      yaxis = list(title = "",
+                                   tickangle = 0,
+                                   type = 'category',
+                                   range = c(0,10),
+                                   fixedrange = F,
+                                   autotick = T,
+                                   automargin = T),
+                      xaxis = list(title = 'Mentions',
+                                   autotick = T,
+                                   automargin = T,
+                                   rangemode = "nonnegative"
+                                   ), 
+                      barmode = 'stack',
+                      autosize = F, width = 700, height = 450) %>% rangeslider(., start = 0, end = (max(data$`All Mentions`)+1000))
+
+fig 
+```
 
 ### **The Problem**
 
