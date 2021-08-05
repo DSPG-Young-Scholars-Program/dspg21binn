@@ -6,7 +6,12 @@ output:
   html_document:
     fig_width: 1
 ---
+```{js echo=FALSE}
+   document.getElementsByTagName('a')[0].innerHTML = '<img src="./images/DSPG_white-01.png" width="120px" />'
+   document.getElementsByClassName('navbar-header')[0].style = 'margin-top:-10px;'
+```
 
+<iframe width="900" height="800" frameborder="0" scrolling="yes" src="//plotly.com/~digvijayghotane/10.embed"></iframe>
 
 ### **The Problem**
 
