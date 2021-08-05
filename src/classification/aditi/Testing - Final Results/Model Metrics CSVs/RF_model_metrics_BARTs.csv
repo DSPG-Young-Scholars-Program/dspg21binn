@@ -1,0 +1,2 @@
+,accuracy,auc,f1_score,false_negative,false_positive,precision,recall,true_negative,true_positive
+facebook/bart-base_,0.7477477477477478,0.8352826510721247,0.7586206896551725,13.0,15.0,0.7457627118644068,0.7719298245614035,39.0,44.0
