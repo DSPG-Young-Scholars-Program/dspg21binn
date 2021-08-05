@@ -45,6 +45,7 @@ fig <- fig %>% layout(title = "Company Mentions in Computer Software Articles in
                                    tickangle = 0,
                                    type = 'category',
                                    range = c(0,10),
+                                   fixedrange = F,
                                    autotick = T,
                                    automargin = T),
                       xaxis = list(title = 'Mentions',
