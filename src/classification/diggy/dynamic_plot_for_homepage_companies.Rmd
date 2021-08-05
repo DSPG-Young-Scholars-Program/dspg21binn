@@ -1,0 +1,161 @@
+---
+title: "dynamic_plot_companies_homepage"
+output: html_document
+---
+
+```{r}
+require(plotly)
+library(tidyverse)
+```
+```{r}
+colnames(data)
+```
+
+```{r}
+data = read_csv("/project/class/bii_sdad_dspg/uva_2021/binn/dynamic_company_innov_fig_data.csv")
+data = 
+  data %>% 
+  mutate(pct_innov = round(pct_innov*100, 2))
+data = data %>% 
+  head(1000) %>% 
+  mutate(description = factor(description, levels = description))
+
+```
+
+
+```{r}
+fig <- plot_ly(data, 
+               y = ~factor(`description`), 
+               x = ~`Non-Innovative Mentions`,
+               name = 'Non-Innovative Mentions',
+               mode = "markers",
+               marker = list(color = 'rgb(35,45,75)'),
+               text = ~paste0(`description`, " had ", `All Mentions`, " mentions in 2017,<br>out of which ", `Non-Innovative Mentions`, " were non-innovation related mentions."), 
+               hoverinfo = "text",
+               type = 'bar')
+
+#fig <- fig %>% add_trace()
+
+fig <- fig %>% add_trace(x = ~`Innovative Mentions`, 
+                         name = 'Innovative Mentions', 
+                         mode = "markers",
+                         marker = list(color = 'rgb(229,114,0)'),
+                         text = ~paste0(`description`, " was mentioned ", `Innovative Mentions`, "<br>times in 2017 for innovating a new product,<br>which is ", `pct_innov`, "% of the total times it was mentioned."), 
+                         hoverinfo = "text")
+
+fig <- fig %>% layout(title = "Company Mentions in Computer Software Articles in 2017",
+                      yaxis = list(title = "",
+                                   tickangle = 0,
+                                   type = 'category',
+                                   range = c(0,10),
+                                   autotick = T),
+                      xaxis = list(title = 'Mentions',
+                                   autotick = T,
+                                   rangemode = "nonnegative"), 
+                      barmode = 'stack')
+
+fig 
+```
+
+```{r}
+#rm(list = ls())
+
+
+library(tidyverse)
+library(stringi)
+library(plotly)
+
+
+plotly_to_js <- function(
+
+  plotly.object
+  , div.id = 'plot1'
+  , output.html = FALSE
+  , output.file = NULL
+  , output.dir = NULL
+  , output.url = NULL
+
+){
+
+  if(is.null(output.file)){
+    output.file <- div.id %s+% '.js'
+  }
+
+  if(is.null(output.dir)){
+    js.filename <- getwd() %s+% '/' %s+% output.file
+  }else{
+    js.filename <- output.dir %s+% '/' %s+% output.file
+  }
+
+  if(is.null(output.url)){
+    output.url <- div.id %s+% '.html'
+  }
+
+
+  json <- plotly_json(plotly.object,FALSE)
+
+  js.output <-
+    "(function(){ \n
+        window.PLOTLYENV={'BASE_URL': 'https://plotly.com'}; \n
+        \n
+        var gd = document.getElementById('%div.id%') \n
+        var resizeDebounce = null; \n
+
+        function resizePlot() { \n
+          var bb = gd.getBoundingClientRect(); \n
+          Plotly.relayout(gd, { \n
+            width: bb.width, \n
+              height: bb.height \n
+            }); \n
+          } \n
+
+          Plotly.plot(gd,  \n
+              %json%
+           \n
+                  ); \n
+           }()); \n
+  "
+
+  js.output <- gsub('%div.id%', div.id, js.output)
+  js.output <- gsub('%json%', json, js.output)
+
+  fileConn<-file(js.filename)
+    writeLines(js.output, fileConn)
+  close(fileConn)
+
+  if(output.html){
+
+    output.html <-
+      "<html> \n
+        <head> \n
+            <meta charset=\"utf-8\"/> \n
+        </head> \n
+
+        <body> \n
+        \n
+          <script src='https://cdn.plot.ly/plotly-latest.min.js'></script> \n
+        \n
+        <div id=\"%div.id%\" style=\"width: 100%; height: 100%;\" class=\"plotly-graph-div\"></div> \n
+        <script type=\"text/javascript\" src=\"%js.filename%\"></script> \n
+
+        </body>\n
+        </html>\n"
+
+    output.html <- gsub('%div.id%', div.id, output.html)
+    output.html <- gsub('%js.filename%', js.filename, output.html)
+
+    fileConn <- file(output.url)
+      writeLines(output.html, fileConn)
+    close(fileConn)
+
+  }
+
+}
+
+
+plotly_to_js (
+  fig
+  , output.html = TRUE
+)
+```
+
